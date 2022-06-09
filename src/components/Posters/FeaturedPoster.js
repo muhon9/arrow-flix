@@ -38,7 +38,7 @@ const FeaturedPoster = (result = {}) => {
   return (
     <motion.div
       variants={posterFadeInVariants}
-      className="relative overflow-hidden inline-block whitespace-normal align-top py-0 px-[3px] mb-[4vw] w-1/2 md:w-1/3 lg:w-1/4 scale-100 cursor-pointer transition-transform duration-300 ease-out first:origin-left last:origin-right hover:scale-125 hover:z-30"
+      className="relative overflow-hidden inline-block whitespace-normal align-top py-0 px-[3px] mb-[4vw] w-1/2 md:w-full lg:w-full scale-100 cursor-pointer transition-transform duration-300 ease-out first:origin-left last:origin-right hover:scale-125 hover:z-0"
       onClick={handleModalOpening}
     >
       {backdrop_path ? (

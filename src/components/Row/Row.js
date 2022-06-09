@@ -1,12 +1,11 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import useViewport from "../../hooks/useViewport";
-
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
+import useViewport from "../../hooks/useViewport";
 import FeaturedPoster from "../Posters/FeaturedPoster";
 
 SwiperCore.use([Navigation, Pagination]);
@@ -14,7 +13,7 @@ SwiperCore.use([Navigation, Pagination]);
 const Row = () => {
   let loading = false;
   const { width } = useViewport();
-  let results = ["1", "2", "3", "4", "5"];
+  let results = ["1", "2", "3", "4", "5", "2", "3", "4", "5"];
 
   //Custom Swiper config
   const navigationPrevRef = useRef(null);
@@ -91,18 +90,40 @@ const Row = () => {
           </Link>
         </h3>
       )}
-      <div className="">
+      <div className="relative">
+        {/* <div className="Row__slider--mask left" ref={navigationPrevRef}>
+          <MdChevronLeft
+            className="Row__slider--mask-icon left"
+            size="3em"
+            style={{ color: "white" }}
+          />
+        </div>
+        <div className="Row__slider--mask right" ref={navigationNextRef}>
+          <MdChevronRight
+            className="Row__slider--mask-icon right"
+            size="3em"
+            style={{ color: "white" }}
+          />
+        </div> */}
         <Swiper
-          spaceBetween={50}
-          slidesPerView={3}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
+          {...customSwiperParams}
+          onBeforeInit={(swiper) => {
+            swiper.params.navigation.prevEl = navigationPrevRef.current;
+            swiper.params.navigation.nextEl = navigationNextRef.current;
+          }}
+          className="z-100"
         >
-          <SwiperSlide>
-            {" "}
-            {results && results.map((movie, i) => <FeaturedPoster key={i} />)} 1
-          </SwiperSlide>
-          ...
+          {results &&
+            results.map((movie, i) => (
+              <SwiperSlide
+                key={i}
+                onMouseOver={rightMouseOver}
+                onMouseOut={rightMouseOut}
+                className="flex items-center justify-center"
+              >
+                <FeaturedPoster />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </div>
