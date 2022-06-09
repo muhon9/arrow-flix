@@ -9,6 +9,7 @@ import MOBILE_LOGO_URL from "../../assets/images/Netflix-Mobile-Logo.png";
 import LOGO_URL from "../../assets/images/NetFlix.png";
 import PROFILE_PIC_URL from "../../assets/images/Netflix_profilepic.png";
 import { navbarFadeInVariants } from "../../utilities/motionUtils";
+import Searchbar from "../Searchbar/Searchbar";
 
 const Navbar = () => {
   const { width } = useViewport();
@@ -37,7 +38,7 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
-        className="fixed z-10 w-full h-[70px] t-0 flex items-center justify-start py-0 px-[4vw]"
+        className="fixed text-white z-10 w-full h-[70px] t-0 flex items-center justify-start py-0 px-[4vw]"
         variants={navbarFadeInVariants}
         initial="hidden"
         animate="visible"
@@ -97,14 +98,7 @@ const Navbar = () => {
           )}
         </div>
         <div className="flex items-center m-0 p-0 ml-auto">
-          <div className="Navbar__navitem">Search</div>
-          <button
-            onClick={() => {
-              console.log("button clicked");
-            }}
-          >
-            Hellooo
-          </button>
+          <Searchbar />
           <div className="Navbar__navitem">
             <div
               className="relative flex items-center cursor-pointer"

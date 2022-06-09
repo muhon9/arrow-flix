@@ -61,13 +61,13 @@ const Banner = ({ type }) => {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="Banner"
+        className="relative flex items-end lg:items-center bg-black bg-top bg-no-repeat bg-cover h-[90vh] lg:h-[80vh] text-white"
         style={{
-          backgroundImage: `url(${BASE_IMG_URL}/1zgz0LAT3avelWe6whHSa9j7zfq.jpg`,
+          backgroundImage: `url(${BASE_IMG_URL}/ktDJ21QQscbMNQfPpZBsNORxdDx.jpg`,
         }}
       >
         <motion.div
-          className="Banner__content"
+          className="w-full flex flex-col items-center text-center py-0 px-[4vw] pb-[10vh] z-10 lg:items-start lg:pb-none lg:text-left"
           variants={staggerOne}
           initial="initial"
           animate="animate"
@@ -75,36 +75,41 @@ const Banner = ({ type }) => {
         >
           <motion.h1
             variants={bannerFadeInUpVariants}
-            className="Banner__content--title"
+            className="text-4xl font-bold sm:text-5xl md:text-6xl leading-none drop-shadow-lg lg:max-w-[40vw]"
           >
-            fallbackTitle
+            Money Heist
           </motion.h1>
           <motion.div
             variants={bannerFadeInUpVariants}
-            className="Banner__buttons"
+            className="flex items-start ml-0 mt-[1vw]"
           >
             <Link
-              className="Banner__button"
+              className="inline-flex justify-center items-center min-w-[140px] bg-red-600 text-white py-[10px] px-[16px] border-0 rounded-md mt-[1em] text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-800"
               onClick={handlePlayAnimation}
               to={"/play"}
             >
               <FaPlay />
-              <span>Play</span>
+              <span className="ml-2">Play</span>
             </Link>
-            <button className="Banner__button" onClick={handleModalOpening}>
+            <button
+              className="inline-flex justify-center min-w-[140px] bg-slate-800 text-white py-[10px] px-[16px] ml-[10px] border-0 rounded-md mt-[1em] text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-slate-700"
+              onClick={handleModalOpening}
+            >
               <BiInfoCircle size="1.5em" />
-              <span>More info</span>
+              <span className="ml-2">More info</span>
             </button>
           </motion.div>
           <motion.p
             variants={bannerFadeInUpVariants}
-            className="Banner__content--description"
+            className="text-sm leading-3 shadow-md mt-4 sm:text-base md:max-w-[60vw] lg:max-w-[30vw] lg:mt-[1vw]"
           >
-            Movie Description
+            Are you happy? With this question, Zoa and four other attractive
+            young people, very active on social networks, are invited to the
+            most exclusive part..
           </motion.p>
         </motion.div>
-        <div className="Banner__panel" />
-        <div className="Banner__bottom-shadow" />
+        <div className="absolute top-0 left-0 w-full h-full z-0 bg-black/[.02] " />
+        <div className="absolute bottom-0 left-0 w-full h-28 bg-gradient-to-t from-black to-transparent" />
       </motion.header>
     </>
   );
