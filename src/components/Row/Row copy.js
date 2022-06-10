@@ -10,7 +10,7 @@ import "./swiperStyle.css";
 
 SwiperCore.use([Navigation, Pagination]);
 
-const Row = () => {
+const RowCopy = () => {
   let loading = false;
   const { width } = useViewport();
   let results = ["1", "2", "3", "4", "5", "2", "3", "4", "5"];
@@ -76,53 +76,51 @@ const Row = () => {
   };
 
   return (
-    <div className="block py-[1.5vh] lg:py-[1.5vh]">
-      <div className="relative">
-        <div
-          className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] left-0"
-          ref={navigationPrevRef}
-        >
-          <MdChevronLeft
-            className="Row__slider--mask-icon left "
-            size="3em"
-            // style={{ color: "gray" }}
-          />
-        </div>
-        <div
-          className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] right-0"
-          ref={navigationNextRef}
-        >
-          <MdChevronRight
-            className="Row__slider--mask-icon right"
-            size="3em"
-            style={{ color: "white" }}
-          />
-        </div>
-        <Swiper
-          {...customSwiperParams}
-          onBeforeInit={(swiper) => {
-            swiper.params.navigation.prevEl = navigationPrevRef.current;
-            swiper.params.navigation.nextEl = navigationNextRef.current;
-          }}
-          className="mt-4 px-[4%]"
-        >
-          {results &&
-            results.map((movie, i) => (
-              <SwiperSlide
-                key={i}
-                onMouseOver={rightMouseOver}
-                onMouseOut={rightMouseOut}
-                className=""
-              >
-                <div className="bg-red-700 h-[200px] text-black p-4 mx-4">
-                  Hello
-                </div>
-              </SwiperSlide>
-            ))}
-        </Swiper>
+    <div className="relative">
+      <div
+        className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] left-0"
+        ref={navigationPrevRef}
+      >
+        <MdChevronLeft
+          className="RowCopy__slider--mask-icon left "
+          size="3em"
+          // style={{ color: "gray" }}
+        />
       </div>
+      <div
+        className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] right-0"
+        ref={navigationNextRef}
+      >
+        <MdChevronRight
+          className="RowCopy__slider--mask-icon right"
+          size="3em"
+          style={{ color: "white" }}
+        />
+      </div>
+      <Swiper
+        {...customSwiperParams}
+        onBeforeInit={(swiper) => {
+          swiper.params.navigation.prevEl = navigationPrevRef.current;
+          swiper.params.navigation.nextEl = navigationNextRef.current;
+        }}
+        className="mt-4 px-[4%]"
+      >
+        {results &&
+          results.map((movie, i) => (
+            <SwiperSlide
+              key={i}
+              onMouseOver={rightMouseOver}
+              onMouseOut={rightMouseOut}
+              className=""
+            >
+              <div className="bg-red-700 h-[200px] text-black p-4 mx-4">
+                Hello
+              </div>
+            </SwiperSlide>
+          ))}
+      </Swiper>
     </div>
   );
 };
 
-export default Row;
+export default RowCopy;

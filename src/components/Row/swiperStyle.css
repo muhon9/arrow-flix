@@ -1,0 +1,34 @@
+.swiper {
+}
+
+.swiper-container {
+  overflow: scroll;
+  width: 100%;
+  height: auto;
+  padding: 0 4%;
+}
+
+.swiper-container:hover > .swiper-pagination {
+  opacity: 1;
+}
+
+.swiper-wrapper:hover > .swiper-slide {
+  transform: translateX(-15%);
+  opacity: 0.3;
+}
+
+.swiper-wrapper:hover > .swiper-slide:hover {
+  transform: scale(1.3) !important;
+  z-index: 1;
+  opacity: 1;
+}
+
+.swiper-slide {
+  border: 2px solid red;
+  transform: scale(1);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.swiper-slide:hover {
+  transform: scale(1.2);
+}

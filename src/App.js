@@ -1,13 +1,14 @@
 import Banner from "./components/Banner/Banner";
 import Navbar from "./components/Navbar/Navbar";
-import Row from "./components/Row/Row";
+import RowCopy from "./components/Row/Row copy";
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <Banner />
-      <Row />
+      <div className="h-[400px] bg-white w-full">Hello</div>
+      <RowCopy />
     </div>
   );
 }
