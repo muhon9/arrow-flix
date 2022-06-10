@@ -1,13 +1,11 @@
 import { useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { Link } from "react-router-dom";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useViewport from "../../hooks/useViewport";
-import FeaturedPoster from "../Posters/FeaturedPoster";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -36,7 +34,7 @@ const Row = () => {
     },
     loopAdditionalSlides:
       width >= 1378 ? 5 : width >= 998 ? 3 : width >= 625 ? 2 : 2,
-    pagination: false,
+    pagination: true,
     loop: false,
     grabCursor: false,
     draggable: false,
@@ -78,32 +76,19 @@ const Row = () => {
 
   return (
     <div className="block py-[1.5vh] lg:py-[1.5vh]">
-      {loading ? (
-        <div className="Row__not-loaded">Here we will give skeleton</div>
-      ) : (
-        <h3 className="mb-1 py-0 px-[4%] text-base leading-[1.25vw] lg:text-lg text-left inline-block">
-          <Link to={`/`} className="text-white no-underline ">
-            <span className="font-bold mr-1">Featured Movies</span>
-            <span className="ml-2 font-extralight">
-              Show all
-              {/* Show all <FiChevronRight /> */}
-            </span>
-          </Link>
-        </h3>
-      )}
       <div className="relative">
         <div
-          className="absolute top-0 flex items-center justify-center text-red-500 w-[4%] h-full bg-gray-400/[0.1] z-10 left-0"
+          className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] left-0"
           ref={navigationPrevRef}
         >
           <MdChevronLeft
-            className="Row__slider--mask-icon left text-gray-500 hover:text-red-600"
+            className="Row__slider--mask-icon left "
             size="3em"
             // style={{ color: "gray" }}
           />
         </div>
         <div
-          className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-10 right-0"
+          className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] right-0"
           ref={navigationNextRef}
         >
           <MdChevronRight
@@ -128,7 +113,9 @@ const Row = () => {
                 onMouseOut={rightMouseOut}
                 className=""
               >
-                <FeaturedPoster />
+                <div className="bg-white h-[200px] text-black p-4 mx-4">
+                  Hello
+                </div>
               </SwiperSlide>
             ))}
         </Swiper>
