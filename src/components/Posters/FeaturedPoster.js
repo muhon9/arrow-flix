@@ -38,7 +38,7 @@ const FeaturedPoster = (result = {}) => {
   return (
     <motion.div
       variants={posterFadeInVariants}
-      className="relative overflow-hidden inline-block whitespace-normal align-top py-0 px-[3px] mb-[4vw] w-1/2 md:w-full lg:w-full scale-100 cursor-pointer transition-transform duration-300 ease-out first:origin-left last:origin-right hover:scale-125 hover:z-0"
+      className="relative overflow-hidden inline-block whitespace-normal align-top py-0 px-[3px] mb-[4vw] w-full scale-100 cursor-pointer transition-transform duration-300 ease-out origin-center z-[-1] hover:scale-125 hover:z-[2]"
       onClick={handleModalOpening}
     >
       {backdrop_path ? (
@@ -54,12 +54,12 @@ const FeaturedPoster = (result = {}) => {
             src={`${BASE_IMG_URL}/ktDJ21QQscbMNQfPpZBsNORxdDx.jpg`}
             alt={fallbackTitle}
           />
-          <div className="absolute top-0 left-0 flex justify-center items-center h-full w-full min-w-full min-h-[110px] rounded-md text-center font-medium z-[-1] py-0 px-[1em]">
+          <div className="absolute top-0 left-0 flex justify-center items-center h-full w-full min-w-full min-h-[110px] rounded-md text-center font-medium py-0 px-[1em]">
             <span>{fallbackTitle}</span>
           </div>
         </>
       )}
-      <div className="absolute left-[3px] bottom-0 flex flex-col items-start justify-end w-[calc(100%-6px)] h-full p-[0.6em] opacity-0 z-20 rounded-md pointer-events-none transition-all duration-300 ease-linear md:pointer-events-auto hover:opacity-100 translate-y-[15%] hover:translate-y-0">
+      <div className="absolute left-[3px] bottom-0 flex flex-col items-start justify-end w-[calc(100%-6px)] h-full p-[0.6em]  rounded-md pointer-events-none transition-all duration-300 ease-linear md:pointer-events-auto">
         <div className="flex items-center justify-start">
           <Link
             className="inline-flex p-[6px] rounded-[50%] text-xs cursor-pointer my-0 mx-[5px] mb-[0.6em] bg-transparent  border-2 border-white transition-all duration-300 ease-out outline-none lg:text-md lg:mb-[0.8em] bg-white text-black hover:bg-slate-100"
@@ -87,7 +87,7 @@ const FeaturedPoster = (result = {}) => {
             <FaChevronDown onClick={handleModalOpening} />
           </button>
         </div>
-        <div className="pl-[6px] text-xs text-white font-bold lg:text-lg">
+        <div className="pl-[6px] opacity-100 text-xs text-white font-bold lg:text-lg">
           <h3>Money Heist</h3>
         </div>
         <div className="pl-[6px] block text-white w-full">
@@ -100,6 +100,9 @@ const FeaturedPoster = (result = {}) => {
                 {genre}
               </span>
             ))}
+        </div>
+        <div className="absolute bottom-0 right-0 text-white bg-gray-600 text-sm  px-2">
+          Movie
         </div>
       </div>
     </motion.div>

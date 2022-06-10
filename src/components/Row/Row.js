@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Link } from "react-router-dom";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/css";
@@ -35,7 +36,7 @@ const Row = () => {
     },
     loopAdditionalSlides:
       width >= 1378 ? 5 : width >= 998 ? 3 : width >= 625 ? 2 : 2,
-    pagination: true,
+    pagination: false,
     loop: false,
     grabCursor: false,
     draggable: false,
@@ -83,7 +84,7 @@ const Row = () => {
         <h3 className="mb-1 py-0 px-[4%] text-base leading-[1.25vw] lg:text-lg text-left inline-block">
           <Link to={`/`} className="text-white no-underline ">
             <span className="font-bold mr-1">Featured Movies</span>
-            <span className="Row__showmore">
+            <span className="ml-2 font-extralight">
               Show all
               {/* Show all <FiChevronRight /> */}
             </span>
@@ -91,27 +92,33 @@ const Row = () => {
         </h3>
       )}
       <div className="relative">
-        {/* <div className="Row__slider--mask left" ref={navigationPrevRef}>
+        <div
+          className="absolute top-0 flex items-center justify-center text-red-500 w-[4%] h-full bg-gray-400/[0.1] z-10 left-0"
+          ref={navigationPrevRef}
+        >
           <MdChevronLeft
-            className="Row__slider--mask-icon left"
+            className="Row__slider--mask-icon left text-gray-500 hover:text-red-600"
             size="3em"
-            style={{ color: "white" }}
+            // style={{ color: "gray" }}
           />
         </div>
-        <div className="Row__slider--mask right" ref={navigationNextRef}>
+        <div
+          className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-10 right-0"
+          ref={navigationNextRef}
+        >
           <MdChevronRight
             className="Row__slider--mask-icon right"
             size="3em"
             style={{ color: "white" }}
           />
-        </div> */}
+        </div>
         <Swiper
           {...customSwiperParams}
           onBeforeInit={(swiper) => {
             swiper.params.navigation.prevEl = navigationPrevRef.current;
             swiper.params.navigation.nextEl = navigationNextRef.current;
           }}
-          className="z-100"
+          className="mt-4 px-[4%]"
         >
           {results &&
             results.map((movie, i) => (
@@ -119,7 +126,7 @@ const Row = () => {
                 key={i}
                 onMouseOver={rightMouseOver}
                 onMouseOut={rightMouseOut}
-                className="flex items-center justify-center"
+                className=""
               >
                 <FeaturedPoster />
               </SwiperSlide>
