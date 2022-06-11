@@ -6,5 +6,46 @@
 @tailwind utilities;
 
 body {
-  background-color: white;
+  background-color: #141414;
+}
+
+.swiper-container {
+  overflow: visible;
+  width: 100%;
+  height: auto;
+  padding: 0 4%;
+}
+
+.swiper-container:hover > .swiper-pagination {
+  opacity: 1;
+}
+
+.swiper-wrapper {
+}
+
+.swiper-wrapper:hover > .swiper-slide {
+  opacity: 0.3;
+  transform: translateX(-15%);
+}
+
+.swiper-wrapper:hover > .swiper-slide:hover {
+  transform: scale(1.2) !important;
+  z-index: 1;
+  opacity: 1;
+}
+
+.swiper-wrapper:hover > .swiper-slide:hover ~ .swiper-slide {
+  transform: translateX(15%);
+}
+
+.swiper-slide {
+  user-select: none;
+  display: inline-block;
+  transform-origin: center;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: scale(1);
+}
+
+.swiper-button-disabled {
+  opacity: 0.2;
 }

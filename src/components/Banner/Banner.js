@@ -63,7 +63,7 @@ const Banner = ({ type }) => {
         exit="exit"
         className="relative flex items-end lg:items-center bg-black bg-top bg-no-repeat bg-cover h-[90vh] lg:h-[80vh] text-white"
         style={{
-          backgroundImage: `url(${BASE_IMG_URL}/ktDJ21QQscbMNQfPpZBsNORxdDx.jpg`,
+          backgroundImage: `url(${BASE_IMG_URL}/odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg`,
         }}
       >
         <motion.div
@@ -109,7 +109,7 @@ const Banner = ({ type }) => {
           </motion.p>
         </motion.div>
         <div className="absolute top-0 left-0 w-full h-full z-0 bg-black/[.02] " />
-        <div className="absolute bottom-0 left-0 w-full h-28 bg-gradient-to-t from-black to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-[50vh] bg-gradient-to-t from-[#141414] to-transparent" />
       </motion.header>
     </>
   );

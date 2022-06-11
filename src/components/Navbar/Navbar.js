@@ -38,7 +38,9 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
-        className="fixed text-white z-10 w-full h-[70px] t-0 flex items-center justify-start py-0 px-[4vw]"
+        className={`fixed text-white z-50 w-full h-[70px] t-0 flex items-center justify-start py-0 px-[4vw] ${
+          isScrolled && "bg-black"
+        }`}
         variants={navbarFadeInVariants}
         initial="hidden"
         animate="visible"

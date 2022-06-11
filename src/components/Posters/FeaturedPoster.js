@@ -3,7 +3,6 @@ import { FaChevronDown, FaMinus, FaPlay, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BASE_IMG_URL } from "../../requestUrls";
 import { posterFadeInVariants } from "../../utilities/motionUtils";
-import "./swiperStyle.css";
 
 const FeaturedPoster = (result = {}) => {
   //   const {
@@ -39,7 +38,7 @@ const FeaturedPoster = (result = {}) => {
   return (
     <motion.div
       variants={posterFadeInVariants}
-      className="h-full group relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] w-full scale-100 cursor-pointer transition-transform duration-300 ease-out origin-center hover:scale-125"
+      className="h-full group relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] w-full scale-100 cursor-pointer transition-transform duration-300 ease-out origin-center"
       onClick={handleModalOpening}
     >
       {backdrop_path ? (
@@ -88,7 +87,7 @@ const FeaturedPoster = (result = {}) => {
             <FaChevronDown onClick={handleModalOpening} />
           </button>
         </div>
-        <div className="pl-[6px] opacity-100 text-xs text-white font-bold lg:text-lg">
+        <div className="pl-[6px] opacity-100 text-xs text-white font-bold lg:text-lg lg:font-medium">
           <h3>Money Heist</h3>
         </div>
         <div className="pl-[6px] block text-white w-full">

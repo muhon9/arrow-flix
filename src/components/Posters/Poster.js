@@ -5,25 +5,27 @@ import { BASE_IMG_URL } from "../../requestUrls";
 import { posterFadeInVariants } from "../../utilities/motionUtils";
 
 const Poster = (result = {}) => {
-  let backdrop_path = true;
+  let poster = true;
   let fallbackTitle = "ehllo";
   let isFavourite = false;
+  let genres = ["Action, Triller"];
+
   return (
     <motion.div
       variants={posterFadeInVariants}
-      className="group w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px]"
+      className="group w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] hover:opacity-50"
     >
-      {backdrop_path ? (
+      {poster ? (
         <img
           className="block h-full w-full rounded-md"
-          src={`${BASE_IMG_URL}/ktDJ21QQscbMNQfPpZBsNORxdDx.jpg`}
+          src={`${BASE_IMG_URL}/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg`}
           alt={fallbackTitle}
         />
       ) : (
         <>
           <img
-            className="block h-full w-full rounded-md"
-            src={`${BASE_IMG_URL}/ktDJ21QQscbMNQfPpZBsNORxdDx.jpg`}
+            className="block h-full w-full rounded-sm"
+            src={`${BASE_IMG_URL}/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg`}
             alt={fallbackTitle}
           />
           <div className="absolute top-0 left-0 flex justify-center items-center h-full w-full min-w-full min-h-[110px] rounded-md text-center font-medium py-0 px-[1em]">
@@ -31,7 +33,7 @@ const Poster = (result = {}) => {
           </div>
         </>
       )}
-      <div className="absolute left-[3px] bottom-0 flex flex-col items-start justify-end w-[calc(100%-6px)] h-full p-[0.6em]  rounded-md pointer-events-none transition-all duration-300 ease-linear md:pointer-events-auto">
+      <div className="absolute left-[3px] bottom-5 flex flex-col items-start justify-end w-[calc(100%-6px)] h-full p-[0.6em]  rounded-md pointer-events-none transition-all duration-300 ease-linear md:pointer-events-auto opacity-0 translate-y-[15%] transition-all duration-300 ease-in group-hover:opacity-100 group-hover:translate-y-0">
         <div className="flex items-center justify-start opacity-0 translate-y-[15%] transition-all duration-300 ease-in group-hover:opacity-100 group-hover:translate-y-0">
           <Link
             className="inline-flex p-[6px] rounded-[50%] text-xs cursor-pointer my-0 mx-[5px] mb-[0.6em] bg-transparent  border-2 border-white transition-all duration-300 ease-out outline-none lg:text-md lg:mb-[0.8em] bg-white text-black hover:bg-slate-100"
@@ -52,12 +54,19 @@ const Poster = (result = {}) => {
             <FaChevronDown />
           </button>
         </div>
-        <div className="pl-[6px] opacity-100 text-xs text-white font-bold lg:text-lg">
+        <div className="pl-[6px]  text-xs text-white font-bold lg:text-lg lg:font-medium">
           <h3>Money Heist</h3>
         </div>
-        <div className="pl-[6px] block text-white w-full">Action</div>
-        <div className="absolute bottom-0 right-0 text-white bg-gray-600 text-sm  px-2">
-          Movie
+        <div className="pl-[6px] block text-white w-full">
+          {genres &&
+            genres.map((genre, index) => (
+              <span
+                key={index}
+                className="inline-block w-auto text-[8px] my-0  lg:text-[10px] after:content-['●'] after:px-2 last:after:content-['']"
+              >
+                {genre}
+              </span>
+            ))}
         </div>
       </div>
     </motion.div>
