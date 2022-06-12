@@ -13,11 +13,11 @@ const Poster = (result = {}) => {
   return (
     <motion.div
       variants={posterFadeInVariants}
-      className="group w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] hover:opacity-50"
+      className="group w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] "
     >
       {poster ? (
         <img
-          className="block h-full w-full rounded-md"
+          className="block h-full w-full rounded-md group-hover:opacity-10"
           src={`${BASE_IMG_URL}/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg`}
           alt={fallbackTitle}
         />

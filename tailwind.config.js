@@ -5,6 +5,9 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
+      colors: {
+        lightBlack: "#141414",
+      },
     },
   },
   plugins: [],
