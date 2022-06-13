@@ -101,7 +101,7 @@ const Banner = ({ type }) => {
           </motion.div>
           <motion.p
             variants={bannerFadeInUpVariants}
-            className="text-sm leading-3 shadow-md mt-4 sm:text-base md:max-w-[60vw] lg:max-w-[30vw] lg:mt-[1vw]"
+            className="text-sm leading-3 drop-shadow-lg text-white mt-4 sm:text-base md:max-w-[60vw] lg:max-w-[30vw] lg:mt-[1vw]"
           >
             Are you happy? With this question, Zoa and four other attractive
             young people, very active on social networks, are invited to the
