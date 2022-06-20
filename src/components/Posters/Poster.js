@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { FaChevronDown, FaMinus, FaPlay, FaPlus } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { showModal } from "../../redux/modal/modalSlice";
 import { BASE_IMG_URL } from "../../requestUrls";
 import { posterFadeInVariants } from "../../utilities/motionUtils";
 
@@ -9,11 +11,15 @@ const Poster = (result = {}) => {
   let fallbackTitle = "ehllo";
   let isFavourite = false;
   let genres = ["Action, Triller"];
+  const dispatch = useDispatch();
 
   return (
     <motion.div
       variants={posterFadeInVariants}
       className="group w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] "
+      onClick={() => {
+        dispatch(showModal());
+      }}
     >
       {poster ? (
         <img

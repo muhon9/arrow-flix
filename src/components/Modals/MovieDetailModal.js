@@ -1,8 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { FaMinus, FaPlay, FaPlus } from "react-icons/fa";
 import { VscChromeClose } from "react-icons/vsc";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectModal } from "../../redux/modal/modalSelectors";
+import { hideModal } from "../../redux/modal/modalSlice";
 import { BASE_IMG_URL } from "../../requestUrls";
 import {
   modalFadeInUpVariants,
@@ -14,18 +17,20 @@ import { capitalizeFirstLetter } from "../../utilities/utils";
 
 const MovieDetailModal = () => {
   const backdrop_path = "odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg";
-  const [modalClosed, setModalClosed] = useState(true);
+  // const [modalClosed, setModalClosed] = useState(true);
   const isFavourite = true;
+  const dispatch = useDispatch();
   const modalRef = useRef();
+  const modalOpen = useSelector(selectModal);
 
   const handleModalClose = (params) => {
-    setModalClosed(!modalClosed);
+    dispatch(hideModal());
   };
   const handlePlayAnimation = (params) => {};
 
   return (
     <AnimatePresence exitBeforeEnter>
-      {!modalClosed && (
+      {modalOpen && (
         <>
           <motion.div
             variants={modalOverlayVariants}
@@ -34,7 +39,7 @@ const MovieDetailModal = () => {
             exit="hidden"
             key="modalOverlay"
             className={`fixed left-0 right-0 bottom-0 top-0 w-screen h-screen bg-black/[0.6] opacity-100 pointer-events-auto z-[100] ${
-              modalClosed && "opacity-0 -z-10 pointer-events-none"
+              !modalOpen && "opacity-0 -z-10 pointer-events-none"
             }`}
           >
             <motion.div
@@ -42,7 +47,7 @@ const MovieDetailModal = () => {
               variants={modalVariants}
               ref={modalRef}
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] sm:w-[80vw] md:w-[65vw] lg:w-[55vw] xl:max-w-3xl h-[calc(100vh-100px)] overflow-y-auto max-w-full max-h-full z-[101] pointer-events-auto bg-lightBlack rounded-[5px] ${
-                modalClosed && "-z-index-10 pointer-events-none"
+                !modalOpen && "-z-index-10 pointer-events-none"
               }`}
             >
               <motion.button
