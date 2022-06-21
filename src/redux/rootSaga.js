@@ -1,33 +1,16 @@
-// import { all, call, put, takeLatest } from "redux-saga/effects";
+import axios from "axios";
+import { put, takeLatest } from "redux-saga/effects";
+import requestUrls from "../requestUrls";
+import { getFeatured, setFeatured } from "./featured/featuredSlice";
 
-// async function gTodo() {
-//   const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-//   const data = await response.json();
+function* getFeaturedMovies() {
+  const res = yield axios.get(requestUrls.fetchTrendingAll);
 
-//   return data;
-// }
+  yield put(setFeatured(res.data.results));
+}
 
-// const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-// function* handleAsnc() {
-//   yield call(delay, 100);
-//   yield put(increment());
-// }
-
-// function* handleTodo() {
-//   const todo = yield call(gTodo);
-//   console.log(todo);
-//   yield put(setTodo(todo));
-// }
-
-// function* countSaga() {
-//   yield takeLatest(incrementAsnc.type, handleAsnc);
-// }
-
-// function* todoSaga() {
-//   yield takeLatest(getTodo.type, handleTodo);
-// }
-
-function* rootSaga() {}
+function* rootSaga() {
+  yield takeLatest(getFeatured.type, getFeaturedMovies);
+}
 
 export default rootSaga;

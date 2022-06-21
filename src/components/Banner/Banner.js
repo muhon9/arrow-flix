@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   bannerFadeInLoadSectionVariants,
@@ -10,6 +11,7 @@ import {
   staggerOne,
 } from "../../utilities/motionUtils";
 
+import { showModal } from "../../redux/modal/modalSlice";
 import { BASE_IMG_URL } from "../../requestUrls";
 // import SkeletonBanner from "../SkeletonBanner/SkeletonBanner";
 
@@ -33,7 +35,7 @@ const Banner = ({ type }) => {
   //   const fallbackTitle =
   //     finalData?.title || finalData?.name || finalData?.original_name;
   //   const description = truncate(finalData?.overview, 150);
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handlePlayAnimation = (event) => {
     event.stopPropagation();
@@ -41,6 +43,7 @@ const Banner = ({ type }) => {
 
   const handleModalOpening = () => {
     // dispatch(showModalDetail({ ...finalData, fallbackTitle }));
+    dispatch(showModal());
   };
 
   return (

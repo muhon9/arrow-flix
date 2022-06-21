@@ -1,7 +1,7 @@
 import createSagaMiddleware from "@redux-saga/core";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import modalReducer from "./modal/modalSlice";
+import { rootReducer } from "./rootReducer";
 import rootSaga from "./rootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -12,9 +12,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const store = configureStore({
-  reducer: {
-    modal: modalReducer,
-  },
+  reducer: rootReducer,
   middleware: [...middlewares, ...getDefaultMiddleware({ thunk: false })],
 });
 

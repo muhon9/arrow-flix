@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { FaChevronDown, FaMinus, FaPlay, FaPlus } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { showModal } from "../../redux/modal/modalSlice";
 import { BASE_IMG_URL } from "../../requestUrls";
 import { posterFadeInVariants } from "../../utilities/motionUtils";
 
-const FeaturedPoster = (result = {}) => {
+const FeaturedPoster = ({ result }) => {
   //   const {
   //     item,
   //     item: {
@@ -17,10 +19,22 @@ const FeaturedPoster = (result = {}) => {
   //     },
   //     isFavourite = false,
   //   } = result;
-  let fallbackTitle = "Money heist";
-  let backdrop_path = true;
+  const {
+    title,
+    original_name,
+    original_title,
+    name,
+    original_language,
+    media_type,
+    genre_ids,
+    backdrop_path,
+  } = result;
+
+  const fallbackTitle = title || original_title || name || original_name;
+
   let isFavourite = false;
   const genres = ["Action", "Triller"];
+  const dispatch = useDispatch();
 
   const handleAdd = (event) => {
     event.stopPropagation();
@@ -39,12 +53,14 @@ const FeaturedPoster = (result = {}) => {
     <motion.div
       variants={posterFadeInVariants}
       className="h-full group relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] w-full scale-100 cursor-pointer transition-transform duration-300 ease-out origin-center"
-      onClick={handleModalOpening}
+      onClick={() => {
+        dispatch(showModal());
+      }}
     >
       {backdrop_path ? (
         <img
           className="block h-full w-full rounded-md"
-          src={`${BASE_IMG_URL}/ktDJ21QQscbMNQfPpZBsNORxdDx.jpg`}
+          src={`${BASE_IMG_URL}/${backdrop_path}`}
           alt={fallbackTitle}
         />
       ) : (
@@ -88,7 +104,7 @@ const FeaturedPoster = (result = {}) => {
           </button>
         </div>
         <div className="pl-[6px] opacity-100 text-xs text-white font-bold lg:text-lg lg:font-medium">
-          <h3>Money Heist</h3>
+          <h3>{fallbackTitle}</h3>
         </div>
         <div className="pl-[6px] block text-white w-full">
           {genres &&
@@ -102,7 +118,7 @@ const FeaturedPoster = (result = {}) => {
             ))}
         </div>
         <div className="absolute bottom-0 right-0 text-white bg-gray-600 text-sm  px-2">
-          Movie
+          {media_type}
         </div>
       </div>
     </motion.div>

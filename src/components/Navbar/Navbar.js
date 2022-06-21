@@ -33,8 +33,6 @@ const Navbar = () => {
     setGenresNav(!genresNav);
   };
 
-  console.log(mobileNavOpen);
-
   return (
     <>
       <motion.nav
