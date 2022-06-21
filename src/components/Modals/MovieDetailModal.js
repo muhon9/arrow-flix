@@ -17,7 +17,7 @@ import { capitalizeFirstLetter } from "../../utilities/utils";
 
 const MovieDetailModal = () => {
   const backdrop_path = "odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg";
-  // const [modalClosed, setModalClosed] = useState(true);
+
   const isFavourite = true;
   const dispatch = useDispatch();
   const modalRef = useRef();
