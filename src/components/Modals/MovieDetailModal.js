@@ -4,7 +4,10 @@ import { FaMinus, FaPlay, FaPlus } from "react-icons/fa";
 import { VscChromeClose } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectModal } from "../../redux/modal/modalSelectors";
+import {
+  selectModalData,
+  selectModalStatus,
+} from "../../redux/modal/modalSelectors";
 import { hideModal } from "../../redux/modal/modalSlice";
 import { BASE_IMG_URL } from "../../requestUrls";
 import {
@@ -13,15 +16,19 @@ import {
   modalVariants,
   staggerOne,
 } from "../../utilities/motionUtils";
-import { capitalizeFirstLetter } from "../../utilities/utils";
 
 const MovieDetailModal = () => {
-  const backdrop_path = "odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg";
-
   const isFavourite = true;
   const dispatch = useDispatch();
   const modalRef = useRef();
-  const modalOpen = useSelector(selectModal);
+  const modalStatus = useSelector(selectModalStatus);
+  const modalData = useSelector(selectModalData);
+
+  const fallbackTitle =
+    modalData?.title || modalData?.name || modalData?.original_name;
+  const description = modalData?.overview;
+  const backdrop_path = modalData?.backdrop_path;
+  const { adult, original_language, release_date, vote_average } = modalData;
 
   const handleModalClose = (params) => {
     dispatch(hideModal());
@@ -30,7 +37,7 @@ const MovieDetailModal = () => {
 
   return (
     <AnimatePresence exitBeforeEnter>
-      {modalOpen && (
+      {modalStatus && (
         <>
           <motion.div
             variants={modalOverlayVariants}
@@ -39,7 +46,7 @@ const MovieDetailModal = () => {
             exit="hidden"
             key="modalOverlay"
             className={`fixed left-0 right-0 bottom-0 top-0 w-screen h-screen bg-black/[0.6] opacity-100 pointer-events-auto z-[100] ${
-              !modalOpen && "opacity-0 -z-10 pointer-events-none"
+              !modalStatus && "opacity-0 -z-10 pointer-events-none"
             }`}
           >
             <motion.div
@@ -47,7 +54,7 @@ const MovieDetailModal = () => {
               variants={modalVariants}
               ref={modalRef}
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] sm:w-[80vw] md:w-[65vw] lg:w-[55vw] xl:max-w-3xl h-[calc(100vh-100px)] overflow-y-auto max-w-full max-h-full z-[101] pointer-events-auto bg-lightBlack rounded-[5px] ${
-                !modalOpen && "-z-index-10 pointer-events-none"
+                !modalStatus && "-z-index-10 pointer-events-none"
               }`}
             >
               <motion.button
@@ -104,18 +111,13 @@ const MovieDetailModal = () => {
                   variants={modalFadeInUpVariants}
                   className="text-xl leading-6 font-semibold mb-4 sm:text-2xl"
                 >
-                  Fallbacktile
+                  {fallbackTitle}
                 </motion.h3>
                 <motion.p
                   variants={modalFadeInUpVariants}
                   className="text-base leading-7 sm:text-base sm:leading-[1.5]"
                 >
-                  overview : A great student, avid gamer, and voracious fan-fic
-                  scribe, Kamala Khan has a special affinity for superheroes,
-                  particularly Captain Marvel. However, she struggles to fit in
-                  at home and at school — that is, until she gets superpowers
-                  like the heroes she’s always looked up to. Life is easier with
-                  superpowers, right?
+                  {description}
                 </motion.p>
                 <motion.hr
                   variants={modalFadeInUpVariants}
@@ -125,7 +127,7 @@ const MovieDetailModal = () => {
                   variants={modalFadeInUpVariants}
                   className="text-base leading-6 font-normal mb-[15px]"
                 >
-                  Info on <b>fallbackTitle</b>
+                  Info on <b>{fallbackTitle}</b>
                 </motion.h4>
                 <motion.div
                   variants={modalFadeInUpVariants}
@@ -140,9 +142,9 @@ const MovieDetailModal = () => {
                   variants={modalFadeInUpVariants}
                   className="text-base leading-7 m-[.5em] ml-0 break-words"
                 >
-                  <span className="text-gray-500">release_date</span>
+                  <span className="text-gray-500">Release Date: </span>
                   <span className="text-[#ddd] sm:text-sm leading-7">
-                    reducedDate
+                    {release_date}
                   </span>
                 </motion.div>
                 <motion.div
@@ -150,7 +152,9 @@ const MovieDetailModal = () => {
                   className="text-base leading-7 m-[.5em] ml-0 break-words"
                 >
                   <span className="text-gray-500">Average vote: </span>
-                  <span className="text-[#ddd] sm:text-sm leading-7">7.4</span>
+                  <span className="text-[#ddd] sm:text-sm leading-7">
+                    {vote_average}
+                  </span>
                 </motion.div>
                 <motion.div
                   variants={modalFadeInUpVariants}
@@ -158,7 +162,7 @@ const MovieDetailModal = () => {
                 >
                   <span className="text-gray-500">Original language: </span>
                   <span className="text-[#ddd] sm:text-sm leading-7">
-                    {capitalizeFirstLetter("hi")}
+                    {original_language}
                   </span>
                 </motion.div>
                 <motion.div
@@ -167,7 +171,7 @@ const MovieDetailModal = () => {
                 >
                   <span className="text-gray-500">Age classification: </span>
                   <span className="text-[#ddd] sm:text-sm leading-7">
-                    maturityRating
+                    {adult ? "Yes" : "No"}
                   </span>
                 </motion.div>
               </motion.div>

@@ -6,25 +6,39 @@ import { showModal } from "../../redux/modal/modalSlice";
 import { BASE_IMG_URL } from "../../requestUrls";
 import { posterFadeInVariants } from "../../utilities/motionUtils";
 
-const Poster = (result = {}) => {
-  let poster = true;
-  let fallbackTitle = "ehllo";
+const Poster = ({ result }) => {
+  const {
+    title,
+    original_name,
+    original_title,
+    name,
+    original_language,
+    media_type,
+    genre_ids,
+    backdrop_path,
+    poster_path,
+  } = result;
+
+  const fallbackTitle = title || original_title || name || original_name;
   let isFavourite = false;
   let genres = ["Action, Triller"];
   const dispatch = useDispatch();
+  const handleModalOpening = () => {
+    dispatch(showModal(result));
+  };
+
+  console.log(result);
 
   return (
     <motion.div
       variants={posterFadeInVariants}
       className="group w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] "
-      onClick={() => {
-        dispatch(showModal());
-      }}
+      onClick={handleModalOpening}
     >
-      {poster ? (
+      {poster_path ? (
         <img
           className="block h-full w-full rounded-md group-hover:opacity-10"
-          src={`${BASE_IMG_URL}/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg`}
+          src={`${BASE_IMG_URL}/${poster_path}`}
           alt={fallbackTitle}
         />
       ) : (
@@ -61,7 +75,7 @@ const Poster = (result = {}) => {
           </button>
         </div>
         <div className="pl-[6px]  text-xs text-white font-bold lg:text-lg lg:font-medium">
-          <h3>Money Heist</h3>
+          <h3>{fallbackTitle}</h3>
         </div>
         <div className="pl-[6px] block text-white w-full">
           {genres &&

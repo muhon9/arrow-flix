@@ -6,24 +6,24 @@ const initialState = {
   data: [],
 };
 
-const featuredSlice = createSlice({
-  name: "featured",
+const actionMoviesSlice = createSlice({
+  name: "actionMovies",
   initialState,
   reducers: {
-    getFeatured(state) {
+    getActionMovies(state) {
       state.loading = true;
     },
-    setFeatured(state, { payload }) {
+    setActionMovies(state, { payload }) {
       state.loading = false;
       state.data = payload;
     },
-    featuredError(state, { payload }) {
+    actionMoviesError(state, { payload }) {
       state.loading = false;
       state.error = payload;
     },
   },
 });
 
-export const { getFeatured, setFeatured, featuredError } =
-  featuredSlice.actions;
-export default featuredSlice.reducer;
+export const { getActionMovies, setActionMovies, actionMoviesError } =
+  actionMoviesSlice.actions;
+export default actionMoviesSlice.reducer;

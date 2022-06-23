@@ -43,7 +43,9 @@ const FeaturedPoster = ({ result }) => {
     event.stopPropagation();
   };
 
-  const handleModalOpening = () => {};
+  const handleModalOpening = () => {
+    dispatch(showModal(result));
+  };
 
   const handlePlayAction = (event) => {
     event.stopPropagation();
@@ -53,9 +55,7 @@ const FeaturedPoster = ({ result }) => {
     <motion.div
       variants={posterFadeInVariants}
       className="h-full group relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] w-full scale-100 cursor-pointer transition-transform duration-300 ease-out origin-center"
-      onClick={() => {
-        dispatch(showModal());
-      }}
+      onClick={handleModalOpening}
     >
       {backdrop_path ? (
         <img

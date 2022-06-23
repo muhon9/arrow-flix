@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   bannerFadeInLoadSectionVariants,
@@ -11,8 +11,10 @@ import {
   staggerOne,
 } from "../../utilities/motionUtils";
 
+import { selectFeatured } from "../../redux/featured/featuredSelectors";
 import { showModal } from "../../redux/modal/modalSlice";
 import { BASE_IMG_URL } from "../../requestUrls";
+import { randomize, truncate } from "../../utilities/utils";
 // import SkeletonBanner from "../SkeletonBanner/SkeletonBanner";
 
 const Banner = ({ type }) => {
@@ -31,19 +33,27 @@ const Banner = ({ type }) => {
 
   //   const myData = useSelector(selector);
   //   const { loading, error, data: results } = myData;
-  //   const finalData = results[randomize(results)];
+  //   const bannerMovie = results[randomize(results)];
   //   const fallbackTitle =
-  //     finalData?.title || finalData?.name || finalData?.original_name;
-  //   const description = truncate(finalData?.overview, 150);
+  //     bannerMovie?.title || bannerMovie?.name || bannerMovie?.original_name;
+  //   const description = truncate(bannerMovie?.overview, 150);
   const dispatch = useDispatch();
+  const { loading, error, data: results } = useSelector(selectFeatured);
+
+  const bannerMovie = results[randomize(results)];
+  const fallbackTitle =
+    bannerMovie?.title || bannerMovie?.name || bannerMovie?.original_name;
+  // const description = bannerMovie?.overview;
+  const description = truncate(bannerMovie?.overview, 150);
+  const backdropPath = bannerMovie?.backdrop_path;
 
   const handlePlayAnimation = (event) => {
     event.stopPropagation();
   };
 
   const handleModalOpening = () => {
-    // dispatch(showModalDetail({ ...finalData, fallbackTitle }));
-    dispatch(showModal());
+    // dispatch(showModalDetail({ ...bannerMovie, fallbackTitle }));
+    dispatch(showModal(bannerMovie));
   };
 
   return (
@@ -57,6 +67,8 @@ const Banner = ({ type }) => {
       >
         {/* {loading && <SkeletonBanner />}
         {error && <div className="errored">Oops, an error occurred.</div>} */}
+        {loading && <div>Loading.....</div>}
+        {error && <div className="errored">Oops, an error occurred.</div>}
       </motion.section>
 
       <motion.header
@@ -66,7 +78,7 @@ const Banner = ({ type }) => {
         exit="exit"
         className="relative flex items-end lg:items-center bg-black bg-top bg-no-repeat bg-cover h-[90vh] lg:h-[80vh] text-white"
         style={{
-          backgroundImage: `url(${BASE_IMG_URL}/odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg`,
+          backgroundImage: `url(${BASE_IMG_URL}/${backdropPath}`,
         }}
       >
         <motion.div
@@ -80,7 +92,7 @@ const Banner = ({ type }) => {
             variants={bannerFadeInUpVariants}
             className="text-4xl font-bold sm:text-5xl md:text-6xl leading-none drop-shadow-lg lg:max-w-[40vw]"
           >
-            Money Heist
+            {fallbackTitle}
           </motion.h1>
           <motion.div
             variants={bannerFadeInUpVariants}
@@ -106,9 +118,7 @@ const Banner = ({ type }) => {
             variants={bannerFadeInUpVariants}
             className="text-sm leading-3 drop-shadow-lg text-white mt-4 sm:text-base md:max-w-[60vw] lg:max-w-[30vw] lg:mt-[1vw]"
           >
-            Are you happy? With this question, Zoa and four other attractive
-            young people, very active on social networks, are invited to the
-            most exclusive part..
+            {description}
           </motion.p>
         </motion.div>
         <div className="absolute top-0 left-0 w-full h-full z-0 bg-black/[.02] " />

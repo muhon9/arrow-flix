@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,8 +9,7 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useViewport from "../../hooks/useViewport";
 import { selectFeatured } from "../../redux/featured/featuredSelectors";
-import { getFeatured, setFeatured } from "../../redux/featured/featuredSlice";
-import requestUrls from "../../requestUrls";
+import { getFeatured } from "../../redux/featured/featuredSlice";
 import FeaturedPoster from "../Posters/FeaturedPoster";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
@@ -23,10 +21,6 @@ const FeaturedRow = () => {
 
   useEffect(() => {
     dispatch(getFeatured());
-    axios.get(requestUrls.fetchTrendingAll).then((res) => {
-      dispatch(setFeatured(res.data.results));
-      // setResults(res.data.results);
-    });
   }, []);
 
   //Custom Swiper config

@@ -1,5 +1,6 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/css";
@@ -11,25 +12,16 @@ import Poster from "../Posters/Poster";
 
 SwiperCore.use([Navigation, Pagination]);
 
-const PosterRow = () => {
-  let loading = false;
+const PosterRow = ({ title, sagaFunction, selector }) => {
+  const dispatch = useDispatch();
+  const { loading, error, data: results } = useSelector(selector);
+
+  console.log("Result from poster row", results);
+  useEffect(() => {
+    dispatch(sagaFunction);
+  }, [dispatch]);
+
   const { width } = useViewport();
-  let results = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "2",
-    "3",
-    "4",
-    "5",
-    "5",
-    "2",
-    "3",
-    "4",
-    "5",
-  ];
 
   //Custom Swiper config
   const navigationPrevRef = useRef(null);
@@ -97,9 +89,11 @@ const PosterRow = () => {
   return (
     <div className="block py-[1.5vh] lg:py-[1.5vh]">
       <h3 className=" py-0 px-[4%] text-base leading-[1.25vw] align-left inline-block ">
-        <Link to="/" className="text-white no-underline">
-          <span className="text-md font-semibold">Featured Movies</span>
-          <span className="max-w-[200px] ml-2">Show all </span>
+        <Link to={`/genre/${title}`} className="text-white no-underline group">
+          <span className="text-md font-semibold">{title}</span>
+          <span className="max-w-[200px] ml-2 text-gray-400 group-hover:text-white">
+            Show all{" "}
+          </span>
         </Link>
       </h3>
       <div className="relative">
@@ -139,7 +133,7 @@ const PosterRow = () => {
                 onMouseOut={rightMouseOut}
                 className=""
               >
-                <Poster />
+                <Poster result={movie} />
               </SwiperSlide>
             ))}
         </Swiper>
