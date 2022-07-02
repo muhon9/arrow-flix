@@ -4,6 +4,7 @@ import { FaMinus, FaPlay, FaPlus } from "react-icons/fa";
 import { VscChromeClose } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import useOutsideClick from "../../hooks/useOutsideClick";
 import {
   selectModalData,
   selectModalStatus,
@@ -20,7 +21,7 @@ import {
 const MovieDetailModal = () => {
   const isFavourite = true;
   const dispatch = useDispatch();
-  const modalRef = useRef();
+  const modalRef = useRef(null);
   const modalStatus = useSelector(selectModalStatus);
   const modalData = useSelector(selectModalData);
 
@@ -33,7 +34,15 @@ const MovieDetailModal = () => {
   const handleModalClose = (params) => {
     dispatch(hideModal());
   };
-  const handlePlayAnimation = (params) => {};
+  const handlePlayAnimation = (event) => {
+    console.log("play button ticked");
+    event.stopPropagation();
+    handleModalClose();
+  };
+
+  useOutsideClick(modalRef, () => {
+    if (!modalStatus) handleModalClose();
+  });
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -45,7 +54,7 @@ const MovieDetailModal = () => {
             animate="visible"
             exit="hidden"
             key="modalOverlay"
-            className={`fixed left-0 right-0 bottom-0 top-0 w-screen h-screen bg-black/[0.6] opacity-100 pointer-events-auto z-[100] ${
+            className={`modal-wrapper fixed left-0 right-0 bottom-0 top-0 w-screen h-screen bg-black/[0.6] opacity-100 pointer-events-auto z-[100] ${
               !modalStatus && "opacity-0 -z-10 pointer-events-none"
             }`}
           >

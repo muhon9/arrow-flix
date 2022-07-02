@@ -14,6 +14,7 @@ export default function HomePage() {
           title={row.row_title}
           sagaFunction={row.sagaFunction}
           selector={row.selector}
+          genre={row.genre}
         />
       ))}
     </>

@@ -93,7 +93,7 @@ const FeaturedRow = () => {
       {!loading && !error && (
         <>
           <h3 className=" py-0 px-[4%] text-base leading-[1.25vw] align-left inline-block ">
-            <Link to="/" className="text-white no-underline">
+            <Link to={`/genre/featured`} className="text-white no-underline">
               <span className="text-md font-semibold">Featured Movies</span>
               <span className="max-w-[200px] ml-2">Show all </span>
             </Link>

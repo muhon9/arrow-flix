@@ -11,11 +11,13 @@ export const homePageRowInfo = [
     row_title: "Action Movies",
     sagaFunction: getActionMovies(),
     selector: selectActionMovies,
+    genre: "action",
   },
   {
     id: 1,
     row_title: "Adventure Movies",
     sagaFunction: getAdventureMovies(),
     selector: selectAdventureMovies,
+    genre: "adventure",
   },
 ];

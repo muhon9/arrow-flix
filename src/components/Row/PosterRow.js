@@ -12,11 +12,10 @@ import Poster from "../Posters/Poster";
 
 SwiperCore.use([Navigation, Pagination]);
 
-const PosterRow = ({ title, sagaFunction, selector }) => {
+const PosterRow = ({ title, sagaFunction, selector, genre }) => {
   const dispatch = useDispatch();
   const { loading, error, data: results } = useSelector(selector);
 
-  console.log("Result from poster row", results);
   useEffect(() => {
     dispatch(sagaFunction);
   }, [dispatch]);
@@ -89,7 +88,7 @@ const PosterRow = ({ title, sagaFunction, selector }) => {
   return (
     <div className="block py-[1.5vh] lg:py-[1.5vh]">
       <h3 className=" py-0 px-[4%] text-base leading-[1.25vw] align-left inline-block ">
-        <Link to={`/genre/${title}`} className="text-white no-underline group">
+        <Link to={`/genre/${genre}`} className="text-white no-underline group">
           <span className="text-md font-semibold">{title}</span>
           <span className="max-w-[200px] ml-2 text-gray-400 group-hover:text-white">
             Show all{" "}
