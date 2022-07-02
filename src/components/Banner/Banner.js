@@ -82,7 +82,7 @@ const Banner = ({ type }) => {
         }}
       >
         <motion.div
-          className="w-full flex flex-col items-center text-center py-0 px-[4vw] pb-[10vh] z-10 lg:items-start lg:pb-none lg:text-left"
+          className="w-full flex flex-col items-center text-center md:mt-10 py-0 px-[4vw] pb-[10vh] z-10 lg:items-start lg:pb-none lg:text-left"
           variants={staggerOne}
           initial="initial"
           animate="animate"
@@ -121,7 +121,7 @@ const Banner = ({ type }) => {
             {description}
           </motion.p>
         </motion.div>
-        <div className="absolute top-0 left-0 w-full h-full z-0 bg-black/[.02] " />
+        <div className="absolute top-0 left-0 w-full h-[25vh] z-0 bg-gradient-to-b from-[#141414] to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-[50vh] bg-gradient-to-t from-[#141414] to-transparent" />
       </motion.header>
     </>

@@ -7,7 +7,6 @@ import useViewport from "../../hooks/useViewport";
 // import { LOGO_URL, MOBILE_LOGO_URL, PROFILE_PIC_URL } from "../../requestUrls";
 import MOBILE_LOGO_URL from "../../assets/images/Netflix-Mobile-Logo.png";
 import LOGO_URL from "../../assets/images/NetFlix.png";
-import PROFILE_PIC_URL from "../../assets/images/Netflix_profilepic.png";
 import { navbarFadeInVariants } from "../../utilities/motionUtils";
 import Searchbar from "../Searchbar/Searchbar";
 
@@ -36,7 +35,7 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
-        className={`fixed text-white z-50 w-full h-[70px] t-0 flex items-center justify-start py-0 px-[4vw] ${
+        className={`fixed text-white z-50 w-full h-[70px] t-0 flex items-center justify-start py-0 px-[4vw]  ${
           isScrolled && "bg-lightBlack"
         }`}
         variants={navbarFadeInVariants}
@@ -99,39 +98,11 @@ const Navbar = () => {
         </div>
         <div className="flex items-center m-0 p-0 ml-auto">
           <Searchbar />
-          <div className="Navbar__navitem">
-            <div
-              className="relative flex items-center cursor-pointer"
-              //   className={`Navbar__navprofile ${profileNav && "active"}`}
-              onClick={() => setProfileNav(!profileNav)}
-            >
-              <img
-                className="max-w-[30px] w-full mr-2 sm:max-w-[40px] Navbar__navprofile--toggler"
-                src={PROFILE_PIC_URL}
-                alt="Profile"
-              />
-              <FaCaretDown className="Navbar__navprofile--toggler Navbar__navprofile--caret" />
-              <div
-                className={`block pointer-events-none absolute opacity-0 top-[100px] right-0 py-[10px] px-0 min-w-auto whitespace-nowrap border-[1px] border-solid border-gray-50 bg-black z-[1]  ${
-                  profileNav ? "active" : ""
-                }`}
-              >
-                {profileNav && (
-                  <ul
-                    className="Navbar__navprofile--content-wrp"
-                    ref={profileNavRef}
-                  >
-                    <li
-                      className="Navbar__navlinks--link"
-                      // onClick={() => dispatch(signOutStart())}
-                      onClick={handleClick}
-                    >
-                      Sign Out
-                    </li>
-                  </ul>
-                )}
-              </div>
-            </div>
+
+          <div>
+            <button className="hidden justify-center  min-w-[140px] bg-red-600 text-white py-[10px] px-[16px] ml-[10px] border-0 rounded-md text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-700">
+              Login
+            </button>
           </div>
         </div>
       </motion.nav>

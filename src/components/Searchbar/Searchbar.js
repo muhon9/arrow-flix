@@ -41,18 +41,18 @@ const Searchbar = () => {
         value={searchInput}
         onChange={handleSearchInput}
         ref={searchInputRef}
-        className={`bg-black/[0.25] border-2 border-white py-2 pr-8 pl-2 text-base text-white outline-none rounded-md w-0 opacity-0 transition-all duration-200 ease-out placeholder:text-gray-600  ${
-          searchInputToggle && "w-[160px] opacity-100 sm:w-52"
+        className={`bg-black/[0.25] border-2 py-2 pr-8 pl-2 text-base w-0 text-white outline-none rounded-md transition-all duration-200 ease-out placeholder:text-gray-600  ${
+          searchInputToggle ? "w-[160px] sm:w-52 opacity-100" : "opacity-0"
         }`}
       />
       <div className="ml-2 sm:w-6 sm:h-6" onClick={handleSearchInputToggle}>
         <FiSearch size="1.5em" />
       </div>
       <div
-        className={`absolute right-[18%] top-[55%] translate-y-[-50%] cursor-pointer opacity-0 pointer-events-none transition-all duration-200 ease-in-out ${
-          searchInputToggle &&
-          searchInput.length &&
-          "opacity-100 pointer-events-auto delay-100"
+        className={`absolute right-[18%] top-[55%] translate-y-[-50%] cursor-pointer transition-all duration-200 ease-in-out ${
+          searchInputToggle && searchInput.length
+            ? "pointer-events-auto delay-100 opacity-100"
+            : "pointer-events-none opacity-0"
         }`}
         onClick={clearSearchInputToggle}
       >
