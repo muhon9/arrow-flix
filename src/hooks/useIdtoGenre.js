@@ -1,6 +1,6 @@
 import { tmdbGenresList } from "../dataConfig/tmdbGenresList";
 
-const useGenreConversion = (genreIds) => {
+const useIdtoGenre = (genreIds = []) => {
   const genresConvertedList = [];
   genreIds
     .slice(0, 3)
@@ -13,4 +13,4 @@ const useGenreConversion = (genreIds) => {
   return genresConvertedList;
 };
 
-export default useGenreConversion;
+export default useIdtoGenre;

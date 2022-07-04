@@ -15,35 +15,13 @@ import { selectFeatured } from "../../redux/featured/featuredSelectors";
 import { showModal } from "../../redux/modal/modalSlice";
 import { BASE_IMG_URL } from "../../requestUrls";
 import { randomize, truncate } from "../../utilities/utils";
-// import SkeletonBanner from "../SkeletonBanner/SkeletonBanner";
 
 const Banner = ({ type }) => {
-  //   let selector;
-  //   switch (type) {
-  //     case "movies":
-  //       selector = selectTrendingMovies;
-  //       break;
-  //     case "series":
-  //       selector = selectNetflixSeries;
-  //       break;
-  //     default:
-  //       selector = selectNetflixMovies;
-  //       break;
-  //   }
-
-  //   const myData = useSelector(selector);
-  //   const { loading, error, data: results } = myData;
-  //   const bannerMovie = results[randomize(results)];
-  //   const fallbackTitle =
-  //     bannerMovie?.title || bannerMovie?.name || bannerMovie?.original_name;
-  //   const description = truncate(bannerMovie?.overview, 150);
   const dispatch = useDispatch();
   const { loading, error, data: results } = useSelector(selectFeatured);
-
   const bannerMovie = results[randomize(results)];
   const fallbackTitle =
     bannerMovie?.title || bannerMovie?.name || bannerMovie?.original_name;
-  // const description = bannerMovie?.overview;
   const description = truncate(bannerMovie?.overview, 150);
   const backdropPath = bannerMovie?.backdrop_path;
 
@@ -52,7 +30,6 @@ const Banner = ({ type }) => {
   };
 
   const handleModalOpening = () => {
-    // dispatch(showModalDetail({ ...bannerMovie, fallbackTitle }));
     dispatch(showModal(bannerMovie));
   };
 
@@ -65,9 +42,7 @@ const Banner = ({ type }) => {
         exit="exit"
         className="Banner__loadsection"
       >
-        {/* {loading && <SkeletonBanner />}
-        {error && <div className="errored">Oops, an error occurred.</div>} */}
-        {loading && <div>Loading.....</div>}
+        {loading && <div>Loading Banner</div>}
         {error && <div className="errored">Oops, an error occurred.</div>}
       </motion.section>
 

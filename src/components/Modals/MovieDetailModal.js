@@ -1,16 +1,18 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef } from "react";
-import { FaMinus, FaPlay, FaPlus } from "react-icons/fa";
+import { FaDownload, FaPlay } from "react-icons/fa";
 import { VscChromeClose } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import useOutsideClick from "../../hooks/useOutsideClick";
+import useIdtoGenre from "../../hooks/useIdtoGenre";
 import {
   selectModalData,
   selectModalStatus,
 } from "../../redux/modal/modalSelectors";
+
 import { hideModal } from "../../redux/modal/modalSlice";
 import { BASE_IMG_URL } from "../../requestUrls";
+
 import {
   modalFadeInUpVariants,
   modalOverlayVariants,
@@ -19,12 +21,13 @@ import {
 } from "../../utilities/motionUtils";
 
 const MovieDetailModal = () => {
-  const isFavourite = true;
   const dispatch = useDispatch();
   const modalRef = useRef(null);
   const modalStatus = useSelector(selectModalStatus);
   const modalData = useSelector(selectModalData);
-
+  console.log(modalData?.genre_ids);
+  const genresArray = useIdtoGenre(modalData?.genre_ids);
+  const joinedGenre = genresArray.join(", ");
   const fallbackTitle =
     modalData?.title || modalData?.name || modalData?.original_name;
   const description = modalData?.overview;
@@ -35,14 +38,9 @@ const MovieDetailModal = () => {
     dispatch(hideModal());
   };
   const handlePlayAnimation = (event) => {
-    console.log("play button ticked");
     event.stopPropagation();
     handleModalClose();
   };
-
-  useOutsideClick(modalRef, () => {
-    if (!modalStatus) handleModalClose();
-  });
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -92,21 +90,15 @@ const MovieDetailModal = () => {
                     <FaPlay />
                     <span className="ml-2">Play</span>
                   </Link>
-                  {!isFavourite ? (
-                    <button
-                      className="inline-flex p-3 rounded-full border border-white text-sm cursor-pointer my-0 mx-1 ml-[0.8em] bg-transparent text-white transition-all duration-300 ease-out outline-none hover:bg-white hover:text-lightBlack"
-                      //   onClick={handleAdd}
-                    >
-                      <FaPlus />
-                    </button>
-                  ) : (
-                    <button
-                      className="inline-flex p-3 rounded-full border border-white text-sm cursor-pointer my-0 mx-1 ml-[0.8em] bg-transparent text-white transition-all duration-300 ease-out outline-none hover:bg-white hover:text-lightBlack"
-                      //   onClick={handleRemove}
-                    >
-                      <FaMinus />
-                    </button>
-                  )}
+                  <a
+                    href="http://cdn.arrownetsylhet.com/Movies/English%20Movies%20All/2022/The.Man.from.Toronto.2022.1080p.WEBRip.mp4"
+                    download={fallbackTitle}
+                    className="inline-flex justify-center items-center min-w-[140px] bg-slate-800 text-white py-[10px] px-[16px] ml-[10px] border-0 rounded-md text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-slate-700"
+                    onClick={handlePlayAnimation}
+                  >
+                    <FaDownload />
+                    <span className="ml-2">Download</span>
+                  </a>
                 </div>
               </div>
               <motion.div
@@ -144,7 +136,7 @@ const MovieDetailModal = () => {
                 >
                   <span className="text-gray-500">Genres: </span>
                   <span className="text-[#ddd] sm:text-sm leading-7">
-                    joinedGenres
+                    {joinedGenre}
                   </span>
                 </motion.div>
                 <motion.div

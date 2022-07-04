@@ -1,24 +1,24 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setGenreMovies } from "../redux/movies/genreMoviesSlice";
 import requestUrls from "../requestUrls";
 
 const useGenreMovies = (page) => {
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    console.log("page", page);
-    axios.get(`${requestUrls.fetchActionMovies}&page=${page}`).then((res) => {
-      setData((prevData) => [...prevData, ...res.data.results]);
-      dispatch(setGenreMovies([...data, ...res.data.results]));
-    });
-    return () => {
-      dispatch(setGenreMovies([]));
-    };
+    setLoading(true);
+    axios
+      .get(`${requestUrls.fetchActionMovies}&page=${page}`)
+      .then((res) => {
+        setLoading(false);
+        setData((prevData) => [...prevData, ...res.data.results]);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err);
+      });
   }, [page]);
 
   return { loading, error, data };

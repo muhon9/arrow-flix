@@ -1,15 +1,13 @@
 import { AnimatePresence } from "framer-motion";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import MovieDetailModal from "./components/Modals/MovieDetailModal";
 import Navbar from "./components/Navbar/Navbar";
-import GenrePage from "./pages/GenrePage";
+import GenreWisePage from "./pages/GenreWisePage";
 import HomePage from "./pages/HomePage";
 import MoviesPage from "./pages/MoviesPage";
 import TVSeriesPage from "./pages/TVSeriesPage";
 
 function App() {
-  const location = useLocation();
-
   return (
     <div className="App">
       <Navbar />
@@ -20,7 +18,7 @@ function App() {
           <Route path="/browse" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/tvseries" element={<TVSeriesPage />} />
-          <Route path="/genre/:categoryName" element={<GenrePage />} />
+          <Route path="/genre/:categoryName" element={<GenreWisePage />} />
           {/* <Route path="*" element={<Navigate to="/" />} /> */}
         </Routes>
       </AnimatePresence>

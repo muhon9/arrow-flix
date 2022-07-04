@@ -20,4 +20,18 @@ export const homePageRowInfo = [
     selector: selectAdventureMovies,
     genre: "adventure",
   },
+  {
+    id: 3,
+    row_title: "Adventure Movies",
+    sagaFunction: getAdventureMovies(),
+    selector: selectAdventureMovies,
+    genre: "adventure",
+  },
+  {
+    id: 4,
+    row_title: "Adventure Movies",
+    sagaFunction: getAdventureMovies(),
+    selector: selectAdventureMovies,
+    genre: "adventure",
+  },
 ];
