@@ -25,6 +25,8 @@
     "http-status": "^1.5.2",
     "mongoose": "^6.4.3",
     "morgan": "^1.10.0",
+    "validator": "^13.7.0",
+    "winston": "^3.8.1",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {

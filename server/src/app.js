@@ -1,6 +1,6 @@
 const routes = require("./routes");
 const express = require("express");
-const morgan = require("morgan");
+const morgan = require("./config/morgan");
 const ApiError = require("../utils/ApiError");
 const helmet = require("helmet");
 const xss = require("xss-clean");
@@ -9,10 +9,15 @@ const compression = require("compression");
 const cors = require("cors");
 const httpStatus = require("http-status");
 const { errorHandler, errorConverter } = require("./middlewares/error");
+const config = require("./config/config");
 
 const app = express();
 
-app.use(morgan("combined"));
+if (config.env !== "test") {
+  app.use(morgan.successHandler);
+  app.use(morgan.errorHandler);
+}
+
 // set security HTTP headers
 app.use(helmet());
 
@@ -31,6 +36,7 @@ app.use(compression());
 
 //to acces cros origin request
 app.use(cors());
+app.options("*", cors());
 
 app.use("/api", routes);
 
