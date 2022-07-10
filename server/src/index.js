@@ -1,11 +1,11 @@
-const config = require("./config/config");
-const app = require("./app");
-const mongoose = require("mongoose");
-const logger = require("./config/logger");
+const mongoose = require('mongoose');
+const config = require('./config/config');
+const app = require('./app');
+const logger = require('./config/logger');
 
 let server;
 
-//connect with the database
+// connect with the database
 mongoose.connect(config.mongoose.url).then(() => {
   logger.info(`Database connected at ${config.mongoose.url}`);
   server = app.listen(config.port, (err) => {
@@ -16,7 +16,7 @@ mongoose.connect(config.mongoose.url).then(() => {
 const exitHandler = () => {
   if (server) {
     server.close(() => {
-      logger.info("Server closed");
+      logger.info('Server closed');
       process.exit(1);
     });
   } else {
@@ -29,11 +29,11 @@ const unexpectedErrorHandler = (error) => {
   exitHandler();
 };
 
-process.on("uncaughtException", unexpectedErrorHandler);
-process.on("unhandledRejection", unexpectedErrorHandler);
+process.on('uncaughtException', unexpectedErrorHandler);
+process.on('unhandledRejection', unexpectedErrorHandler);
 
-process.on("SIGTERM", () => {
-  logger.info("SIGTERM received");
+process.on('SIGTERM', () => {
+  logger.info('SIGTERM received');
   if (server) {
     server.close();
   }

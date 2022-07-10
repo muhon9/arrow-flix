@@ -1,17 +1,17 @@
-const express = require("express");
-const adminRoutes = require("./adminRoutes");
-const userRoutes = require("./userRoutes");
+const express = require('express');
+const adminRoutes = require('./adminRoutes');
+const userRoutes = require('./userRoutes');
 
 const router = express.Router();
 
 const routes = [
   {
-    path: "",
+    path: '',
     route: userRoutes,
   },
 
   {
-    path: "/admin",
+    path: '/admin',
     route: adminRoutes,
   },
 ];
