@@ -17,6 +17,11 @@ const queryUsers = async (filter, options) => {
   return users;
 };
 
+const getUsers = async (filter) => {
+  const users = await User.find().sort('role -createdAt');
+  return users;
+};
+
 const getUserById = async (id) => User.findById(id);
 
 const getUserByEmail = async (email) => User.findOne({ email });
@@ -46,6 +51,7 @@ const deleteUserById = async (userId) => {
 module.exports = {
   createUser,
   queryUsers,
+  getUsers,
   getUserById,
   getUserByEmail,
   updateUserById,
