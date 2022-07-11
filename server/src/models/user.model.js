@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const { roles } = require('../config/roles');
+const paginate = require('./plugins/paginate.plugin');
 
 const userSchema = mongoose.Schema(
   {
@@ -49,6 +50,10 @@ const userSchema = mongoose.Schema(
   }
 );
 
+// plugins to paginate
+
+userSchema.plugin(paginate);
+
 // check if the email is already taken or not
 userSchema.statics.isEmailTaken = async function (email) {
   const user = await this.findOne({ email });
@@ -58,7 +63,7 @@ userSchema.statics.isEmailTaken = async function (email) {
 // check if password is correct
 userSchema.methods.isPasswordMatch = async function (password) {
   const user = this;
-  return bcrypt.match(password, user.password);
+  return bcrypt.compare(password, user.password);
 };
 
 // hash the password before save
