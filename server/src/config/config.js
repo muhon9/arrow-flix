@@ -35,4 +35,5 @@ module.exports = {
     },
     from: process.env.EMAIL_FROM,
   },
+  tmdb_api: process.env.TMDB_API,
 };
