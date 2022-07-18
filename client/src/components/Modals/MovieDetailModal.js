@@ -11,7 +11,7 @@ import {
 } from "../../redux/modal/modalSelectors";
 
 import { hideModal } from "../../redux/modal/modalSlice";
-import { BASE_IMG_URL } from "../../requestUrls";
+import { BASE_IMG_URL, FALLBACK_IMG_URL } from "../../requestUrls";
 
 import {
   modalFadeInUpVariants,
@@ -77,7 +77,7 @@ const MovieDetailModal = () => {
                   src={
                     backdrop_path
                       ? `${BASE_IMG_URL}/${backdrop_path}`
-                      : `${BASE_IMG_URL}/${backdrop_path}`
+                      : `${FALLBACK_IMG_URL}`
                   }
                   alt="Hello"
                 />

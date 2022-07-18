@@ -1,11 +1,5 @@
-import React from "react";
-
 const AddMoviePage = () => {
-  return (
-    <div>
-      <input type="text" />
-    </div>
-  );
+  return <div>This is add movie page</div>;
 };
 
 export default AddMoviePage;

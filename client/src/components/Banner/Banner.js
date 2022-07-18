@@ -13,7 +13,7 @@ import {
 
 import { selectFeatured } from "../../redux/featured/featuredSelectors";
 import { showModal } from "../../redux/modal/modalSlice";
-import { BASE_IMG_URL } from "../../requestUrls";
+import { BASE_IMG_URL, FALLBACK_IMG_URL } from "../../requestUrls";
 import { randomize, truncate } from "../../utilities/utils";
 
 const Banner = ({ type }) => {
@@ -23,7 +23,9 @@ const Banner = ({ type }) => {
   const fallbackTitle =
     bannerMovie?.title || bannerMovie?.name || bannerMovie?.original_name;
   const description = truncate(bannerMovie?.overview, 150);
-  const backdropPath = bannerMovie?.backdrop_path;
+  const backdropPath = bannerMovie?.backdrop_path
+    ? `${BASE_IMG_URL}/${bannerMovie.backdrop_path}`
+    : `${FALLBACK_IMG_URL}`;
 
   const handlePlayAnimation = (event) => {
     event.stopPropagation();
@@ -53,7 +55,7 @@ const Banner = ({ type }) => {
         exit="exit"
         className="relative flex items-end lg:items-center bg-black bg-top bg-no-repeat bg-cover h-[90vh] lg:h-[80vh] text-white"
         style={{
-          backgroundImage: `url(${BASE_IMG_URL}/${backdropPath}`,
+          backgroundImage: `url(${backdropPath}`,
         }}
       >
         <motion.div

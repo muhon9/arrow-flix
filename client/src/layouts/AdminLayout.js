@@ -1,11 +1,12 @@
-import React from "react";
-import Navbar from "../components/Navbar/Navbar";
+import { Route, Routes } from "react-router-dom";
+import AddMoviePage from "../pages/adminPages/AddMoviePage";
 
-export default function AdminLayout({ childrens }) {
+export default function AdminLayout() {
   return (
     <div>
-      <Navbar />
-      <main>{childrens}</main>
+      <Routes>
+        <Route path="/" element={<AddMoviePage />} />
+      </Routes>
     </div>
   );
 }
