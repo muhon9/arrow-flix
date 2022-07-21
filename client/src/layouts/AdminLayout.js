@@ -1,13 +1,17 @@
 import { Outlet } from "react-router-dom";
 import AdminNavbar from "../components/Navbar/AdminNavbar";
+import SideBar from "../components/Navbar/SideBar";
 
 export default function AdminLayout() {
   return (
-    <>
+    <div>
       <AdminNavbar />
-      <main className="pt-[80px] h-[100vh] text-white border-2 border-red-500">
-        <Outlet />
-      </main>
-    </>
+      <div className="flex text-white pt-[50px]">
+        <SideBar />
+        <main className="p-8 h-[100vh] text-white flex-grow bg-gray-200">
+          <Outlet />
+        </main>
+      </div>
+    </div>
   );
 }

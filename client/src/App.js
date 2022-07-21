@@ -23,7 +23,10 @@ function App() {
           </Route>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="movies" element={<AddMoviePage />} />
             <Route path="addmovie" element={<AddMoviePage />} />
+            <Route path="tvseries" element={<AddMoviePage />} />
           </Route>
         </Routes>
       </AnimatePresence>
