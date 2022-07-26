@@ -3,16 +3,6 @@ export const sideBarData = [
     name: "Dashboard",
     path: "/admin/dashboard",
   },
-  {
-    name: "Tv Series",
-    path: "/admin/tvseries",
-    submenu: [
-      {
-        name: "Add Movies",
-        path: "/admin/addmovie",
-      },
-    ],
-  },
 
   {
     name: "Movies",
@@ -21,6 +11,16 @@ export const sideBarData = [
       {
         name: "Add Movies",
         path: "/admin/addmovie",
+      },
+    ],
+  },
+  {
+    name: "Tv Series",
+    path: "/admin/tvseries",
+    submenu: [
+      {
+        name: "Add Movies",
+        path: "/admin/addtvmovie",
       },
     ],
   },

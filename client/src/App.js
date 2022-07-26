@@ -27,6 +27,7 @@ function App() {
             <Route path="movies" element={<AddMoviePage />} />
             <Route path="addmovie" element={<AddMoviePage />} />
             <Route path="tvseries" element={<AddMoviePage />} />
+            <Route path="addtvmovie" element={<AddMoviePage />} />
           </Route>
         </Routes>
       </AnimatePresence>

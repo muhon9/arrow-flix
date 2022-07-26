@@ -1,12 +1,12 @@
+import Poster from "components/Posters/Poster";
 import { motion } from "framer-motion";
+import useGenreMovies from "hooks/useGenreMovies";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import Poster from "../components/Posters/Poster";
-import useGenreMovies from "../hooks/useGenreMovies";
-import { staggerHalf } from "../utilities/motionUtils";
-import { capitalizeFirstLetter } from "../utilities/utils";
+import { staggerHalf } from "utilities/motionUtils";
+import { capitalizeFirstLetter } from "utilities/utils";
 
 export default function GenreWisePage({ match }) {
   const params = useParams();
@@ -14,7 +14,6 @@ export default function GenreWisePage({ match }) {
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(1);
-
   const { loading, error, data } = useGenreMovies(page);
 
   useEffect(() => {
