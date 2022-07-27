@@ -1,4 +1,3 @@
-import React from "react";
 import { sideBarData } from "./sideBarData";
 import SubMenu from "./SubMenu";
 

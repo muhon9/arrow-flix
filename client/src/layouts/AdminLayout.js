@@ -8,7 +8,7 @@ export default function AdminLayout() {
       <AdminNavbar />
       <div className="flex text-white pt-[50px]">
         <SideBar />
-        <main className="p-8 h-[100vh] text-gray-800 flex-grow bg-gray-200">
+        <main className="p-4 h-[100vh] text-gray-800 flex-grow bg-gray-200">
           <Outlet />
         </main>
       </div>
