@@ -1,5 +1,5 @@
-import AddMovieForm from "components/Forms/AddMovieForm";
-import GenerateDataForm from "components/Forms/GenerateDataForm";
+import AddMovieForm from "components/Forms/Movie/AddMovieForm";
+import GenerateDataForm from "components/Forms/Movie/GenerateDataForm";
 
 const AddMoviePage = () => {
   return (

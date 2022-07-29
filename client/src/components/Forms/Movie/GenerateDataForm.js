@@ -15,8 +15,6 @@ export default function GenerateDataForm() {
 
   return (
     <div className="border-2 border-slate-400 py-2 px-4">
-      {loading && <div>Loading.....</div>}
-      {error && <div className="text-red-800">error</div>}
       <form onSubmit={getData} className="">
         <label htmlFor="id">Generate Data: </label>
         <input
@@ -28,11 +26,12 @@ export default function GenerateDataForm() {
         />
         <button
           type="submit"
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-red-500 w-[150px] hover:bg-red-700 text-white font-bold py-2 px-4 rounded "
         >
-          Generate Data
+          {loading ? "Loading......." : "Generate Data"}
         </button>
       </form>
+      {error && <div className="text-red-800">{error}</div>}
     </div>
   );
 }

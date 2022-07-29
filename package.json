@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-dependencies": "npm install && cd server && npm install && cd ../client && npm install",
+    "client": "cd client && npm start",
+    "server": "cd server && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -16,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/muhon9/arrow-flix/issues"
   },
-  "homepage": "https://github.com/muhon9/arrow-flix#readme"
+  "homepage": "https://github.com/muhon9/arrow-flix#readme",
+  "devDependencies": {
+    "concurrently": "^7.3.0"
+  }
 }
