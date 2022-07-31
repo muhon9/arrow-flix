@@ -1,13 +1,34 @@
 import { Form, Formik } from "formik";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectTmdbData } from "redux/tmdb/tmdbSelector";
 import { BASE_IMG_URL } from "requestUrls";
-import FormikCheckBox from "../FormikCheckBox";
+import GenreCheckboxSection from "../GenreCheckboxSection";
 import TextInput from "../TextInput";
 
 const AddMovieForm = () => {
   const { loading, error, data: tmdbData } = useSelector(selectTmdbData);
 
+  const [genreArray, setGenreArray] = useState([]);
+
+  useEffect(() => {
+    if (tmdbData.genres) {
+      const tmdbGeners = tmdbData?.genres.map((item) => item.name);
+      setGenreArray(tmdbGeners);
+    }
+  }, [tmdbData]);
+
+  // these function will handle gener checkbox area
+  const handleCheck = (e) => {
+    if (genreArray.includes(e.target.value)) {
+      genreArray.splice(genreArray.indexOf(e.target.value), 1);
+      setGenreArray([...genreArray]);
+    } else {
+      setGenreArray((prevState) => [...prevState, e.target.value]);
+    }
+  };
+
+  //formik form initial data
   const initialValues = {
     title: tmdbData.title || "",
     tagline: tmdbData.tagline || "",
@@ -19,8 +40,17 @@ const AddMovieForm = () => {
     original_title: tmdbData.original_title || "",
     release_date: tmdbData.release_date || "",
     belongs_to_collection: tmdbData.belongs_to_collection?.id || "",
-    geners: false,
   };
+
+  const MOVIE_CATEGORIES = [
+    "Bollywood",
+    "Science",
+    "Action",
+    "Family",
+    "Fiction",
+    "Science Fiction",
+    "Adventure",
+  ];
 
   return (
     <div className="">
@@ -37,7 +67,7 @@ const AddMovieForm = () => {
         }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            alert(JSON.stringify({ ...values, geners: genreArray }, null, 2));
 
             setSubmitting(false);
           }, 400);
@@ -150,11 +180,11 @@ const AddMovieForm = () => {
                     />
                   </div>
                 )}
-                <div className="flex gap-2 w-full bg-white border border-slate-500 shadow-md rounded p-4 justify-center ml-2 mb-4 mt-4">
-                  <FormikCheckBox label="Bollywood" id="geners" name="geners">
-                    Bollywood
-                  </FormikCheckBox>
-                </div>
+                <GenreCheckboxSection
+                  categories={MOVIE_CATEGORIES}
+                  genreArray={genreArray}
+                  handleCheck={handleCheck}
+                />
               </div>
             </div>
 

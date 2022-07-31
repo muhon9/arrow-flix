@@ -4,9 +4,9 @@ const FormikCheckBox = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: "checkbox" });
 
   return (
-    <div>
-      <label className="checkbox-input">
-        <input type="checkbox" {...field} {...props} />
+    <div className="p-1">
+      <label className="flex">
+        <input type="checkbox" className="mr-2" {...field} {...props} />
         {children}
       </label>
       {meta.touched && meta.error ? (
