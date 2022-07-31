@@ -1,6 +1,10 @@
 import { useField } from "formik";
 
-export default function TextInput({ label, variant = "input", ...props }) {
+export default function FormikTextinput({
+  label,
+  variant = "input",
+  ...props
+}) {
   const [field, meta] = useField(props);
 
   return (

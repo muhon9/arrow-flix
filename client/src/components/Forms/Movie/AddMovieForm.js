@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectTmdbData } from "redux/tmdb/tmdbSelector";
 import { BASE_IMG_URL } from "requestUrls";
+import FormikTextinput from "../FormikTextInput";
 import GenreCheckboxSection from "../GenreCheckboxSection";
-import TextInput from "../TextInput";
 
 const AddMovieForm = () => {
   const { loading, error, data: tmdbData } = useSelector(selectTmdbData);
@@ -77,21 +77,21 @@ const AddMovieForm = () => {
           <Form className="">
             <div className="flex w-full ">
               <div className="w-[70%] bg-white border border-slate-500 shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
-                <TextInput
+                <FormikTextinput
                   label="Title"
                   id="title"
                   name="title"
                   placeholder="Movie Title"
                   type="text"
                 />
-                <TextInput
+                <FormikTextinput
                   label="Tagline"
                   id="tagline"
                   name="tagline"
                   placeholder="Tagline"
                   type="text"
                 />
-                <TextInput
+                <FormikTextinput
                   label="Description"
                   variant="textarea"
                   id="overview"
@@ -100,7 +100,7 @@ const AddMovieForm = () => {
                   type="textarea"
                   rows="8"
                 />
-                <TextInput
+                <FormikTextinput
                   label="Poster"
                   id="poster"
                   name="poster"
@@ -108,56 +108,56 @@ const AddMovieForm = () => {
                   type="text"
                 />
 
-                <TextInput
+                <FormikTextinput
                   label="Backdrop"
                   id="backdrop_path"
                   name="backdrop_path"
                   placeholder="Backdrop Url"
                   type="text"
                 />
-                <TextInput
+                <FormikTextinput
                   label="Backdrops"
                   id="backrops"
                   name="backrops"
                   placeholder="Backdrop Urls"
                   type="text"
                 />
-                <TextInput
+                <FormikTextinput
                   label="Trailer"
                   id="trailer"
                   name="trailers"
                   placeholder="Trailer Url"
                   type="text"
                 />
-                <TextInput
+                <FormikTextinput
                   label="TMDB ID"
                   id="tmdb_id"
                   name="tmdb_id"
                   placeholder="TMDB ID"
                   type="text"
                 />
-                <TextInput
+                <FormikTextinput
                   label="Original Title"
                   id="original_title"
                   name="original_title"
                   placeholder="original title"
                   type="text"
                 />
-                <TextInput
+                <FormikTextinput
                   label="Language"
                   id="original_language"
                   name="original_language"
                   placeholder="original language"
                   type="text"
                 />
-                <TextInput
+                <FormikTextinput
                   label="Language"
                   id="release_date"
                   name="release_date"
                   placeholder="Release Year"
                   type="text"
                 />
-                <TextInput
+                <FormikTextinput
                   label="Collection"
                   id="belongs_to_collection"
                   name="belongs_to_collection"
