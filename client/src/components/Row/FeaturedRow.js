@@ -1,3 +1,4 @@
+import SkeletonPosterRow from "components/Skelitons/SkeletonPosterRow";
 import { useEffect, useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -88,8 +89,8 @@ const FeaturedRow = () => {
 
   return (
     <div className="block py-[1.5vh] lg:py-[1.5vh]">
-      {error && <div className="Row__not-loaded">Oops, an error occurred.</div>}
-      {loading && <div>Loading.......</div>}
+      {error && <div>An Error Occured</div>}
+      {loading && <SkeletonPosterRow posterType="backdrop" />}
       {!loading && !error && (
         <>
           <h3 className=" py-0 px-[4%] text-base leading-[1.25vw] align-left inline-block ">

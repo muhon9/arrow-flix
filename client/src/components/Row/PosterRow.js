@@ -1,3 +1,4 @@
+import SkeletonPosterRow from "components/Skelitons/SkeletonPosterRow";
 import { useEffect, useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -86,58 +87,63 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
   };
 
   return (
-    <div className="block py-[1.5vh] lg:py-[1.5vh]">
-      <h3 className=" py-0 px-[4%] text-base leading-[1.25vw] align-left inline-block ">
-        <Link to={`/genre/${genre}`} className="text-white no-underline group">
-          <span className="text-md font-semibold">{title}</span>
-          <span className="max-w-[200px] ml-2 text-gray-400 group-hover:text-white">
-            Show all{" "}
-          </span>
-        </Link>
-      </h3>
-      <div className="relative">
-        <div
-          className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] left-0"
-          ref={navigationPrevRef}
-        >
-          <MdChevronLeft
-            className="RowCopy__slider--mask-icon left "
-            size="3em"
-            // style={{ color: "gray" }}
-          />
+    <>
+      {loading && (
+        <div className="">
+          <SkeletonPosterRow />
         </div>
-        <div
-          className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] right-0"
-          ref={navigationNextRef}
-        >
-          <MdChevronRight
-            className="RowCopy__slider--mask-icon right"
-            size="3em"
-            style={{ color: "white" }}
-          />
+      )}
+
+      {!loading && !error && (
+        <div className="block py-[1.5vh] lg:py-[1.5vh]">
+          <h3 className="py-0 px-[4%] text-base leading-[1.25vw] align-left inline-block ">
+            <Link
+              to={`/genre/${genre}`}
+              className="text-white no-underline group"
+            >
+              <span className="text-md font-semibold">{title}</span>
+              <span className="max-w-[200px] ml-2 text-gray-400 group-hover:text-white">
+                Show all{" "}
+              </span>
+            </Link>
+          </h3>
+          <div className="relative">
+            <div
+              className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] left-0"
+              ref={navigationPrevRef}
+            >
+              <MdChevronLeft size="3em" />
+            </div>
+            <div
+              className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] right-0"
+              ref={navigationNextRef}
+            >
+              <MdChevronRight size="3em" style={{ color: "white" }} />
+            </div>
+            <Swiper
+              {...customSwiperParams}
+              onBeforeInit={(swiper) => {
+                swiper.params.navigation.prevEl = navigationPrevRef.current;
+                swiper.params.navigation.nextEl = navigationNextRef.current;
+              }}
+              className="mt-4 px-[4%]"
+            >
+              {results &&
+                results.map((movie, i) => (
+                  <SwiperSlide
+                    key={i}
+                    onMouseOver={rightMouseOver}
+                    onMouseOut={rightMouseOut}
+                    className=""
+                  >
+                    <Poster result={movie} />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          </div>
         </div>
-        <Swiper
-          {...customSwiperParams}
-          onBeforeInit={(swiper) => {
-            swiper.params.navigation.prevEl = navigationPrevRef.current;
-            swiper.params.navigation.nextEl = navigationNextRef.current;
-          }}
-          className="mt-4 px-[4%]"
-        >
-          {results &&
-            results.map((movie, i) => (
-              <SwiperSlide
-                key={i}
-                onMouseOver={rightMouseOver}
-                onMouseOut={rightMouseOut}
-                className=""
-              >
-                <Poster result={movie} />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
