@@ -20,9 +20,6 @@ body {
   opacity: 1;
 }
 
-.swiper-wrapper {
-}
-
 .swiper-wrapper:hover > .swiper-slide {
   /* opacity: 0.3; */
   transform: translateX(-15%);

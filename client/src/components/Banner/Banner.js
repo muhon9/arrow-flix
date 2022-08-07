@@ -43,10 +43,9 @@ const Banner = ({ type }) => {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="Banner__loadsection"
       >
         {loading && <SkeletonBanner />}
-        {error && <div className="errored">Oops, an error occurred.</div>}
+        {error && <div>An error has happend</div>}
       </motion.section>
       {!loading && !error && (
         <motion.header

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import useGenreConversion from "hooks/useIdtoGenre";
 import { FaChevronDown, FaMinus, FaPlay, FaPlus } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,33 +8,22 @@ import { BASE_IMG_URL } from "../../requestUrls";
 import { posterFadeInVariants } from "../../utilities/motionUtils";
 
 const FeaturedPoster = ({ result }) => {
-  //   const {
-  //     item,
-  //     item: {
-  //       title,
-  //       original_name,
-  //       original_title,
-  //       name,
-  //       genre_ids,
-  //       backdrop_path,
-  //     },
-  //     isFavourite = false,
-  //   } = result;
   const {
     title,
     original_name,
     original_title,
     name,
-    original_language,
     media_type,
-    genre_ids,
     backdrop_path,
+    original_language,
+    genre_ids,
   } = result;
 
   const fallbackTitle = title || original_title || name || original_name;
 
   let isFavourite = false;
-  const genres = ["Action", "Triller"];
+  const genres = useGenreConversion(genre_ids);
+
   const dispatch = useDispatch();
 
   const handleAdd = (event) => {

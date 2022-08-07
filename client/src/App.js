@@ -1,13 +1,13 @@
 import { AnimatePresence } from "framer-motion";
+import AdminLayout from "layouts/AdminLayout";
+import UserLayout from "layouts/UserLayout";
+import AddMoviePage from "pages/adminPages/AddMoviePage";
+import Dashboard from "pages/adminPages/Dashboard";
 import GenreWisePage from "pages/publicPages/GenreWisePage";
 import HomePage from "pages/publicPages/HomePage";
 import MoviesPage from "pages/publicPages/MoviesPage";
 import TVSeriesPage from "pages/publicPages/TVSeriesPage";
 import { Route, Routes } from "react-router-dom";
-import AdminLayout from "./layouts/AdminLayout";
-import UserLayout from "./layouts/UserLayout";
-import AddMoviePage from "./pages/adminPages/AddMoviePage";
-import Dashboard from "./pages/adminPages/Dashboard";
 
 function App() {
   return (

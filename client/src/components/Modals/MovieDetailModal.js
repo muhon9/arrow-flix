@@ -25,7 +25,6 @@ const MovieDetailModal = () => {
   const modalRef = useRef(null);
   const modalStatus = useSelector(selectModalStatus);
   const modalData = useSelector(selectModalData);
-  console.log(modalData?.genre_ids);
   const genresArray = useIdtoGenre(modalData?.genre_ids);
   const joinedGenre = genresArray.join(", ");
   const fallbackTitle =
