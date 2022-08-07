@@ -59,7 +59,7 @@ const Banner = ({ type }) => {
         }}
       >
         <motion.div
-          className="w-full flex flex-col items-center text-center md:mt-10 py-0 px-[4vw] pb-[10vh] z-10 lg:items-start lg:pb-none lg:text-left"
+          className="w-full flex flex-col items-center text-center md:mt-16 py-0 px-[4vw] pb-[10vh] z-10 lg:items-start lg:pb-none lg:text-left"
           variants={staggerOne}
           initial="initial"
           animate="animate"
