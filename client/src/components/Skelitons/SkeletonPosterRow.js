@@ -1,4 +1,5 @@
 import useViewport from "hooks/useViewport";
+import SkeletonPoster from "./SkeletonPoster";
 
 export default function SkeletonPosterRow({ posterType = "poster" }) {
   const { width } = useViewport();
@@ -33,14 +34,7 @@ export default function SkeletonPosterRow({ posterType = "poster" }) {
       <div className="relative">
         <div className="mt-4 flex gap-2">
           {[...Array(numberOfPoster(posterType))].map((data, i) => (
-            <div
-              key={i}
-              className={`bg-gray-700 w-full rounded-md animate-pulse ${
-                posterType === "poster"
-                  ? "h-[300px] lg:h-[280px]"
-                  : "h-[150px] lg:h-[180px]"
-              }`}
-            ></div>
+            <SkeletonPoster key={i} posterType={posterType} />
           ))}
         </div>
       </div>

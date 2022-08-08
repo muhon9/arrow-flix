@@ -41,7 +41,7 @@ export default function GenreWisePage({ match }) {
           dataLength={data?.length} //This is important field to render the next data
           next={fetchMore}
           hasMore={true}
-          loader={<h4>Loading...</h4>}
+          loader={<h3>Loading</h3>}
           className="w-full flex flex-row flex-wrap mx-auto"
         >
           {data &&
