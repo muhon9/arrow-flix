@@ -18,19 +18,7 @@ const Navbar = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const genresNavRef = useRef();
   const profileNavRef = useRef();
-
-  // useOutsideClick(genresNavRef, () => {
-  //   if (genresNav) setGenresNav(false);
-  // });
-  // useOutsideClick(profileNavRef, () => {
-  //   if (profileNav) setProfileNav(false);
-  // });
-
-  const handleClick = (e) => {
-    console.log(e);
-    console.log("hello");
-    setGenresNav(!genresNav);
-  };
+  const dropDownRef = useRef();
 
   return (
     <>
@@ -67,17 +55,31 @@ const Navbar = () => {
             <NavLink to="/mylist">My list</NavLink>
           </li>
         </ul>
-        <div className="absolute md:hidden top-[70px] left-0 my-0 mx-auto border-2 border-red-700 w-full h-[45px] justify-center items-center">
+
+        <div
+          className={`absolute md:hidden pointer-events-none top-0 h-[100vh] left-0 my-0 mx-auto w-full justify-center items-center pt-[70px] ${
+            mobileNavOpen &&
+            "bg-slate-700 bg-opacity-10 backdrop-blur-md pointer-events-auto"
+          }`}
+        >
           <div
-            className="flex items-center justify-center"
+            className="flex flex-col w-full items-center justify-start cursor-pointer pointer-events-auto"
             onClick={() => {
               setMobileNavOpen(!mobileNavOpen);
             }}
           >
-            <span>Discover</span> <FaCaretDown />
+            <div className="flex items-center gap-1">
+              <span>Discover</span> <FaCaretDown />
+            </div>
           </div>
           {mobileNavOpen && (
-            <ul className="Navbar__primarynav--content-wrp">
+            <ul
+              className="mt-10 text-center flex flex-col gap-4 pointer-events-auto"
+              ref={dropDownRef}
+              onClick={() => {
+                setMobileNavOpen(false);
+              }}
+            >
               <li className="Navbar__navlinks--link">
                 <NavLink to="/browse">Home</NavLink>
               </li>
