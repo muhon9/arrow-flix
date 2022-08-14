@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { FaDownload, FaPlay } from "react-icons/fa";
 import { VscChromeClose } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +32,15 @@ const MovieDetailModal = () => {
   const description = modalData?.overview;
   const backdrop_path = modalData?.backdrop_path;
   const { adult, original_language, release_date, vote_average } = modalData;
+
+  // turn of scrolling of the body in background when the modal is open
+  useEffect(() => {
+    if (modalStatus) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [modalStatus]);
 
   const handleModalClose = (params) => {
     dispatch(hideModal());
