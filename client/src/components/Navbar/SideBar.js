@@ -1,5 +1,5 @@
-import { sideBarData } from "./sideBarData";
-import SubMenu from "./SubMenu";
+import { sideBarData } from './sideBarData';
+import SubMenu from './SubMenu';
 
 export default function SideBar() {
   return (

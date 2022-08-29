@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectTmdbData } from "redux/tmdb/tmdbSelector";
-import { getTmdbData } from "redux/tmdb/tmdbSlice";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTmdbData } from 'redux/tmdb/tmdbSelector';
+import { getTmdbData } from 'redux/tmdb/tmdbSlice';
 
 export default function GenerateDataForm() {
   const dispatch = useDispatch();
-  const [tmdbId, setTmdbId] = useState("");
+  const [tmdbId, setTmdbId] = useState('');
   const { loading, error, data: tmdbData } = useSelector(selectTmdbData);
 
   function getData(e) {
@@ -28,7 +28,7 @@ export default function GenerateDataForm() {
           type="submit"
           className="bg-red-500 w-[150px] hover:bg-red-700 text-white font-bold py-2 px-4 rounded "
         >
-          {loading ? "Loading......." : "Generate Data"}
+          {loading ? 'Loading.......' : 'Generate Data'}
         </button>
       </form>
       {error && <div className="text-red-800">{error}</div>}

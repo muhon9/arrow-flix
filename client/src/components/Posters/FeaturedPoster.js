@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
-import useGenreConversion from "hooks/useIdtoGenre";
-import { FaChevronDown, FaMinus, FaPlay, FaPlus } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { showModal } from "../../redux/modal/modalSlice";
-import { BASE_IMG_URL } from "../../requestUrls";
-import { posterFadeInVariants } from "../../utilities/motionUtils";
+import { motion } from 'framer-motion';
+import useGenreConversion from 'hooks/useIdtoGenre';
+import { FaChevronDown, FaMinus, FaPlay, FaPlus } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { showModal } from '../../redux/modal/modalSlice';
+import { BASE_IMG_URL } from '../../requestUrls';
+import { posterFadeInVariants } from '../../utilities/motionUtils';
 
 const FeaturedPoster = ({ result }) => {
   const {
@@ -70,7 +70,7 @@ const FeaturedPoster = ({ result }) => {
           <Link
             className="inline-flex p-[6px] rounded-[50%] text-xs cursor-pointer my-0 mx-[5px] mb-[0.6em] bg-transparent  border-2 border-white transition-all duration-300 ease-out outline-none lg:text-md lg:mb-[0.8em] bg-white text-black hover:bg-slate-100"
             onClick={handlePlayAction}
-            to={"/play"}
+            to={'/play'}
           >
             <FaPlay className="" />
           </Link>

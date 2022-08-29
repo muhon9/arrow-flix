@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const useScroll = (heightLimit) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -8,8 +8,8 @@ const useScroll = (heightLimit) => {
       window.scrollY > heightLimit ? setIsScrolled(true) : setIsScrolled(false);
     };
 
-    window.addEventListener("scroll", checkScroll);
-    return () => window.removeEventListener("scroll", checkScroll);
+    window.addEventListener('scroll', checkScroll);
+    return () => window.removeEventListener('scroll', checkScroll);
   }, [heightLimit]);
 
   return isScrolled;

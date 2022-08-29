@@ -1,11 +1,11 @@
-import useViewport from "hooks/useViewport";
-import SkeletonPoster from "./SkeletonPoster";
+import useViewport from 'hooks/useViewport';
+import SkeletonPoster from './SkeletonPoster';
 
-export default function SkeletonPosterRow({ posterType = "poster" }) {
+export default function SkeletonPosterRow({ posterType = 'poster' }) {
   const { width } = useViewport();
 
   function numberOfPoster() {
-    if (posterType !== "backdrop") {
+    if (posterType !== 'backdrop') {
       return width >= 1378
         ? 7
         : width >= 998

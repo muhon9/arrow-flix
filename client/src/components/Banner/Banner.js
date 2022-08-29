@@ -1,21 +1,21 @@
-import { motion } from "framer-motion";
-import React from "react";
-import { BiInfoCircle } from "react-icons/bi";
-import { FaPlay } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { motion } from 'framer-motion';
+import React from 'react';
+import { BiInfoCircle } from 'react-icons/bi';
+import { FaPlay } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   bannerFadeInLoadSectionVariants,
   bannerFadeInUpVariants,
   bannerFadeInVariants,
   staggerOne,
-} from "../../utilities/motionUtils";
+} from '../../utilities/motionUtils';
 
-import SkeletonBanner from "components/Skelitons/SkeletonBanner";
-import { selectFeatured } from "../../redux/featured/featuredSelectors";
-import { showModal } from "../../redux/modal/modalSlice";
-import { BASE_IMG_URL, FALLBACK_IMG_URL } from "../../requestUrls";
-import { randomize, truncate } from "../../utilities/utils";
+import SkeletonBanner from 'components/Skelitons/SkeletonBanner';
+import { selectFeatured } from '../../redux/featured/featuredSelectors';
+import { showModal } from '../../redux/modal/modalSlice';
+import { BASE_IMG_URL, FALLBACK_IMG_URL } from '../../requestUrls';
+import { randomize, truncate } from '../../utilities/utils';
 
 const Banner = ({ type }) => {
   const dispatch = useDispatch();
@@ -78,7 +78,7 @@ const Banner = ({ type }) => {
               <Link
                 className="inline-flex justify-center items-center min-w-[140px] bg-red-600 text-white py-[10px] px-[16px] border-0 rounded-md mt-[1em] text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-800"
                 onClick={handlePlayAnimation}
-                to={"/play"}
+                to={'/play'}
               >
                 <FaPlay />
                 <span className="ml-2">Play</span>

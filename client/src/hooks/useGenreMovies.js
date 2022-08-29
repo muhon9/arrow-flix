@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import requestUrls from "../requestUrls";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import requestUrls from '../requestUrls';
 
 const useGenreMovies = (page) => {
   const [loading, setLoading] = useState(false);

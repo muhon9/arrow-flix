@@ -1,4 +1,4 @@
-import { tmdbGenresList } from "../dataConfig/tmdbGenresList";
+import { tmdbGenresList } from '../dataConfig/tmdbGenresList';
 
 const useIdtoGenre = (genreIds = []) => {
   const genresConvertedList = [];

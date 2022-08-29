@@ -1,11 +1,11 @@
-import axios from "axios";
-import { put, takeLatest } from "redux-saga/effects";
-import requestUrls from "../../requestUrls";
+import axios from 'axios';
+import { put, takeLatest } from 'redux-saga/effects';
+import requestUrls from '../../requestUrls';
 import {
   adventureMoviesError,
   getAdventureMovies,
   setAdventureMovies,
-} from "../movies/adventureMoviesSlice";
+} from '../movies/adventureMoviesSlice';
 
 function* getAdventureMoviesFunction() {
   try {

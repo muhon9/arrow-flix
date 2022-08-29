@@ -1,10 +1,10 @@
-import { Form, Formik } from "formik";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectTmdbData } from "redux/tmdb/tmdbSelector";
-import { BASE_IMG_URL } from "requestUrls";
-import FormikTextinput from "../FormikTextInput";
-import GenreCheckboxSection from "../GenreCheckboxSection";
+import { Form, Formik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectTmdbData } from 'redux/tmdb/tmdbSelector';
+import { BASE_IMG_URL } from 'requestUrls';
+import FormikTextinput from '../FormikTextInput';
+import GenreCheckboxSection from '../GenreCheckboxSection';
 
 const AddMovieForm = () => {
   const { loading, error, data: tmdbData } = useSelector(selectTmdbData);
@@ -30,26 +30,26 @@ const AddMovieForm = () => {
 
   //formik form initial data
   const initialValues = {
-    title: tmdbData.title || "",
-    tagline: tmdbData.tagline || "",
-    overview: tmdbData.overview || "",
-    poster: tmdbData.poster_path || "",
-    backdrop_path: tmdbData.backdrop_path || "",
-    tmdb_id: tmdbData.id || "",
-    original_language: tmdbData.original_language || "",
-    original_title: tmdbData.original_title || "",
-    release_date: tmdbData.release_date || "",
-    belongs_to_collection: tmdbData.belongs_to_collection?.id || "",
+    title: tmdbData.title || '',
+    tagline: tmdbData.tagline || '',
+    overview: tmdbData.overview || '',
+    poster: tmdbData.poster_path || '',
+    backdrop_path: tmdbData.backdrop_path || '',
+    tmdb_id: tmdbData.id || '',
+    original_language: tmdbData.original_language || '',
+    original_title: tmdbData.original_title || '',
+    release_date: tmdbData.release_date || '',
+    belongs_to_collection: tmdbData.belongs_to_collection?.id || '',
   };
 
   const MOVIE_CATEGORIES = [
-    "Bollywood",
-    "Science",
-    "Action",
-    "Family",
-    "Fiction",
-    "Science Fiction",
-    "Adventure",
+    'Bollywood',
+    'Science',
+    'Action',
+    'Family',
+    'Fiction',
+    'Science Fiction',
+    'Adventure',
   ];
 
   return (
@@ -60,7 +60,7 @@ const AddMovieForm = () => {
         validate={(values) => {
           const errors = {};
           if (!values.title) {
-            errors.title = "Required";
+            errors.title = 'Required';
           }
 
           return errors;

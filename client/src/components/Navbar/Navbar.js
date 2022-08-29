@@ -1,14 +1,14 @@
-import { motion } from "framer-motion";
-import { useRef, useState } from "react";
-import { FaCaretDown } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
-import useScroll from "../../hooks/useScroll";
-import useViewport from "../../hooks/useViewport";
+import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { FaCaretDown } from 'react-icons/fa';
+import { Link, NavLink } from 'react-router-dom';
+import useScroll from '../../hooks/useScroll';
+import useViewport from '../../hooks/useViewport';
 // import { LOGO_URL, MOBILE_LOGO_URL, PROFILE_PIC_URL } from "../../requestUrls";
-import MOBILE_LOGO_URL from "../../assets/images/Netflix-Mobile-Logo.png";
-import LOGO_URL from "../../assets/images/NetFlix.png";
-import { navbarFadeInVariants } from "../../utilities/motionUtils";
-import Searchbar from "../Searchbar/Searchbar";
+import MOBILE_LOGO_URL from '../../assets/images/Netflix-Mobile-Logo.png';
+import LOGO_URL from '../../assets/images/NetFlix.png';
+import { navbarFadeInVariants } from '../../utilities/motionUtils';
+import Searchbar from '../Searchbar/Searchbar';
 
 const Navbar = () => {
   const { width } = useViewport();
@@ -24,7 +24,7 @@ const Navbar = () => {
     <>
       <motion.nav
         className={`fixed text-white z-50 w-full h-[70px] t-0 flex items-center justify-start py-0 px-[4vw]  ${
-          isScrolled && "bg-lightBlack"
+          isScrolled && 'bg-lightBlack'
         }`}
         variants={navbarFadeInVariants}
         initial="hidden"
@@ -59,7 +59,7 @@ const Navbar = () => {
         <div
           className={`absolute md:hidden pointer-events-none top-0 h-[100vh] left-0 my-0 mx-auto w-full justify-center items-center pt-[70px] ${
             mobileNavOpen &&
-            "bg-slate-700 bg-opacity-10 backdrop-blur-md pointer-events-auto"
+            'bg-slate-700 bg-opacity-10 backdrop-blur-md pointer-events-auto'
           }`}
         >
           <div

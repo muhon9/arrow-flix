@@ -1,23 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
-  error: "",
+  error: '',
   data: {},
 };
 
 const tmdbSlice = createSlice({
-  name: "tmdb",
+  name: 'tmdb',
   initialState,
   reducers: {
     getTmdbData(state) {
       state.loading = true;
-      state.error = "";
+      state.error = '';
     },
     setTmdbData(state, { payload }) {
       state.loading = false;
       state.data = payload;
-      state.error = "";
+      state.error = '';
     },
     tmdbError(state, { payload }) {
       state.loading = false;

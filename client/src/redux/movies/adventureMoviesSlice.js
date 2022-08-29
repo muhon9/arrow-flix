@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const adventureMoviesSlice = createSlice({
-  name: "adventureMovies",
+  name: 'adventureMovies',
   initialState,
   reducers: {
     getAdventureMovies(state) {

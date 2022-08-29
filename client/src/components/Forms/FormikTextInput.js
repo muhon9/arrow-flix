@@ -1,8 +1,8 @@
-import { useField } from "formik";
+import { useField } from 'formik';
 
 export default function FormikTextinput({
   label,
-  variant = "input",
+  variant = 'input',
   ...props
 }) {
   const [field, meta] = useField(props);
@@ -16,7 +16,7 @@ export default function FormikTextinput({
         >
           {label}:
         </label>
-        {variant === "input" ? (
+        {variant === 'input' ? (
           <input
             className="inline-block w-full shadow appearance-none border border-slate-500 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             {...field}

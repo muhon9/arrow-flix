@@ -1,26 +1,26 @@
 export const sideBarData = [
   {
-    name: "Dashboard",
-    path: "/admin/dashboard",
+    name: 'Dashboard',
+    path: '/admin/dashboard',
   },
 
   {
-    name: "Movies",
-    path: "/admin/movies",
+    name: 'Movies',
+    path: '/admin/movies',
     submenu: [
       {
-        name: "Add Movies",
-        path: "/admin/addmovie",
+        name: 'Add Movies',
+        path: '/admin/addmovie',
       },
     ],
   },
   {
-    name: "Tv Series",
-    path: "/admin/tvseries",
+    name: 'Tv Series',
+    path: '/admin/tvseries',
     submenu: [
       {
-        name: "Add Movies",
-        path: "/admin/addtvmovie",
+        name: 'Add Movies',
+        path: '/admin/addtvmovie',
       },
     ],
   },

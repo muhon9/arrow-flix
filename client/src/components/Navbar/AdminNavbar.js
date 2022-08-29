@@ -1,12 +1,12 @@
-import { motion } from "framer-motion";
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import useScroll from "../../hooks/useScroll";
-import useViewport from "../../hooks/useViewport";
+import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import useScroll from '../../hooks/useScroll';
+import useViewport from '../../hooks/useViewport';
 // import { LOGO_URL, MOBILE_LOGO_URL, PROFILE_PIC_URL } from "../../requestUrls";
-import MOBILE_LOGO_URL from "../../assets/images/Netflix-Mobile-Logo.png";
-import LOGO_URL from "../../assets/images/NetFlix.png";
-import { navbarFadeInVariants } from "../../utilities/motionUtils";
+import MOBILE_LOGO_URL from '../../assets/images/Netflix-Mobile-Logo.png';
+import LOGO_URL from '../../assets/images/NetFlix.png';
+import { navbarFadeInVariants } from '../../utilities/motionUtils';
 
 const AdminNavbar = () => {
   const { width } = useViewport();
@@ -19,7 +19,7 @@ const AdminNavbar = () => {
 
   const handleClick = (e) => {
     console.log(e);
-    console.log("hello");
+    console.log('hello');
     setGenresNav(!genresNav);
   };
 

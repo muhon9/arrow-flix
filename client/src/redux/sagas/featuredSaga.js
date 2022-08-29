@@ -1,11 +1,11 @@
-import axios from "axios";
-import { put, takeLatest } from "redux-saga/effects";
-import requestUrls from "../../requestUrls";
+import axios from 'axios';
+import { put, takeLatest } from 'redux-saga/effects';
+import requestUrls from '../../requestUrls';
 import {
   featuredError,
   getFeatured,
   setFeatured,
-} from "../featured/featuredSlice";
+} from '../featured/featuredSlice';
 
 function* getFeaturedMovies() {
   try {

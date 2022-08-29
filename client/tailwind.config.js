@@ -1,12 +1,12 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ['Inter', 'sans-serif'],
       },
       colors: {
-        lightBlack: "#141414",
+        lightBlack: '#141414',
       },
     },
   },

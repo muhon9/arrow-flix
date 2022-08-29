@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const featuredSlice = createSlice({
-  name: "featured",
+  name: 'featured',
   initialState,
   reducers: {
     getFeatured(state) {

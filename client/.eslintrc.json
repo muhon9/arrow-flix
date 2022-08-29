@@ -3,14 +3,14 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
-  "plugin": ["prettier"],
+  "extends": ["airbnb", "prettier", "plugin:react/recommended"],
+  // "plugin": ["prettier"],
+  "plugins": ["prettier", "react"],
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react"],
   "rules": {
     "prettier/prettier": "error",
     "react/jsx-filename-extension": "off",
@@ -19,6 +19,10 @@
     "react/react-in-jsx-scope": "off",
     "no-unused-vars": "warn",
     "react/jsx-no-bind": "off",
-    "react/prop-types": "Off"
+    "react/prop-types": "Off",
+    "no-param-reassign": "warn",
+    "react/jsx-props-no-spreading": "warn",
+    "react/jsx-curly-brace-presence": "warn",
+    "jsx-a11y/label-has-associated-control": "warn"
   }
 }

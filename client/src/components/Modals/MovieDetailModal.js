@@ -1,24 +1,24 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import { FaDownload, FaPlay } from "react-icons/fa";
-import { VscChromeClose } from "react-icons/vsc";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import useIdtoGenre from "../../hooks/useIdtoGenre";
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { FaDownload, FaPlay } from 'react-icons/fa';
+import { VscChromeClose } from 'react-icons/vsc';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import useIdtoGenre from '../../hooks/useIdtoGenre';
 import {
   selectModalData,
   selectModalStatus,
-} from "../../redux/modal/modalSelectors";
+} from '../../redux/modal/modalSelectors';
 
-import { hideModal } from "../../redux/modal/modalSlice";
-import { BASE_IMG_URL, FALLBACK_IMG_URL } from "../../requestUrls";
+import { hideModal } from '../../redux/modal/modalSlice';
+import { BASE_IMG_URL, FALLBACK_IMG_URL } from '../../requestUrls';
 
 import {
   modalFadeInUpVariants,
   modalOverlayVariants,
   modalVariants,
   staggerOne,
-} from "../../utilities/motionUtils";
+} from '../../utilities/motionUtils';
 
 const MovieDetailModal = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const MovieDetailModal = () => {
   const modalStatus = useSelector(selectModalStatus);
   const modalData = useSelector(selectModalData);
   const genresArray = useIdtoGenre(modalData?.genre_ids);
-  const joinedGenre = genresArray.join(", ");
+  const joinedGenre = genresArray.join(', ');
   const fallbackTitle =
     modalData?.title || modalData?.name || modalData?.original_name;
   const description = modalData?.overview;
@@ -36,9 +36,9 @@ const MovieDetailModal = () => {
   // turn of scrolling of the body in background when the modal is open
   useEffect(() => {
     if (modalStatus) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     }
   }, [modalStatus]);
 
@@ -61,7 +61,7 @@ const MovieDetailModal = () => {
             exit="hidden"
             key="modalOverlay"
             className={`modal-wrapper fixed left-0 right-0 bottom-0 top-0 w-screen h-screen bg-black/[0.6] opacity-100 pointer-events-auto z-[100] ${
-              !modalStatus && "opacity-0 -z-10 pointer-events-none"
+              !modalStatus && 'opacity-0 -z-10 pointer-events-none'
             }`}
           >
             <motion.div
@@ -69,7 +69,7 @@ const MovieDetailModal = () => {
               variants={modalVariants}
               ref={modalRef}
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] sm:w-[80vw] md:w-[65vw] lg:w-[55vw] xl:max-w-3xl h-[calc(100vh-100px)] overflow-y-auto max-w-full max-h-full z-[101] pointer-events-auto bg-lightBlack rounded-[5px] ${
-                !modalStatus && "-z-index-10 pointer-events-none"
+                !modalStatus && '-z-index-10 pointer-events-none'
               }`}
             >
               <motion.button
@@ -93,7 +93,7 @@ const MovieDetailModal = () => {
                   <Link
                     className="inline-flex justify-center items-center min-w-[120px] bg-red-700 text-white py-3 px-4 ml-0 rounded-md border-0 text-sm font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-900"
                     onClick={handlePlayAnimation}
-                    to={"/play"}
+                    to={'/play'}
                   >
                     <FaPlay />
                     <span className="ml-2">Play</span>
@@ -180,7 +180,7 @@ const MovieDetailModal = () => {
                 >
                   <span className="text-gray-500">Age classification: </span>
                   <span className="text-[#ddd] sm:text-sm leading-7">
-                    {adult ? "Yes" : "No"}
+                    {adult ? 'Yes' : 'No'}
                   </span>
                 </motion.div>
               </motion.div>

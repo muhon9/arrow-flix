@@ -1,15 +1,15 @@
-import SkeletonPosterRow from "components/Skelitons/SkeletonPosterRow";
-import { useEffect, useRef } from "react";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import SwiperCore, { Navigation, Pagination } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Swiper, SwiperSlide } from "swiper/react";
-import useViewport from "../../hooks/useViewport";
-import Poster from "../Posters/Poster";
+import SkeletonPosterRow from 'components/Skelitons/SkeletonPosterRow';
+import { useEffect, useRef } from 'react';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import SwiperCore, { Navigation, Pagination } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import useViewport from '../../hooks/useViewport';
+import Poster from '../Posters/Poster';
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -57,32 +57,32 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
   };
 
   const rightMouseOver = (e) => {
-    if (e.currentTarget.classList.contains("right")) {
-      e.currentTarget.parentElement.classList.add("is-right");
-    } else if (e.currentTarget.classList.contains("left")) {
-      e.currentTarget.parentElement.classList.add("is-left");
+    if (e.currentTarget.classList.contains('right')) {
+      e.currentTarget.parentElement.classList.add('is-right');
+    } else if (e.currentTarget.classList.contains('left')) {
+      e.currentTarget.parentElement.classList.add('is-left');
     }
   };
 
   const rightMouseOut = (e) => {
-    e.currentTarget.parentElement.classList.remove("is-right", "is-left");
+    e.currentTarget.parentElement.classList.remove('is-right', 'is-left');
   };
 
   const insertPositionClassName = (index) => {
     const i = index + 1;
 
-    if (i === 1) return "left";
-    else if (i === 20) return "right";
+    if (i === 1) return 'left';
+    else if (i === 20) return 'right';
 
     if (width >= 1378) {
-      if ([7, 13, 19].includes(i)) return "left";
-      else if ([6, 12, 18].includes(i)) return "right";
+      if ([7, 13, 19].includes(i)) return 'left';
+      else if ([6, 12, 18].includes(i)) return 'right';
     } else if (width >= 998) {
-      if ([5, 9, 13, 17].includes(i)) return "left";
-      else if ([4, 8, 12, 16].includes(i)) return "right";
+      if ([5, 9, 13, 17].includes(i)) return 'left';
+      else if ([4, 8, 12, 16].includes(i)) return 'right';
     } else if (width >= 768) {
-      if ([4, 7, 10, 13, 16].includes(i)) return "left";
-      else if ([3, 6, 9, 12, 15, 18].includes(i)) return "right";
+      if ([4, 7, 10, 13, 16].includes(i)) return 'left';
+      else if ([3, 6, 9, 12, 15, 18].includes(i)) return 'right';
     }
   };
 
@@ -103,7 +103,7 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
             >
               <span className="text-md font-semibold">{title}</span>
               <span className="max-w-[200px] ml-2 text-gray-400 group-hover:text-white">
-                Show all{" "}
+                Show all{' '}
               </span>
             </Link>
           </h3>
@@ -118,7 +118,7 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
               className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] right-0"
               ref={navigationNextRef}
             >
-              <MdChevronRight size="3em" style={{ color: "white" }} />
+              <MdChevronRight size="3em" style={{ color: 'white' }} />
             </div>
             <Swiper
               {...customSwiperParams}
