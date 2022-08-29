@@ -1,17 +1,17 @@
-import SkeletonPosterRow from "components/Skelitons/SkeletonPosterRow";
-import { useEffect, useRef } from "react";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Swiper, SwiperSlide } from "swiper/react";
-import useViewport from "../../hooks/useViewport";
-import { selectFeatured } from "../../redux/featured/featuredSelectors";
-import { getFeatured } from "../../redux/featured/featuredSlice";
-import FeaturedPoster from "../Posters/FeaturedPoster";
+import SkeletonPosterRow from 'components/Skelitons/SkeletonPosterRow';
+import { useEffect, useRef } from 'react';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import useViewport from '../../hooks/useViewport';
+import { selectFeatured } from '../../redux/featured/featuredSelectors';
+import { getFeatured } from '../../redux/featured/featuredSlice';
+import FeaturedPoster from '../Posters/FeaturedPoster';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -39,7 +39,7 @@ const FeaturedRow = () => {
       nextEl: navigationNextRef.current,
     },
     breakpoints: {
-      1378: { slidesPerView: 7, slidesPerGroup: 4 },
+      1378: { slidesPerView: 4, slidesPerGroup: 4 },
       998: { slidesPerView: 4, slidesPerGroup: 3 },
       625: { slidesPerView: 3, slidesPerGroup: 3 },
       330: { slidesPerView: 2, slidesPerGroup: 2 },
@@ -58,32 +58,32 @@ const FeaturedRow = () => {
   };
 
   const rightMouseOver = (e) => {
-    if (e.currentTarget.classList.contains("right")) {
-      e.currentTarget.parentElement.classList.add("is-right");
-    } else if (e.currentTarget.classList.contains("left")) {
-      e.currentTarget.parentElement.classList.add("is-left");
+    if (e.currentTarget.classList.contains('right')) {
+      e.currentTarget.parentElement.classList.add('is-right');
+    } else if (e.currentTarget.classList.contains('left')) {
+      e.currentTarget.parentElement.classList.add('is-left');
     }
   };
 
   const rightMouseOut = (e) => {
-    e.currentTarget.parentElement.classList.remove("is-right", "is-left");
+    e.currentTarget.parentElement.classList.remove('is-right', 'is-left');
   };
 
   const insertPositionClassName = (index) => {
     const i = index + 1;
 
-    if (i === 1) return "left";
-    else if (i === 20) return "right";
+    if (i === 1) return 'left';
+    else if (i === 20) return 'right';
 
     if (width >= 1378) {
-      if ([7, 13, 19].includes(i)) return "left";
-      else if ([6, 12, 18].includes(i)) return "right";
+      if ([7, 13, 19].includes(i)) return 'left';
+      else if ([6, 12, 18].includes(i)) return 'right';
     } else if (width >= 998) {
-      if ([5, 9, 13, 17].includes(i)) return "left";
-      else if ([4, 8, 12, 16].includes(i)) return "right";
+      if ([5, 9, 13, 17].includes(i)) return 'left';
+      else if ([4, 8, 12, 16].includes(i)) return 'right';
     } else if (width >= 768) {
-      if ([4, 7, 10, 13, 16].includes(i)) return "left";
-      else if ([3, 6, 9, 12, 15, 18].includes(i)) return "right";
+      if ([4, 7, 10, 13, 16].includes(i)) return 'left';
+      else if ([3, 6, 9, 12, 15, 18].includes(i)) return 'right';
     }
   };
 
@@ -119,7 +119,7 @@ const FeaturedRow = () => {
                 className="FeaturedRow
             __slider--mask-icon right"
                 size="3em"
-                style={{ color: "white" }}
+                style={{ color: 'white' }}
               />
             </div>
             <Swiper
