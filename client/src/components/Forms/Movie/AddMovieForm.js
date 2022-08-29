@@ -1,3 +1,4 @@
+import movieApi from 'api/movieApi';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -28,7 +29,7 @@ const AddMovieForm = () => {
     }
   };
 
-  //formik form initial data
+  // formik form initial data
   const initialValues = {
     title: tmdbData.title || '',
     tagline: tmdbData.tagline || '',
@@ -42,15 +43,32 @@ const AddMovieForm = () => {
     belongs_to_collection: tmdbData.belongs_to_collection?.id || '',
   };
 
+  // movie categories to render in catergory checkbox card
   const MOVIE_CATEGORIES = [
+    'Hollywood',
     'Bollywood',
-    'Science',
     'Action',
+    'Adventure',
+    'Animation',
+    'Comedy',
+    'Crime',
+    'Documentry',
+    'Drama',
+    'Fantacy',
     'Family',
     'Fiction',
+    'History',
+    'Horror',
+    'Music',
+    'Mystery',
+    'Romance',
+    'Thriller',
+    'Science',
     'Science Fiction',
-    'Adventure',
+    'War',
   ];
+
+  // form submit function
 
   return (
     <div className="">
@@ -66,11 +84,15 @@ const AddMovieForm = () => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify({ ...values, geners: genreArray }, null, 2));
-
-            setSubmitting(false);
-          }, 400);
+          movieApi
+            .addMovies({ ...values, genreArray })
+            .then((res) => {
+              alert('Movie Saved Succesfully', res.data.title);
+            })
+            .catch((err) => {
+              alert(err.response.data.message);
+            });
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (

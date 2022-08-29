@@ -3,6 +3,6 @@ const movieController = require('../controllers/movie.controller');
 
 const router = express.Router();
 
-router.route('/').post(movieController.createMovie);
+router.route('/addmovie').post(movieController.createMovie);
 
 module.exports = router;
