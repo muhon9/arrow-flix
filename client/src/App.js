@@ -2,7 +2,9 @@ import { AnimatePresence } from 'framer-motion';
 import AdminLayout from 'layouts/AdminLayout';
 import UserLayout from 'layouts/UserLayout';
 import AddMoviePage from 'pages/adminPages/AddMoviePage';
+import EditMoviePage from 'pages/adminPages/EditMoviePage';
 import Dashboard from 'pages/adminPages/Dashboard';
+import ShowMoviesPage from 'pages/adminPages/ShowMoviesPage';
 import GenreWisePage from 'pages/publicPages/GenreWisePage';
 import HomePage from 'pages/publicPages/HomePage';
 import MoviesPage from 'pages/publicPages/MoviesPage';
@@ -24,10 +26,11 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="movies" element={<AddMoviePage />} />
+            <Route path="movies" element={<ShowMoviesPage />} />
             <Route path="addmovie" element={<AddMoviePage />} />
             <Route path="tvseries" element={<AddMoviePage />} />
             <Route path="addtvmovie" element={<AddMoviePage />} />
+            <Route path="movie/edit/:id" element={<EditMoviePage />} />
           </Route>
         </Routes>
       </AnimatePresence>
