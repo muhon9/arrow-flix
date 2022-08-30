@@ -2,22 +2,13 @@ import movieApi from 'api/movieApi';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectTmdbData } from 'redux/tmdb/tmdbSelector';
+import { selectmovieData } from 'redux/tmdb/tmdbSelector';
 import { BASE_IMG_URL } from 'requestUrls';
 import FormikTextinput from '../FormikTextInput';
 import GenreCheckboxSection from '../GenreCheckboxSection';
 
-const AddMovieForm = () => {
-  const { loading, error, data: tmdbData } = useSelector(selectTmdbData);
-
+const EditMovieForm = ({ id, movieData }) => {
   const [genreArray, setGenreArray] = useState([]);
-
-  useEffect(() => {
-    if (tmdbData.genres) {
-      const tmdbGeners = tmdbData?.genres.map((item) => item.name);
-      setGenreArray(tmdbGeners);
-    }
-  }, [tmdbData]);
 
   // these function will handle gener checkbox area
   const handleCheck = (e) => {
@@ -29,18 +20,25 @@ const AddMovieForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (movieData.geners) {
+      const geners = movieData?.geners.map((item) => item);
+      setGenreArray(geners);
+    }
+  }, [movieData]);
+
   // formik form initial data
   const initialValues = {
-    title: tmdbData.title || '',
-    tagline: tmdbData.tagline || '',
-    overview: tmdbData.overview || '',
-    poster: tmdbData.poster_path || '',
-    backdrop_path: tmdbData.backdrop_path || '',
-    tmdb_id: tmdbData.id || '',
-    original_language: tmdbData.original_language || '',
-    original_title: tmdbData.original_title || '',
-    release_date: tmdbData.release_date || '',
-    belongs_to_collection: tmdbData.belongs_to_collection?.id || '',
+    title: movieData.title || '',
+    tagline: movieData.tagline || '',
+    overview: movieData.overview || '',
+    poster: movieData.poster || '',
+    backdrop_path: movieData.backdrop_path || '',
+    tmdb_id: movieData.tmdb_id || '',
+    original_language: movieData.original_language || '',
+    original_title: movieData.original_title || '',
+    release_date: movieData.release_date || '',
+    belongs_to_collection: movieData.belongs_to_collection || '',
   };
 
   // movie categories to render in catergory checkbox card
@@ -54,7 +52,7 @@ const AddMovieForm = () => {
     'Crime',
     'Documentry',
     'Drama',
-    'Fantacy',
+    'Fantasy',
     'Family',
     'Fiction',
     'History',
@@ -85,13 +83,15 @@ const AddMovieForm = () => {
         }}
         onSubmit={(values, { setSubmitting }) => {
           movieApi
-            .addMovies({ ...values, geners: genreArray })
+            .updateMovie(id, { ...values, geners: genreArray })
             .then((res) => {
-              alert('Movie Saved Succesfully', res.data.title);
+              alert('Updates  Succesfully', res.data.title);
             })
             .catch((err) => {
               alert(err.response.data.message);
             });
+          console.log('Values', values);
+          console.log('Geners', genreArray);
           setSubmitting(false);
         }}
       >
@@ -188,16 +188,16 @@ const AddMovieForm = () => {
                 />
               </div>
               <div className=" w-[30%]">
-                {tmdbData.poster_path && (
+                {movieData.poster && (
                   <div className="flex gap-2 w-full bg-white border border-slate-500 shadow-md rounded p-4 justify-center ml-2 mb-4 mt-4">
                     <img
                       alt="movie poster"
-                      src={`${BASE_IMG_URL}/${tmdbData.poster_path}`}
+                      src={`${BASE_IMG_URL}/${movieData.poster}`}
                       className="h-20"
                     />
                     <img
                       alt="movie poster"
-                      src={`${BASE_IMG_URL}/${tmdbData.backdrop_path}`}
+                      src={`${BASE_IMG_URL}/${movieData.backdrop_path}`}
                       className="h-20"
                     />
                   </div>
@@ -224,4 +224,4 @@ const AddMovieForm = () => {
   );
 };
 
-export default AddMovieForm;
+export default EditMovieForm;
