@@ -1,7 +1,7 @@
 export const getOneMonthAgoReleaseDate = () => {
-  let date = new Date();
+  const date = new Date();
   date.setMonth(date.getMonth() - 1);
-  let formattedDate = date.toJSON().slice(0, 10);
+  const formattedDate = date.toJSON().slice(0, 10);
 
   return formattedDate;
 };
@@ -14,4 +14,4 @@ export const capitalizeFirstLetter = (text) =>
 export const randomize = (data) => Math.floor(Math.random() * data.length - 1);
 
 export const truncate = (text, n) =>
-  text?.length > n ? text.substr(0, n - 1) + '...' : text;
+  text?.length > n ? `${text.substr(0, n - 1)}...` : text;

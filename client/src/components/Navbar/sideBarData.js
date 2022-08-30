@@ -6,8 +6,12 @@ export const sideBarData = [
 
   {
     name: 'Movies',
-    path: '/admin/movies',
+    path: '/admin/',
     submenu: [
+      {
+        name: 'Movies',
+        path: '/admin/movies',
+      },
       {
         name: 'Add Movies',
         path: '/admin/addmovie',
