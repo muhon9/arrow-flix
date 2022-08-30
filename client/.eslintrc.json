@@ -25,6 +25,13 @@
     "react/jsx-curly-brace-presence": "warn",
     "jsx-a11y/label-has-associated-control": "warn",
     "react/function-component-definition": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "arrow-body-style": "off",
+    "react/no-array-index-key": "warn",
+    "react/self-closing-comp": "off",
+    " no-nested-ternary": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "no-underscore-dangle": "off"
   }
 }
