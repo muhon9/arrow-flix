@@ -40,7 +40,9 @@ export default function MovieListTable({ movies }) {
                     {capitalizeFirstLetter(movie.title)}
                   </Link>
                 </th>
-                <td className="py-4 px-6">{movie.release_date}</td>
+                <td className="py-4 px-6">
+                  {new Date(movie.release_date).toDateString()}
+                </td>
                 <td className="py-4 px-6">{movie.poster ? 'true' : 'false'}</td>
                 <td className="py-4 px-6">{movie.tmdb_id}</td>
                 <td className="py-4 px-6">

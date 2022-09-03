@@ -20,7 +20,7 @@ const updateMovie = async (id, updatedData) => {
 };
 
 const getMovies = async () => {
-  const movies = await Movie.find();
+  const movies = await Movie.find().sort({ createdAt: -1 });
   return movies;
 };
 

@@ -173,7 +173,7 @@ const EditMovieForm = ({ id, movieData }) => {
                   type="text"
                 />
                 <FormikTextinput
-                  label="Language"
+                  label="Release Date"
                   id="release_date"
                   name="release_date"
                   placeholder="Release Year"

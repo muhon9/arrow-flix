@@ -55,7 +55,7 @@ const movieSchema = new mongoose.Schema(
       trim: true,
     },
     release_date: {
-      type: String,
+      type: Date,
     },
     belongs_to_collection: {
       type: String,
