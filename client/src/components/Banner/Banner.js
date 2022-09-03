@@ -4,6 +4,7 @@ import { BiInfoCircle } from 'react-icons/bi';
 import { FaPlay } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import SkeletonBanner from 'components/Skelitons/SkeletonBanner';
 import {
   bannerFadeInLoadSectionVariants,
   bannerFadeInUpVariants,
@@ -11,7 +12,6 @@ import {
   staggerOne,
 } from '../../utilities/motionUtils';
 
-import SkeletonBanner from 'components/Skelitons/SkeletonBanner';
 import { selectFeatured } from '../../redux/featured/featuredSelectors';
 import { showModal } from '../../redux/modal/modalSlice';
 import { BASE_IMG_URL, FALLBACK_IMG_URL } from '../../requestUrls';
@@ -84,6 +84,7 @@ const Banner = ({ type }) => {
                 <span className="ml-2">Play</span>
               </Link>
               <button
+                type="button"
                 className="inline-flex justify-center min-w-[140px] bg-slate-800 text-white py-[10px] px-[16px] ml-[10px] border-0 rounded-md mt-[1em] text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-slate-700"
                 onClick={handleModalOpening}
               >

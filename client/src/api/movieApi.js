@@ -11,6 +11,15 @@ async function addMovies(data) {
   }
 }
 
+async function deleteMovie(id) {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    return await axios.delete(`${BASE_URL}/movie/${id}`);
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function updateMovie(id, updatedData) {
   const response = await axios.put(
     `${BASE_URL}/movie/updatemovie/${id}`,
@@ -21,7 +30,12 @@ async function updateMovie(id, updatedData) {
 }
 
 async function getMovies(filterOptions) {
-  const response = await axios.get(`${BASE_URL}/movie/`);
+  let queryString = '';
+  Object.keys(filterOptions).forEach((key) => {
+    queryString += `${key}=${filterOptions[key]}&`;
+  });
+  console.log('FilterOptions', queryString);
+  const response = await axios.get(`${BASE_URL}/movie?${queryString}`);
   return response;
 }
 
@@ -32,6 +46,7 @@ async function getMovie(id) {
 
 export default {
   addMovies,
+  deleteMovie,
   updateMovie,
   getMovies,
   getMovie,

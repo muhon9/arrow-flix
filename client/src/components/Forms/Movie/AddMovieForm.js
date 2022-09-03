@@ -41,6 +41,7 @@ const AddMovieForm = () => {
     original_title: tmdbData.original_title || '',
     release_date: tmdbData.release_date || '',
     belongs_to_collection: tmdbData.belongs_to_collection?.id || '',
+    link: tmdbData?.link || '',
   };
 
   // movie categories to render in catergory checkbox card
@@ -184,6 +185,14 @@ const AddMovieForm = () => {
                   id="belongs_to_collection"
                   name="belongs_to_collection"
                   placeholder="Collection ID"
+                  type="text"
+                />
+                <hr className="border-gray-600 mb-4" />
+                <FormikTextinput
+                  label="Link"
+                  id="link"
+                  name="link"
+                  placeholder="Movie Link"
                   type="text"
                 />
               </div>

@@ -39,6 +39,7 @@ const EditMovieForm = ({ id, movieData }) => {
     original_title: movieData.original_title || '',
     release_date: movieData.release_date || '',
     belongs_to_collection: movieData.belongs_to_collection || '',
+    link: movieData?.link || '',
   };
 
   // movie categories to render in catergory checkbox card
@@ -184,6 +185,13 @@ const EditMovieForm = ({ id, movieData }) => {
                   id="belongs_to_collection"
                   name="belongs_to_collection"
                   placeholder="Collection ID"
+                  type="text"
+                />
+                <FormikTextinput
+                  label="link"
+                  id="link"
+                  name="link"
+                  placeholder="Movie Link"
                   type="text"
                 />
               </div>

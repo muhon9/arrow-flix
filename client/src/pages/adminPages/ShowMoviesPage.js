@@ -1,23 +1,35 @@
 import movieApi from 'api/movieApi';
 import MovieListTable from 'components/Movies/MovieListTable';
 import React, { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 
 function ShowMoviesPage() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    async function getMovies() {
-      try {
-        const response = await movieApi.getMovies();
-        setMovies(response.data);
-      } catch (err) {
-        setError(err.response.data.message);
-      }
+  async function getMovies() {
+    try {
+      const response = await movieApi.getMovies({
+        limit: 2,
+        page: 1,
+      });
+      setMovies(response.data.results);
+    } catch (err) {
+      setError(err.response.data.message);
     }
+  }
+
+  useEffect(() => {
     getMovies();
   }, []);
+
+  async function deleteMovie(id, movieName) {
+    if (window.confirm(`Do you want to delete ${movieName}?`)) {
+      await movieApi.deleteMovie(id);
+      getMovies();
+    }
+  }
 
   return (
     <div>
@@ -31,7 +43,7 @@ function ShowMoviesPage() {
         </Link>
       </div>
       {error && <div>{error}</div>}
-      <MovieListTable movies={movies} />
+      <MovieListTable movies={movies} deleteMovie={deleteMovie} />
     </div>
   );
 }
