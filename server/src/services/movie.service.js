@@ -19,8 +19,17 @@ const updateMovie = async (id, updatedData) => {
   return movie;
 };
 
-const getMovies = async () => {
-  const movies = await Movie.find().sort({ createdAt: -1 });
+const deleteMovie = async (movieId) => {
+  // const movieTitle = movieName.toLowerCase();
+  // const movie = await Movie.(movieId);
+  const movie = await Movie.findByIdAndDelete(movieId);
+  return movie;
+};
+
+const getMovies = async (filter, options) => {
+  // const movies = await Movie.find().sort({ createdAt: -1 });
+  const movies = await Movie.paginate(filter, options);
+  // const movies = await Movie.find(filter);
   return movies;
 };
 
@@ -33,6 +42,7 @@ const getMovie = async (movieId) => {
 module.exports = {
   createMovie,
   updateMovie,
+  deleteMovie,
   getMovies,
   getMovie,
 };

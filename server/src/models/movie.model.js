@@ -21,7 +21,7 @@ const movieSchema = new mongoose.Schema(
       type: String,
       trim: true,
       validate(value) {
-        if (value.length > 100) {
+        if (value.length > 500) {
           throw new Error('Too long tagline');
         }
       },
@@ -62,6 +62,9 @@ const movieSchema = new mongoose.Schema(
     },
     geners: {
       type: Array,
+    },
+    link: {
+      type: String,
     },
   },
   {

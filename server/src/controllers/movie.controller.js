@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const movieService = require('../services/movie.service');
+const structureQuery = require('../utils/structureQuery');
 
 // add a movie to the database
 const createMovie = catchAsync(async (req, res) => {
@@ -16,9 +17,25 @@ const updateMovie = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(movie);
 });
 
+// delete movie
+const deleteMovie = catchAsync(async (req, res) => {
+  console.log('triggered delete movie');
+  const movie = await movieService.deleteMovie(req.params.id);
+  res.status(httpStatus.OK).send(movie);
+});
+
 // get movies from the database
 const getMovies = catchAsync(async (req, res) => {
-  const movies = await movieService.getMovies();
+  const filter = structureQuery(req.query, [
+    'geners',
+    'release_date',
+    'title',
+    'original_language',
+  ]);
+  console.log('geners', filter);
+  const options = structureQuery(req.query, ['sortBy', 'limit', 'page']);
+  console.log('options', options);
+  const movies = await movieService.getMovies(filter, options);
   res.status(httpStatus.OK).send(movies);
 });
 
@@ -32,6 +49,7 @@ const getMovie = catchAsync(async (req, res) => {
 module.exports = {
   createMovie,
   updateMovie,
+  deleteMovie,
   getMovies,
   getMovie,
 };
