@@ -3,7 +3,7 @@ const Movie = require('../models/movie.model');
 const ApiError = require('../utils/ApiError');
 
 const createMovie = async (userBody) => {
-  console.log(userBody);
+  console.log('user', userBody);
   if (await Movie.movieAlreadyExist(userBody.title)) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,

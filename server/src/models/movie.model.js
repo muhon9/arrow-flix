@@ -57,6 +57,9 @@ const movieSchema = new mongoose.Schema(
     release_date: {
       type: Date,
     },
+    year: {
+      type: String,
+    },
     belongs_to_collection: {
       type: String,
     },
@@ -78,6 +81,11 @@ movieSchema.statics.movieAlreadyExist = async function (movieName) {
   const movie = await this.findOne({ title: movieName });
   return movie;
 };
+
+movieSchema.pre('save', async (next) => {
+  console.log('first', this.release_date);
+  next();
+});
 
 const Movie = mongoose.model('Movie', movieSchema);
 

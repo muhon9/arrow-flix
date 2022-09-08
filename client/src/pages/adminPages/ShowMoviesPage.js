@@ -1,34 +1,55 @@
 import movieApi from 'api/movieApi';
+
 import MovieListTable from 'components/Movies/MovieListTable';
+import Filter from 'components/ui/Filter';
+import Pagination from 'components/ui/Pagination';
 import React, { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 
 function ShowMoviesPage() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
+  const [totalResults, setTotalResults] = useState(null);
+  const [perPage, SetPerPage] = useState(5);
+  const [filter, setFilter] = useState({
+    sortBy: 'release_date:desc',
+  });
 
-  async function getMovies() {
+  async function getMovies(filteroptions) {
     try {
       const response = await movieApi.getMovies({
-        limit: 2,
-        page: 1,
+        ...filteroptions,
       });
       setMovies(response.data.results);
+      // setTotalPages(5);
+      setTotalPages(response.data.totalPages);
+      setTotalResults(response.data.totalResults);
     } catch (err) {
       setError(err.response.data.message);
     }
   }
-
   useEffect(() => {
-    getMovies();
-  }, []);
+    getMovies({
+      page: currentPage,
+      limit: perPage,
+    });
+  }, [currentPage, perPage]);
 
   async function deleteMovie(id, movieName) {
     if (window.confirm(`Do you want to delete ${movieName}?`)) {
       await movieApi.deleteMovie(id);
       getMovies();
     }
+  }
+
+  function handleFilter() {
+    getMovies();
+  }
+
+  function handlePageClick(event) {
+    setCurrentPage(event.selected + 1);
   }
 
   return (
@@ -43,7 +64,13 @@ function ShowMoviesPage() {
         </Link>
       </div>
       {error && <div>{error}</div>}
+      <Filter handleFilter={handleFilter} />
       <MovieListTable movies={movies} deleteMovie={deleteMovie} />
+      <Pagination
+        totalResults={totalResults}
+        handlePageClick={handlePageClick}
+        totalPages={totalPages}
+      />
     </div>
   );
 }

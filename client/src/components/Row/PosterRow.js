@@ -23,7 +23,7 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
 
   const { width } = useViewport();
 
-  //Custom Swiper config
+  // Custom Swiper config
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
 
@@ -45,6 +45,7 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
       0: { slidesPerView: 1.5, slidesPerGroup: 1.5 },
     },
     loopAdditionalSlides:
+      // eslint-disable-next-line no-nested-ternary
       width >= 1378 ? 5 : width >= 998 ? 3 : width >= 625 ? 2 : 2,
     pagination: false,
     loop: false,
@@ -68,6 +69,7 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
     e.currentTarget.parentElement.classList.remove('is-right', 'is-left');
   };
 
+  // eslint-disable-next-line consistent-return
   const insertPositionClassName = (index) => {
     const i = index + 1;
 
