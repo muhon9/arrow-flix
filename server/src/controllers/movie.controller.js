@@ -33,8 +33,8 @@ const getMovies = catchAsync(async (req, res) => {
     'release_date',
     'title',
     'original_language',
+    'category',
   ]);
-  console.log('geners', filter);
   const options = structureQuery(req.query, ['sortBy', 'limit', 'page']);
   console.log('options', options);
   const movies = await movieService.getMovies(filter, options);
