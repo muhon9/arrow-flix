@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 const Pagination = ({ totalPages, totalResults, handlePageClick }) => {
   return (
     <div className="flex w-full justify-end items-center">
-      <div className="mr-4">Total Items: {totalResults}</div>
+      <div className="mr-4 text-bold">Total Items: {totalResults}</div>
       <ReactPaginate
         containerClassName="flex my-2 "
         activeClassName="text-white"
