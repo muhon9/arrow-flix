@@ -14,7 +14,7 @@ export default function GenreWisePage({ match }) {
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = useState(1);
-  const { loading, error, data } = useGenreMovies(page);
+  const { loading, error, data, hasMore } = useGenreMovies(page);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -41,13 +41,13 @@ export default function GenreWisePage({ match }) {
         <InfiniteScroll
           dataLength={data?.length} // This is important field to render the next data
           next={fetchMore}
-          hasMore={true}
+          hasMore={hasMore}
           loader={<h3>Loading</h3>}
           className="w-full flex flex-row flex-wrap mx-auto"
         >
           {data &&
             data.map((movie, i) => (
-              <div className="w-[33.3%] md:max-w-[16.6%] mb-4" key={i}>
+              <div className="w-[33.3%] md:max-w-[16.6%] mb-4" key={movie._id}>
                 <Poster result={movie} />
               </div>
             ))}

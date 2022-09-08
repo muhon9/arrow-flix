@@ -9,8 +9,16 @@ const useFetch = (url) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await axios.get(url);
-      } catch (error) {}
+        const response = await axios.get(url);
+        setData(response.data);
+      } catch (err) {
+        // blank
+      }
     }
+    fetchData();
   }, []);
+
+  return { loading, error, data };
 };
+
+export default useFetch;

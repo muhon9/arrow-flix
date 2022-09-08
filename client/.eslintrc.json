@@ -37,6 +37,7 @@
     "import/no-extraneous-dependencies": "off",
     "no-nested-ternary": "off",
     "spaced-comment": "off",
-    "react/button-has-type": "off"
+    "react/button-has-type": "off",
+    "camelcase": "off"
   }
 }

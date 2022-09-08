@@ -18,10 +18,12 @@ const Poster = ({ result }) => {
     genre_ids,
     backdrop_path,
     poster_path,
+    poster,
   } = result;
 
   const fallbackTitle = title || original_title || name || original_name;
-  let isFavourite = false;
+
+  const isFavourite = false;
 
   const genres = useGenreConversion(genre_ids);
   const dispatch = useDispatch();
@@ -39,10 +41,10 @@ const Poster = ({ result }) => {
       className="poster-container group cursor-pointer w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] "
       onClick={handleModalOpening}
     >
-      {poster_path ? (
+      {poster_path || poster ? (
         <img
           className="poster-image block h-full w-full rounded-md group-hover:opacity-10 group-hover:pointer-events-none"
-          src={`${BASE_IMG_URL}/${poster_path}`}
+          src={`${BASE_IMG_URL}/${poster_path || poster}`}
           alt={fallbackTitle}
         />
       ) : (

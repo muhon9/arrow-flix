@@ -133,7 +133,7 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
               {results &&
                 results.map((movie, i) => (
                   <SwiperSlide
-                    key={i}
+                    key={movie._id}
                     onMouseOver={rightMouseOver}
                     onMouseOut={rightMouseOut}
                     className=""
