@@ -63,6 +63,10 @@ const movieSchema = new mongoose.Schema(
     belongs_to_collection: {
       type: String,
     },
+    category: {
+      type: String,
+      default: 'Hindi',
+    },
     geners: {
       type: Array,
     },
@@ -83,7 +87,6 @@ movieSchema.statics.movieAlreadyExist = async function (movieName) {
 };
 
 movieSchema.pre('save', async (next) => {
-  console.log('first', this.release_date);
   next();
 });
 

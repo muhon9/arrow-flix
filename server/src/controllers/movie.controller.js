@@ -2,11 +2,13 @@ const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const movieService = require('../services/movie.service');
 const structureQuery = require('../utils/structureQuery');
+const generateCategory = require('../utils/generateCategory');
 
 // add a movie to the database
 const createMovie = catchAsync(async (req, res) => {
   console.log('Req body', req.body);
-  const movie = await movieService.createMovie(req.body);
+  const category = generateCategory(req.body.original_language);
+  const movie = await movieService.createMovie({ ...req.body, category });
   res.status(httpStatus.CREATED).send(movie);
 });
 
