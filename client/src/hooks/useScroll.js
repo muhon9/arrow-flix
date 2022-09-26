@@ -5,6 +5,7 @@ const useScroll = (heightLimit) => {
 
   useEffect(() => {
     const checkScroll = () => {
+      // eslint-disable-next-line no-unused-expressions
       window.scrollY > heightLimit ? setIsScrolled(true) : setIsScrolled(false);
     };
 
