@@ -48,10 +48,18 @@ const getMovie = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(movie);
 });
 
+// search movies or other content using search query
+const searchMovie = catchAsync(async (req, res) => {
+  console.log(req.query);
+  const movies = await movieService.searchMovies(req.query.q);
+  res.status(httpStatus.OK).send(movies);
+});
+
 module.exports = {
   createMovie,
   updateMovie,
   deleteMovie,
   getMovies,
   getMovie,
+  searchMovie,
 };

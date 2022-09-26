@@ -39,10 +39,17 @@ const getMovie = async (movieId) => {
   return movie;
 };
 
+const searchMovies = async (q) => {
+  const re = new RegExp(q, 'i');
+  const movies = await Movie.find({ title: re });
+  return movies;
+};
+
 module.exports = {
   createMovie,
   updateMovie,
   deleteMovie,
   getMovies,
   getMovie,
+  searchMovies,
 };
