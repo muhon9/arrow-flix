@@ -21,94 +21,93 @@ const Navbar = () => {
   const dropDownRef = useRef();
 
   return (
-    <>
-      <motion.nav
-        className={`fixed text-white z-50 w-full h-[70px] t-0 flex items-center justify-start py-0 px-[4vw]  ${
-          isScrolled && 'bg-lightBlack'
-        }`}
-        variants={navbarFadeInVariants}
-        initial="hidden"
-        animate="visible"
-        exit="hidden"
-      >
-        <Link to="/">
-          <img
-            className="w-full max-w-[40px] md:max-w-[130px]"
-            src={width >= 600 ? LOGO_URL : MOBILE_LOGO_URL}
-            alt=""
-          />
-        </Link>
-        <ul className="hidden md:flex items-center m-0 p-0 ml-8">
-          <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
-            <NavLink to="/browse">Home</NavLink>
-          </li>
-          <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
-            <NavLink to="/tvseries">TV Series</NavLink>
-          </li>
-          <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
-            <NavLink to="/movies">Movies</NavLink>
-          </li>
-          <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
-            <NavLink to="/popular">New & Popular</NavLink>
-          </li>
-          <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
-            <NavLink to="/mylist">My list</NavLink>
-          </li>
-        </ul>
+    <motion.nav
+      className={`fixed text-white z-50 w-full h-[70px] t-0 flex items-center justify-start py-0 px-[4vw]  ${
+        isScrolled && 'bg-lightBlack'
+      }`}
+      variants={navbarFadeInVariants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+    >
+      <Link to="/">
+        <img
+          className="w-full max-w-[40px] md:max-w-[130px]"
+          src={width >= 600 ? LOGO_URL : MOBILE_LOGO_URL}
+          alt=""
+        />
+      </Link>
+      <ul className="hidden md:flex items-center m-0 p-0 ml-8">
+        <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
+          <NavLink to="/browse">Home</NavLink>
+        </li>
+        <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
+          <NavLink to="/tvseries">TV Series</NavLink>
+        </li>
+        <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
+          <NavLink to="/movies">Movies</NavLink>
+        </li>
+        <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
+          <NavLink to="/popular">New & Popular</NavLink>
+        </li>
+        <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
+          <NavLink to="/mylist">My list</NavLink>
+        </li>
+      </ul>
 
+      <div
+        className={`absolute md:hidden pointer-events-none top-0 h-[100vh] left-0 my-0 mx-auto w-full justify-center items-center pt-[70px] ${
+          mobileNavOpen &&
+          'bg-slate-700 bg-opacity-10 backdrop-blur-md pointer-events-auto'
+        }`}
+      >
         <div
-          className={`absolute md:hidden pointer-events-none top-0 h-[100vh] left-0 my-0 mx-auto w-full justify-center items-center pt-[70px] ${
-            mobileNavOpen &&
-            'bg-slate-700 bg-opacity-10 backdrop-blur-md pointer-events-auto'
-          }`}
+          className="flex flex-col w-full items-center justify-start cursor-pointer pointer-events-auto"
+          onClick={() => {
+            setMobileNavOpen(!mobileNavOpen);
+          }}
         >
-          <div
-            className="flex flex-col w-full items-center justify-start cursor-pointer pointer-events-auto"
+          <div className="flex items-center gap-1">
+            <span>Discover</span> <FaCaretDown />
+          </div>
+        </div>
+        {mobileNavOpen && (
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+          <ul
+            className="mt-10 text-center flex flex-col gap-4 pointer-events-auto"
+            ref={dropDownRef}
             onClick={() => {
-              setMobileNavOpen(!mobileNavOpen);
+              setMobileNavOpen(false);
             }}
           >
-            <div className="flex items-center gap-1">
-              <span>Discover</span> <FaCaretDown />
-            </div>
-          </div>
-          {mobileNavOpen && (
-            <ul
-              className="mt-10 text-center flex flex-col gap-4 pointer-events-auto"
-              ref={dropDownRef}
-              onClick={() => {
-                setMobileNavOpen(false);
-              }}
-            >
-              <li className="Navbar__navlinks--link">
-                <NavLink to="/browse">Home</NavLink>
-              </li>
-              <li className="Navbar__navlinks--link">
-                <NavLink to="/tvseries">TV Series</NavLink>
-              </li>
-              <li className="Navbar__navlinks--link">
-                <NavLink to="/movies">Movies</NavLink>
-              </li>
-              <li className="Navbar__navlinks--link">
-                <NavLink to="/popular">New & Popular</NavLink>
-              </li>
-              <li className="Navbar__navlinks--link">
-                <NavLink to="/mylist">My list</NavLink>
-              </li>
-            </ul>
-          )}
-        </div>
-        <div className="flex items-center m-0 p-0 ml-auto">
-          <Searchbar />
+            <li className="Navbar__navlinks--link">
+              <NavLink to="/browse">Home</NavLink>
+            </li>
+            <li className="Navbar__navlinks--link">
+              <NavLink to="/tvseries">TV Series</NavLink>
+            </li>
+            <li className="Navbar__navlinks--link">
+              <NavLink to="/movies">Movies</NavLink>
+            </li>
+            <li className="Navbar__navlinks--link">
+              <NavLink to="/popular">New & Popular</NavLink>
+            </li>
+            <li className="Navbar__navlinks--link">
+              <NavLink to="/mylist">My list</NavLink>
+            </li>
+          </ul>
+        )}
+      </div>
+      <div className="flex items-center m-0 p-0 ml-auto">
+        <Searchbar />
 
-          <div>
-            <button className="hidden justify-center  min-w-[140px] bg-red-600 text-white py-[10px] px-[16px] ml-[10px] border-0 rounded-md text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-700">
-              Login
-            </button>
-          </div>
+        <div>
+          <button className="hidden justify-center  min-w-[140px] bg-red-600 text-white py-[10px] px-[16px] ml-[10px] border-0 rounded-md text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-700">
+            Login
+          </button>
         </div>
-      </motion.nav>
-    </>
+      </div>
+    </motion.nav>
   );
 };
 

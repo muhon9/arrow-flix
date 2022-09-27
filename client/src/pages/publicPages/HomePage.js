@@ -15,6 +15,7 @@ export default function HomePage() {
           sagaFunction={row.sagaFunction}
           selector={row.selector}
           genre={row.genre}
+          apiHook={row.apiHook}
         />
       ))}
     </>

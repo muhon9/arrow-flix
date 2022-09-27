@@ -3,6 +3,10 @@ import { useEffect, useRef } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {
+  useGetFeaturedMoviesQuery,
+  useGetActionMoviesQuery,
+} from 'redux/api/rootApi';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -18,11 +22,12 @@ SwiperCore.use([Navigation, Pagination, Autoplay]);
 const FeaturedRow = () => {
   const { width } = useViewport();
   const dispatch = useDispatch();
-  const { loading, error, data: results } = useSelector(selectFeatured);
-
-  useEffect(() => {
-    dispatch(getFeatured());
-  }, []);
+  // const { loading, error, data: results } = useSelector(selectFeatured) || {};
+  const {
+    isError: error,
+    isLoading: loading,
+    data,
+  } = useGetFeaturedMoviesQuery();
 
   //Custom Swiper config
   const navigationPrevRef = useRef(null);
@@ -69,6 +74,7 @@ const FeaturedRow = () => {
     e.currentTarget.parentElement.classList.remove('is-right', 'is-left');
   };
 
+  // eslint-disable-next-line consistent-return
   const insertPositionClassName = (index) => {
     const i = index + 1;
 
@@ -130,8 +136,8 @@ const FeaturedRow = () => {
               }}
               className="mt-4 px-[4%]"
             >
-              {results &&
-                results.map((movie, i) => (
+              {data?.results &&
+                data.results.map((movie, i) => (
                   <SwiperSlide
                     key={i}
                     onMouseOver={rightMouseOver}

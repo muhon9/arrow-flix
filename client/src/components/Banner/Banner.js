@@ -5,6 +5,7 @@ import { FaPlay } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SkeletonBanner from 'components/Skelitons/SkeletonBanner';
+import { useGetFeaturedMoviesQuery } from 'redux/api/rootApi';
 import {
   bannerFadeInLoadSectionVariants,
   bannerFadeInUpVariants,
@@ -12,21 +13,30 @@ import {
   staggerOne,
 } from '../../utilities/motionUtils';
 
-import { selectFeatured } from '../../redux/featured/featuredSelectors';
+import FALLBACK_IMG from '../../assets/images/fallbackImage.png';
+
 import { showModal } from '../../redux/modal/modalSlice';
 import { BASE_IMG_URL, FALLBACK_IMG_URL } from '../../requestUrls';
-import { randomize, truncate } from '../../utilities/utils';
+import {
+  capitalizeEveryFirstLetter,
+  randomize,
+  truncate,
+} from '../../utilities/utils';
 
 const Banner = ({ type }) => {
   const dispatch = useDispatch();
-  const { loading, error, data: results } = useSelector(selectFeatured);
+  const { isLoading, isError, data = {} } = useGetFeaturedMoviesQuery();
+  const { results = {} } = data;
+
   const bannerMovie = results[randomize(results)];
+
   const fallbackTitle =
     bannerMovie?.title || bannerMovie?.name || bannerMovie?.original_name;
   const description = truncate(bannerMovie?.overview, 150);
+
   const backdropPath = bannerMovie?.backdrop_path
     ? `${BASE_IMG_URL}/${bannerMovie.backdrop_path}`
-    : `${FALLBACK_IMG_URL}`;
+    : `https://images.pexels.com/photos/185933/pexels-photo-185933.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`;
 
   const handlePlayAnimation = (event) => {
     event.stopPropagation();
@@ -44,10 +54,10 @@ const Banner = ({ type }) => {
         animate="animate"
         exit="exit"
       >
-        {loading && <SkeletonBanner />}
-        {error && <div>An error has happend</div>}
+        {isLoading && <SkeletonBanner />}
+        {isError && <div>An error has happend</div>}
       </motion.section>
-      {!loading && !error && (
+      {!isLoading && !isError && (
         <motion.header
           variants={bannerFadeInVariants}
           initial="initial"
@@ -55,7 +65,7 @@ const Banner = ({ type }) => {
           exit="exit"
           className="relative flex items-end lg:items-center bg-black bg-top bg-no-repeat bg-cover h-[90vh] lg:h-[80vh] text-white"
           style={{
-            backgroundImage: `url(${backdropPath}`,
+            backgroundImage: `url(${backdropPath})`,
           }}
         >
           <motion.div
@@ -69,7 +79,7 @@ const Banner = ({ type }) => {
               variants={bannerFadeInUpVariants}
               className="text-4xl font-bold sm:text-5xl md:text-6xl leading-none drop-shadow-lg lg:max-w-[40vw]"
             >
-              {fallbackTitle}
+              {capitalizeEveryFirstLetter(fallbackTitle)}
             </motion.h1>
             <motion.div
               variants={bannerFadeInUpVariants}

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useGetActionMoviesQuery } from 'redux/api/rootApi';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -13,13 +14,8 @@ import Poster from '../Posters/Poster';
 
 SwiperCore.use([Navigation, Pagination]);
 
-const PosterRow = ({ title, sagaFunction, selector, genre }) => {
-  const dispatch = useDispatch();
-  const { loading, error, data: results } = useSelector(selector);
-
-  useEffect(() => {
-    dispatch(sagaFunction);
-  }, [dispatch]);
+const PosterRow = ({ title, apiHook, genre }) => {
+  const { isLoading, isError, data } = apiHook();
 
   const { width } = useViewport();
 
@@ -90,13 +86,13 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
 
   return (
     <>
-      {loading && (
+      {isLoading && (
         <div className="">
           <SkeletonPosterRow />
         </div>
       )}
 
-      {!loading && !error && (
+      {!isLoading && !isError && (
         <div className="block py-[1.5vh] lg:py-[1.5vh]">
           <h3 className="py-0 px-[4%] text-base leading-[1.25vw] align-left inline-block ">
             <Link
@@ -130,8 +126,8 @@ const PosterRow = ({ title, sagaFunction, selector, genre }) => {
               }}
               className="mt-4 px-[4%]"
             >
-              {results &&
-                results.map((movie, i) => (
+              {data?.results &&
+                data.results.map((movie, idx) => (
                   <SwiperSlide
                     key={movie._id}
                     onMouseOver={rightMouseOver}

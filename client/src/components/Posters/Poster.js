@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { FaChevronDown, FaMinus, FaPlay, FaPlus } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { capitalizeEveryFirstLetter } from 'utilities/utils';
 import useGenreConversion from '../../hooks/useIdtoGenre';
 import { showModal } from '../../redux/modal/modalSlice';
 import { BASE_IMG_URL } from '../../requestUrls';
@@ -17,6 +18,7 @@ const Poster = ({ result }) => {
     media_type,
     genre_ids,
     backdrop_path,
+    geners,
     poster_path,
     poster,
   } = result;
@@ -25,7 +27,6 @@ const Poster = ({ result }) => {
 
   const isFavourite = false;
 
-  const genres = useGenreConversion(genre_ids);
   const dispatch = useDispatch();
   const handleModalOpening = () => {
     dispatch(showModal(result));
@@ -38,12 +39,12 @@ const Poster = ({ result }) => {
   return (
     <motion.div
       variants={posterFadeInVariants}
-      className="poster-container group cursor-pointer w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] "
+      className="group cursor-pointer w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] "
       onClick={handleModalOpening}
     >
       {poster_path || poster ? (
         <img
-          className="poster-image block h-full w-full rounded-md group-hover:opacity-10 group-hover:pointer-events-none"
+          className="block h-full w-full rounded-md group-hover:opacity-10 group-hover:pointer-events-none"
           src={`${BASE_IMG_URL}/${poster_path || poster}`}
           alt={fallbackTitle}
         />
@@ -62,7 +63,7 @@ const Poster = ({ result }) => {
       <div className="poster-details z-10 absolute left-[3px] bottom-5 flex flex-col items-start justify-end w-[calc(100%-6px)] h-full p-[0.6em]  rounded-md pointer-events-auto opacity-0 translate-y-[15%] transition-all duration-300 ease-in group-hover:opacity-100 group-hover:translate-y-0">
         <div className="action-buttons flex items-center justify-start opacity-0 translate-y-[15%] transition-all duration-300 ease-in group-hover:opacity-100 group-hover:translate-y-0">
           <Link
-            className="play-button inline-flex p-[6px] rounded-[50%] text-xs cursor-pointer my-0 mx-[5px] mb-[0.6em] bg-transparent  border-2 border-white transition-all duration-300 ease-out outline-none lg:text-md lg:mb-[0.8em] bg-white text-black hover:bg-slate-100"
+            className="play-button inline-flex p-[6px] rounded-[50%] text-xs cursor-pointer my-0 mx-[5px] mb-[0.6em] bg-transparent  border-2 border-white transition-all duration-300 ease-out outline-none lg:text-md lg:mb-[0.8em] bg-white text-white hover:bg-slate-100"
             onClick={handlePlayAction}
             to={'/play'}
           >
@@ -82,16 +83,16 @@ const Poster = ({ result }) => {
           </button>
         </div>
         <div className="pl-[6px]  text-xs text-white font-bold lg:text-lg lg:font-medium">
-          <h3>{fallbackTitle}</h3>
+          <h3>{capitalizeEveryFirstLetter(fallbackTitle)}</h3>
         </div>
         <div className="pl-[6px] block text-white w-full">
-          {genres &&
-            genres.map((genre, index) => (
+          {geners &&
+            geners.map((gener, index) => (
               <span
                 key={index}
                 className="inline-block w-auto text-[8px] my-0  lg:text-[10px] after:content-['●'] after:px-2 last:after:content-['']"
               >
-                {genre}
+                {gener}
               </span>
             ))}
         </div>

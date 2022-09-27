@@ -3,6 +3,7 @@ import useGenreConversion from 'hooks/useIdtoGenre';
 import { FaChevronDown, FaMinus, FaPlay, FaPlus } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { capitalizeEveryFirstLetter } from 'utilities/utils';
 import { showModal } from '../../redux/modal/modalSlice';
 import { BASE_IMG_URL } from '../../requestUrls';
 import { posterFadeInVariants } from '../../utilities/motionUtils';
@@ -16,15 +17,14 @@ const FeaturedPoster = ({ result }) => {
     media_type,
     backdrop_path,
     original_language,
-    genre_ids,
+    geners,
   } = result;
 
   const fallbackTitle = title || original_title || name || original_name;
 
-  let isFavourite = false;
-  const genres = useGenreConversion(genre_ids);
-
   const dispatch = useDispatch();
+
+  const isFavourite = false;
 
   const handleAdd = (event) => {
     event.stopPropagation();
@@ -68,7 +68,7 @@ const FeaturedPoster = ({ result }) => {
       <div className="absolute left-[3px] bottom-0 flex flex-col items-start justify-end w-[calc(100%-6px)] h-full p-[0.6em]  rounded-md pointer-events-none transition-all duration-300 ease-linear md:pointer-events-auto">
         <div className="flex items-center justify-start opacity-0 translate-y-[15%] transition-all duration-300 ease-in group-hover:opacity-100 group-hover:translate-y-0">
           <Link
-            className="inline-flex p-[6px] rounded-[50%] text-xs cursor-pointer my-0 mx-[5px] mb-[0.6em] bg-transparent  border-2 border-white transition-all duration-300 ease-out outline-none lg:text-md lg:mb-[0.8em] bg-white text-black hover:bg-slate-100"
+            className="inline-flex p-[6px] rounded-[50%] text-xs cursor-pointer my-0 mx-[5px] mb-[0.6em] bg-transparent  border-2 border-white transition-all duration-300 ease-out outline-none lg:text-md lg:mb-[0.8em] bg-white text-white hover:bg-slate-100"
             onClick={handlePlayAction}
             to={'/play'}
           >
@@ -93,12 +93,12 @@ const FeaturedPoster = ({ result }) => {
             <FaChevronDown onClick={handleModalOpening} />
           </button>
         </div>
-        <div className="pl-[6px] opacity-100 text-xs text-white font-bold lg:text-lg lg:font-medium">
-          <h3>{fallbackTitle}</h3>
+        <div className="pl-[6px] opacity-100 text-xs text-white drop-shadow-lg shadow-black font-bold lg:text-lg lg:font-bold">
+          <h3>{capitalizeEveryFirstLetter(fallbackTitle)}</h3>
         </div>
         <div className="pl-[6px] block text-white w-full">
-          {genres &&
-            genres.map((genre, index) => (
+          {geners &&
+            geners.map((genre, index) => (
               <span
                 key={index}
                 className="inline-block w-auto text-[8px] my-0  lg:text-[10px] after:content-['●'] after:px-2 last:after:content-['']"
