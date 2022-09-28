@@ -10,6 +10,8 @@ import HomePage from 'pages/publicPages/HomePage';
 import MoviesPage from 'pages/publicPages/MoviesPage';
 import TVSeriesPage from 'pages/publicPages/TVSeriesPage';
 import { Route, Routes } from 'react-router-dom';
+import MyList from 'pages/publicPages/MyList';
+import SearchPage from 'pages/publicPages/SearchPage';
 
 function App() {
   return (
@@ -19,9 +21,11 @@ function App() {
           <Route path="/" element={<UserLayout />}>
             <Route index element={<HomePage />} />
             <Route path="browse" element={<HomePage />} />
-            <Route path="movies" element={<MoviesPage />} />
+            <Route path="movies" element={<HomePage />} />
             <Route path="tvseries" element={<TVSeriesPage />} />
+            <Route path="mylist" element={<MyList />} />
             <Route path="genre/:categoryName" element={<GenreWisePage />} />
+            <Route path="search" element={<SearchPage />} />
           </Route>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />

@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
 import { RiCloseFill } from 'react-icons/ri';
 import useOutsideClick from '../../hooks/useOutsideClick';
@@ -8,6 +9,8 @@ const Searchbar = () => {
   const [searchInput, setSearchInput] = useState('');
   const searchbarRef = useRef();
   const searchInputRef = useRef();
+
+  const navigate = useNavigate();
 
   useOutsideClick(searchbarRef, () => {
     if (searchInputToggle) {
@@ -23,11 +26,17 @@ const Searchbar = () => {
 
   const clearSearchInputToggle = () => {
     setSearchInput('');
+    navigate('/');
   };
 
   const handleSearchInput = (event) => {
     const { value } = event.target;
     setSearchInput(value);
+    if (value.length > 0) {
+      navigate(`/search?q=${value}`);
+    } else {
+      navigate('/');
+    }
   };
 
   return (

@@ -13,11 +13,7 @@ import Searchbar from '../Searchbar/Searchbar';
 const Navbar = () => {
   const { width } = useViewport();
   const isScrolled = useScroll(70);
-  const [genresNav, setGenresNav] = useState(false);
-  const [profileNav, setProfileNav] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const genresNavRef = useRef();
-  const profileNavRef = useRef();
   const dropDownRef = useRef();
 
   return (
@@ -46,9 +42,6 @@ const Navbar = () => {
         </li>
         <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
           <NavLink to="/movies">Movies</NavLink>
-        </li>
-        <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
-          <NavLink to="/popular">New & Popular</NavLink>
         </li>
         <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
           <NavLink to="/mylist">My list</NavLink>
@@ -88,9 +81,6 @@ const Navbar = () => {
             </li>
             <li className="Navbar__navlinks--link">
               <NavLink to="/movies">Movies</NavLink>
-            </li>
-            <li className="Navbar__navlinks--link">
-              <NavLink to="/popular">New & Popular</NavLink>
             </li>
             <li className="Navbar__navlinks--link">
               <NavLink to="/mylist">My list</NavLink>

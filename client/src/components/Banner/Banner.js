@@ -13,10 +13,8 @@ import {
   staggerOne,
 } from '../../utilities/motionUtils';
 
-import FALLBACK_IMG from '../../assets/images/fallbackImage.png';
-
 import { showModal } from '../../redux/modal/modalSlice';
-import { BASE_IMG_URL, FALLBACK_IMG_URL } from '../../requestUrls';
+import { BASE_IMG_URL } from '../../requestUrls';
 import {
   capitalizeEveryFirstLetter,
   randomize,
@@ -88,7 +86,7 @@ const Banner = ({ type }) => {
               <Link
                 className="inline-flex justify-center items-center min-w-[140px] bg-red-600 text-white py-[10px] px-[16px] border-0 rounded-md mt-[1em] text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-800"
                 onClick={handlePlayAnimation}
-                to={'/play'}
+                to="/play"
               >
                 <FaPlay />
                 <span className="ml-2">Play</span>
