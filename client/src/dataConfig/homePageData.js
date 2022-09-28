@@ -3,12 +3,6 @@ import {
   useGetAdventureMoviesQuery,
   useGetDramaMoviesQuery,
 } from 'redux/api/rootApi';
-import { getActionMovies } from '../redux/movies/actionMoviesSlice';
-import { getAdventureMovies } from '../redux/movies/adventureMoviesSlice';
-import {
-  selectActionMovies,
-  selectAdventureMovies,
-} from '../redux/movies/moviesSelector';
 
 export const homePageRowInfo = [
   {
@@ -35,12 +29,4 @@ export const homePageRowInfo = [
     genere: 'adventure',
     apiHook: useGetAdventureMoviesQuery,
   },
-  // {
-  //   id: 4,
-  //   row_title: 'Adventure Movies',
-  //   sagaFunction: getAdventureMovies(),
-  //   selector: selectAdventureMovies,
-  //   genre: 'adventure',
-  //   apiHook: useGetActionMoviesQuery,
-  // },
 ];

@@ -1,27 +1,20 @@
 import SkeletonPosterRow from 'components/Skelitons/SkeletonPosterRow';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  useGetFeaturedMoviesQuery,
-  useGetActionMoviesQuery,
-} from 'redux/api/rootApi';
+import { useGetFeaturedMoviesQuery } from 'redux/api/rootApi';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import useViewport from '../../hooks/useViewport';
-import { selectFeatured } from '../../redux/featured/featuredSelectors';
-import { getFeatured } from '../../redux/featured/featuredSlice';
 import FeaturedPoster from '../Posters/FeaturedPoster';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 const FeaturedRow = () => {
   const { width } = useViewport();
-  const dispatch = useDispatch();
   // const { loading, error, data: results } = useSelector(selectFeatured) || {};
   const {
     isError: error,
@@ -100,7 +93,7 @@ const FeaturedRow = () => {
       {!loading && !error && (
         <>
           <h3 className=" py-0 px-[4%] text-base leading-[1.25vw] align-left inline-block ">
-            <Link to={`/genre/featured`} className="text-white no-underline">
+            <Link to="/genre/featured" className="text-white no-underline">
               <span className="text-md font-semibold">Featured Movies</span>
               <span className="max-w-[200px] ml-2">Show all </span>
             </Link>
