@@ -34,7 +34,6 @@ async function getMovies(filterOptions) {
   Object.keys(filterOptions).forEach((key) => {
     queryString += `${key}=${filterOptions[key]}&`;
   });
-  console.log('FilterOptions', queryString);
   const response = await axios.get(`${BASE_URL}/movie?${queryString}`);
   return response;
 }

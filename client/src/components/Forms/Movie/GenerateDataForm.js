@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTmdbData } from 'redux/tmdb/tmdbSelector';
-import { getTmdbData } from 'redux/tmdb/tmdbSlice';
+import { fetchTmdbData, getTmdbData } from 'redux/tmdb/tmdbSlice';
 
 export default function GenerateDataForm() {
   const dispatch = useDispatch();
   const [tmdbId, setTmdbId] = useState('');
-  const { loading, error, data: tmdbData } = useSelector(selectTmdbData);
+  const { loading, error } = useSelector(selectTmdbData);
+  // const loading = false;
+  // const error = null;
 
   function getData(e) {
     e.preventDefault();
-    dispatch(getTmdbData(tmdbId));
+    dispatch(fetchTmdbData(tmdbId));
   }
 
   return (

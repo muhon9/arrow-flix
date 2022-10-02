@@ -1,1 +1,1 @@
-export const selectTmdbData = (state) => state.tmdbData;
+export const selectTmdbData = (state) => state.tmdb;
