@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTmdbData } from 'redux/tmdb/tmdbSelector';
-import { fetchTmdbData, getTmdbData } from 'redux/tmdb/tmdbSlice';
+import { fetchTmdbData } from 'redux/tmdb/tmdbSlice';
 
 export default function GenerateDataForm() {
   const dispatch = useDispatch();
