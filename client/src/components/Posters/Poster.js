@@ -39,7 +39,7 @@ const Poster = ({ result }) => {
   return (
     <motion.div
       variants={posterFadeInVariants}
-      className="group cursor-pointer w-full relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] "
+      className="group w-full cursor-pointer  relative overflow-hidden inline-block whitespace-normal algin-top py-0 px-[3px] "
       onClick={handleModalOpening}
     >
       {poster_path || poster ? (
@@ -65,7 +65,7 @@ const Poster = ({ result }) => {
           <Link
             className="play-button inline-flex p-[6px] rounded-[50%] text-xs cursor-pointer my-0 mx-[5px] mb-[0.6em] bg-transparent  border-2 border-white transition-all duration-300 ease-out outline-none lg:text-md lg:mb-[0.8em] bg-white text-white hover:bg-slate-100"
             onClick={handlePlayAction}
-            to={'/play'}
+            to="/play"
           >
             <FaPlay />
           </Link>
@@ -90,7 +90,7 @@ const Poster = ({ result }) => {
             geners.map((gener, index) => (
               <span
                 key={index}
-                className="inline-block w-auto text-[8px] my-0  lg:text-[10px] after:content-['●'] after:px-2 last:after:content-['']"
+                className="inline-block w-auto text-[8px] my-0 lg:text-[10px] after:content-['●'] after:px-2 last:after:content-['']"
               >
                 {gener}
               </span>

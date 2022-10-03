@@ -1,16 +1,19 @@
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
 import { RiCloseFill } from 'react-icons/ri';
+import { searchContent } from 'redux/search/searchSlice';
 import useOutsideClick from '../../hooks/useOutsideClick';
 
 const Searchbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [searchInputToggle, setSearchInputToggle] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const searchbarRef = useRef();
   const searchInputRef = useRef();
-
-  const navigate = useNavigate();
 
   useOutsideClick(searchbarRef, () => {
     if (searchInputToggle) {
@@ -34,6 +37,7 @@ const Searchbar = () => {
     setSearchInput(value);
     if (value.length > 0) {
       navigate(`/search?q=${value}`);
+      dispatch(searchContent(value));
     } else {
       navigate('/');
     }

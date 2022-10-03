@@ -43,10 +43,16 @@ async function getMovie(id) {
   return response;
 }
 
+async function searchContentByQuery(query) {
+  const response = await axios.get(`${BASE_URL}/movie/search?q=${query}`);
+  return response.data;
+}
+
 export default {
   addMovies,
   deleteMovie,
   updateMovie,
   getMovies,
   getMovie,
+  searchContentByQuery,
 };
