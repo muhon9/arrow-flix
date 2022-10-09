@@ -7,11 +7,11 @@ import Dashboard from 'pages/adminPages/Dashboard';
 import ShowMoviesPage from 'pages/adminPages/ShowMoviesPage';
 import GenreWisePage from 'pages/publicPages/GenreWisePage';
 import HomePage from 'pages/publicPages/HomePage';
-import MoviesPage from 'pages/publicPages/MoviesPage';
 import TVSeriesPage from 'pages/publicPages/TVSeriesPage';
 import { Route, Routes } from 'react-router-dom';
 import MyList from 'pages/publicPages/MyList';
 import SearchPage from 'pages/publicPages/SearchPage';
+import PlayerPage from 'pages/publicPages/PlayerPage';
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
             <Route path="genre/:categoryName" element={<GenreWisePage />} />
             <Route path="search" element={<SearchPage />} />
           </Route>
+          <Route path="play" element={<PlayerPage />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />

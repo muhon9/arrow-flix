@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
 import { RiCloseFill } from 'react-icons/ri';
 import { searchContent } from 'redux/search/searchSlice';
@@ -9,11 +9,19 @@ import useOutsideClick from '../../hooks/useOutsideClick';
 const Searchbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [searchInputToggle, setSearchInputToggle] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const searchbarRef = useRef();
   const searchInputRef = useRef();
+
+  // if user land directly to search page and there is a query we want to show the result
+  useEffect(() => {
+    if (searchParams.get('q')) {
+      dispatch(searchContent(searchParams.get('q')));
+    }
+  }, []);
 
   useOutsideClick(searchbarRef, () => {
     if (searchInputToggle) {

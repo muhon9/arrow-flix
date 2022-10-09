@@ -1,4 +1,3 @@
-import movieApi from 'api/movieApi';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { capitalizeFirstLetter } from 'utilities/utils';
@@ -14,23 +13,23 @@ export default function MovieListTable({ movies = [], deleteMovie }) {
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="py-3 px-6 w-[30%]">
               Movie Title
             </th>
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="py-3 px-6 w-[20%]">
               Release Date
             </th>
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="py-3 px-6 w-[10%]">
               Links
             </th>
 
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="py-3 px-6 w-[10%]">
               Poster
             </th>
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="py-3 px-6 w-[10%]">
               tmdb_id
             </th>
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="py-3 px-6 w-[10%]">
               Actions
             </th>
           </tr>
