@@ -8,19 +8,26 @@ import {
   BsVolumeUp,
 } from 'react-icons/bs';
 import { MdForward10 } from 'react-icons/md';
+import { BiCaptions } from 'react-icons/bi';
 
 const PlayerPage = () => {
   const videoContainerRef = useRef(null);
   const videoRef = useRef(null);
+  const progressRef = useRef(null);
   const [fullScreen, setFullScreen] = useState(false);
   const [videoDuration, setVideoDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [showVolumeBar, setShowVolumeBar] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [previewPosition, setPreviewPosition] = useState(null);
+  const [isScrubbing, setIsScrubbing] = useState(false);
   const [playerOptions, setPlayerOptions] = useState({
     play: true,
-    mute: false,
+    mute: true,
     volume: 0.5,
   });
+
+  // show hide controller timeout
 
   useEffect(() => {
     if (videoRef.current.paused) {
@@ -35,13 +42,26 @@ const PlayerPage = () => {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.addEventListener('timeupdate', () => {
-        setCurrentTime(videoRef.current.currentTime);
-      });
       videoRef.current.addEventListener('loadeddata', () => {
         setVideoDuration(videoRef.current.duration);
+        videoRef.current.addEventListener('timeupdate', () => {
+          setCurrentTime(videoRef.current.currentTime);
+          const percent =
+            videoRef.current.currentTime / videoRef.current.duration;
+          setProgress(percent * 100);
+        });
       });
     }
+
+    document.addEventListener('mouseup', () => {
+      setIsScrubbing(false);
+    });
+
+    return () => {
+      document.removeEventListener('mouseup', () => {
+        setIsScrubbing(false);
+      });
+    };
   }, []);
 
   const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
@@ -110,7 +130,7 @@ const PlayerPage = () => {
   }
 
   function skip(duration) {
-    videoRef.current.currentTime += duration;
+    videoRef.current.currentTime += 20;
   }
 
   function handleVolume(e) {
@@ -132,17 +152,81 @@ const PlayerPage = () => {
     videoRef.current.volume = e.target.value;
   }
 
+  function handleTimelineUpdate(e) {
+    // console.log('buttons', e.buttons);
+    const rect = progressRef.current.getBoundingClientRect();
+    const percent =
+      Math.min(Math.max(0, e.clientX - rect.x), rect.width) / rect.width;
+    setPreviewPosition(percent * 100);
+    // setCurrentTime(videoDuration * percent);
+    if (isScrubbing) {
+      e.preventDefault();
+      setProgress(percent * 100);
+      videoRef.current.currentTime = videoDuration * percent;
+    }
+  }
+
+  function toggleScrubbing(e) {
+    e.preventDefault();
+    setIsScrubbing(true);
+    const rect = progressRef.current.getBoundingClientRect();
+    const percent =
+      Math.min(Math.max(0, e.clientX - rect.x), rect.width) / rect.width;
+
+    setProgress(percent * 100);
+    videoRef.current.currentTime = videoDuration * percent;
+    handleTimelineUpdate(e);
+  }
+
+  // this will let us update the timeline during scrubbing outsite the timeline mousemove
+  function handleScrubbingMove(e) {
+    if (isScrubbing) toggleScrubbing(e);
+  }
+
   return (
     <div
       className="group relative w-[90%] max-w-[1000px] flex justify-center"
       data-volume-level="high"
       ref={videoContainerRef}
+      onMouseMove={handleScrubbingMove}
     >
-      <img className="thumbnail-img" alt="Hello" />
+      {isScrubbing && (
+        <div className="absolute bg-white opacity-50 top-0 bottom-0 left-0 right-0"></div>
+      )}
       <div className="absolute bottom-0 left-0 right-0 text-white z-[100] opacity-0 group-hover:opacity-100">
-        <div className="timeline-container">
-          <div className="timeline">
-            <div className="thumb-indicator"></div>
+        <div className="h-[7px] mx-2 cursor-pointer flex items-center">
+          <div
+            ref={progressRef}
+            className="relative w-full h-[7px] bg-slate-700"
+            onMouseMove={handleTimelineUpdate}
+            onMouseDown={toggleScrubbing}
+            onMouseOut={() => setPreviewPosition(0)}
+            onBlur={() => setPreviewPosition(0)}
+          >
+            {/* <div className="thumb-indicator"></div> */}
+            <div
+              style={{ right: `${100 - progress}%` }}
+              className="absolute h-[7px] left-0 top-0 bottom-0 bg-red-700"
+            ></div>
+            <div
+              style={{
+                left: `${progress}%`,
+                right: `${100 - previewPosition}%`,
+              }}
+              className="absolute h-[7px] top-0 bottom-0 bg-red-200"
+            ></div>
+            <div
+              style={{
+                position: 'absolute',
+                backgroundColor: 'red',
+                transform: 'translateX(-50%)',
+                height: '200%',
+                aspectRatio: '1/1',
+                top: '-50%',
+                borderRadius: '100%',
+                left: `${progress}%`,
+              }}
+            ></div>
           </div>
         </div>
         <div className="flex gap-2 p-1 items-center">
@@ -209,8 +293,12 @@ const PlayerPage = () => {
             </button>
             
           </div> */}
+          <button>
+            <BiCaptions />
+          </button>
+          <button>1.1x</button>
 
-          <button className="captions-btn">
+          {/* <button className="captions-btn">
             <svg viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -240,7 +328,7 @@ const PlayerPage = () => {
                 d="M19 7H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H5V9h14v6z"
               />
             </svg>
-          </button>
+          </button> */}
           <button onClick={toggleFullScreen}>
             {fullScreen ? <BsFullscreenExit /> : <BsFullscreen />}
           </button>
