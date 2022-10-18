@@ -11,32 +11,36 @@ import { MdForward10 } from 'react-icons/md';
 import { BiCaptions } from 'react-icons/bi';
 
 const PlayerPage = () => {
+  // refs
   const videoContainerRef = useRef(null);
   const videoRef = useRef(null);
   const progressRef = useRef(null);
+
+  //states
   const [fullScreen, setFullScreen] = useState(false);
-  const [videoDuration, setVideoDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [videoDuration, setVideoDuration] = useState(0);
   const [showVolumeBar, setShowVolumeBar] = useState(false);
+
+  //state that will track the progress in timeline
   const [progress, setProgress] = useState(0);
+
+  //It will track the mousemovement over timeline
   const [previewPosition, setPreviewPosition] = useState(null);
   const [isScrubbing, setIsScrubbing] = useState(false);
-  const [playerOptions, setPlayerOptions] = useState({
-    play: true,
-    mute: true,
-    volume: 0.5,
-  });
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [volume, setVolume] = useState(0.5);
+  const [prevVolume, setPrevVolume] = useState(0.5);
 
-  // show hide controller timeout
+  const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
+  const [caption, setCaption] = useState(true);
 
   useEffect(() => {
     if (videoRef.current.paused) {
       videoRef.current.play();
-      videoRef.current.muted = false;
-      setPlayerOptions({
-        ...playerOptions,
-        play: true,
-      });
+      videoRef.current.muted = true;
+      setIsPlaying(true);
     }
   }, []);
 
@@ -47,8 +51,8 @@ const PlayerPage = () => {
         videoRef.current.addEventListener('timeupdate', () => {
           setCurrentTime(videoRef.current.currentTime);
           const percent =
-            videoRef.current.currentTime / videoRef.current.duration;
-          setProgress(percent * 100);
+            (videoRef.current.currentTime / videoRef.current.duration) * 100;
+          setProgress(percent);
         });
       });
     }
@@ -85,22 +89,18 @@ const PlayerPage = () => {
     }
   }
 
+  // handle play pause
   function togglePlay() {
     if (videoRef.current.paused) {
       videoRef.current.play();
-      setPlayerOptions({
-        ...playerOptions,
-        play: true,
-      });
+      setIsPlaying(true);
     } else {
       videoRef.current.pause();
-      setPlayerOptions({
-        ...playerOptions,
-        play: false,
-      });
+      setIsPlaying(false);
     }
   }
 
+  // handle fullscrenn toggle
   function toggleFullScreen() {
     if (!fullScreen) {
       setFullScreen(true);
@@ -112,53 +112,48 @@ const PlayerPage = () => {
   }
 
   function toggleMute() {
-    if (playerOptions.mute) {
+    if (isMuted) {
       videoRef.current.muted = false;
-      setPlayerOptions({
-        ...playerOptions,
-        mute: false,
-        volume: videoRef.current.volume,
-      });
+      videoRef.current.volume = prevVolume;
+      setIsMuted(false);
+      setVolume(prevVolume);
     } else {
+      setPrevVolume(volume);
       videoRef.current.muted = true;
-      setPlayerOptions({
-        ...playerOptions,
-        mute: true,
-        volume: 0,
-      });
+      setIsMuted(true);
+      videoRef.current.volume = 0;
+      setVolume(0);
     }
   }
 
   function skip(duration) {
-    videoRef.current.currentTime += 20;
+    videoRef.current.currentTime += duration;
   }
 
+  // will handle the volume increase & decrease
   function handleVolume(e) {
     if (e.target.value === '0') {
       videoRef.current.muted = true;
-      setPlayerOptions({
-        ...playerOptions,
-        mute: true,
-        volume: e.target.value,
-      });
+      setIsMuted(true);
+      setVolume(e.target.value);
       return;
     }
+
     videoRef.current.muted = false;
-    setPlayerOptions({
-      ...playerOptions,
-      volume: e.target.value,
-      mute: false,
-    });
+    setIsMuted(false);
+    setVolume(e.target.value);
     videoRef.current.volume = e.target.value;
   }
 
+  // this function will handle the timeline update when user hover over the timeline
   function handleTimelineUpdate(e) {
-    // console.log('buttons', e.buttons);
+    // get the data like height width position of the progressbar
     const rect = progressRef.current.getBoundingClientRect();
     const percent =
       Math.min(Math.max(0, e.clientX - rect.x), rect.width) / rect.width;
     setPreviewPosition(percent * 100);
-    // setCurrentTime(videoDuration * percent);
+
+    // if the user is moving the mouse when clicking we will change the progressbar
     if (isScrubbing) {
       e.preventDefault();
       setProgress(percent * 100);
@@ -178,6 +173,17 @@ const PlayerPage = () => {
     handleTimelineUpdate(e);
   }
 
+  function handlePlaybackSpeed() {
+    let newPlaybackRate = videoRef.current.playbackRate + 0.25;
+    if (newPlaybackRate > 2) newPlaybackRate = 0.25;
+    videoRef.current.playbackRate = newPlaybackRate;
+    setPlaybackSpeed(newPlaybackRate);
+  }
+
+  function toggleCaption() {
+    setCaption((prev) => !prev);
+  }
+
   // this will let us update the timeline during scrubbing outsite the timeline mousemove
   function handleScrubbingMove(e) {
     if (isScrubbing) toggleScrubbing(e);
@@ -185,7 +191,7 @@ const PlayerPage = () => {
 
   return (
     <div
-      className="group relative w-[90%] max-w-[1000px] flex justify-center"
+      className="group relative w-full h-[100vh] flex justify-center"
       data-volume-level="high"
       ref={videoContainerRef}
       onMouseMove={handleScrubbingMove}
@@ -193,11 +199,12 @@ const PlayerPage = () => {
       {isScrubbing && (
         <div className="absolute bg-white opacity-50 top-0 bottom-0 left-0 right-0"></div>
       )}
-      <div className="absolute bottom-0 left-0 right-0 text-white z-[100] opacity-0 group-hover:opacity-100">
-        <div className="h-[7px] mx-2 cursor-pointer flex items-center">
+      <div className="absolute bottom-0 left-0 right-0 h-[10%] text-gray-400 z-[100] opacity-100 group-hover:opacity-100">
+        <div className="mx-2 cursor-pointer flex items-center h-[20%]">
           <div
             ref={progressRef}
-            className="relative w-full h-[7px] bg-slate-700"
+            id="timeline-container"
+            className="relative flex-grow h-[7px] bg-slate-700"
             onMouseMove={handleTimelineUpdate}
             onMouseDown={toggleScrubbing}
             onMouseOut={() => setPreviewPosition(0)}
@@ -205,10 +212,12 @@ const PlayerPage = () => {
           >
             {/* <div className="thumb-indicator"></div> */}
             <div
+              id="timeline-progress"
               style={{ right: `${100 - progress}%` }}
               className="absolute h-[7px] left-0 top-0 bottom-0 bg-red-700"
             ></div>
             <div
+              id="timeline-preview"
               style={{
                 left: `${progress}%`,
                 right: `${100 - previewPosition}%`,
@@ -216,6 +225,7 @@ const PlayerPage = () => {
               className="absolute h-[7px] top-0 bottom-0 bg-red-200"
             ></div>
             <div
+              id="timeline-indicator"
               style={{
                 position: 'absolute',
                 backgroundColor: 'red',
@@ -228,31 +238,50 @@ const PlayerPage = () => {
               }}
             ></div>
           </div>
-        </div>
-        <div className="flex gap-2 p-1 items-center">
-          <button className="play-pause-btn" onClick={togglePlay}>
-            {playerOptions?.play ? <FaPause /> : <FaPlay />}
-          </button>
-          <button onClick={() => skip(5)}>
-            <MdForward10 />
-          </button>
-          <div>
-            {formatDuration(currentTime)}/ {formatDuration(videoDuration)}
+          <div className="text-sm min-w-[80px] flex justify-end pr-2">
+            {formatDuration(videoDuration - currentTime)}
           </div>
+        </div>
+        <div className="flex gap-4 p-1 px-4 items-center h-[80%]">
+          <button className="text-2xl hover:text-white" onClick={togglePlay}>
+            {isPlaying ? <FaPause /> : <FaPlay />}
+          </button>
+
+          <button onClick={() => skip(10)}>
+            <svg
+              className="fill-gray-400 hover:fill-white"
+              viewBox="0 0 24 24"
+              height="30px"
+              width="30px"
+            >
+              <path d="M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3M10,12V22H8V14H6V12H10M18,14V20C18,21.11 17.11,22 16,22H14A2,2 0 0,1 12,20V14A2,2 0 0,1 14,12H16C17.11,12 18,12.9 18,14M14,14V20H16V14H14Z" />
+            </svg>
+          </button>
+
+          <button onClick={() => skip(-10)}>
+            <svg
+              className="fill-gray-400 hover:fill-white"
+              viewBox="0 0 24 24"
+              height="30px"
+              width="30px"
+            >
+              <path d="M10,12V22H8V14H6V12H10M18,14V20C18,21.11 17.11,22 16,22H14A2,2 0 0,1 12,20V14A2,2 0 0,1 14,12H16C17.11,12 18,12.9 18,14M14,14V20H16V14H14M11.5,3C14.15,3 16.55,4 18.4,5.6L21,3V10H14L16.62,7.38C15.23,6.22 13.46,5.5 11.5,5.5C7.96,5.5 4.95,7.81 3.9,11L1.53,10.22C2.92,6.03 6.85,3 11.5,3Z" />
+            </svg>
+          </button>
           <div
-            className="flex flex-grow"
+            className="flex flex-grow md:flex-none"
             onMouseLeave={() => setShowVolumeBar(false)}
             onBlur={() => setShowVolumeBar(false)}
           >
             <button
-              className=""
+              className="text-3xl hover:text-white"
               onClick={toggleMute}
               onMouseOver={toggleVolumeBar}
               onFocus={toggleVolumeBar}
             >
-              {playerOptions.mute ? (
+              {isMuted ? (
                 <BsVolumeMute />
-              ) : Number(playerOptions.volume) < 0.5 ? (
+              ) : Number(volume) < 0.5 ? (
                 <BsVolumeDown />
               ) : (
                 <BsVolumeUp />
@@ -266,75 +295,40 @@ const PlayerPage = () => {
                 min="0"
                 max="1"
                 step="any"
-                value={playerOptions.volume}
+                value={volume}
               />
             )}
           </div>
-          {/* <div className="volume-container">
-            <button className="mute-btn">
-              <svg className="volume-high-icon" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
-                />
-              </svg>
-              <svg className="volume-low-icon" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M5,9V15H9L14,20V4L9,9M18.5,12C18.5,10.23 17.5,8.71 16,7.97V16C17.5,15.29 18.5,13.76 18.5,12Z"
-                />
-              </svg>
-              <svg className="volume-muted-icon" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z"
-                />
-              </svg>
-            </button>
-            
-          </div> */}
-          <button>
+          <div
+            id="movie-title"
+            className="hidden md:flex flex-grow justify-center text-xl "
+          >
+            Bullet Train
+          </div>
+          <button
+            className={`text-3xl border-b-2 border-red-700 border-opacity-0 hover:text-white ${
+              caption && 'border-opacity-100'
+            }`}
+            onClick={toggleCaption}
+          >
             <BiCaptions />
           </button>
-          <button>1.1x</button>
-
-          {/* <button className="captions-btn">
-            <svg viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M18,11H16.5V10.5H14.5V13.5H16.5V13H18V14A1,1 0 0,1 17,15H14A1,1 0 0,1 13,14V10A1,1 0 0,1 14,9H17A1,1 0 0,1 18,10M11,11H9.5V10.5H7.5V13.5H9.5V13H11V14A1,1 0 0,1 10,15H7A1,1 0 0,1 6,14V10A1,1 0 0,1 7,9H10A1,1 0 0,1 11,10M19,4H5C3.89,4 3,4.89 3,6V18A2,2 0 0,0 5,20H19A2,2 0 0,0 21,18V6C21,4.89 20.1,4 19,4Z"
-              />
-            </svg>
+          <button
+            className="text-lg min-w-[70px] hover:text-white"
+            onClick={handlePlaybackSpeed}
+          >
+            {playbackSpeed.toFixed(2)}x
           </button>
-          <button className="speed-btn wide-btn">1x</button>
-          <button className="mini-player-btn">
-            <svg viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zm-10-7h9v6h-9z"
-              />
-            </svg>
-          </button>
-          <button className="theater-btn">
-            <svg className="tall" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M19 6H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H5V8h14v8z"
-              />
-            </svg>
-            <svg className="wide" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M19 7H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H5V9h14v6z"
-              />
-            </svg>
-          </button> */}
-          <button onClick={toggleFullScreen}>
+          <button
+            className="text-2xl hover:text-white"
+            onClick={toggleFullScreen}
+          >
             {fullScreen ? <BsFullscreenExit /> : <BsFullscreen />}
           </button>
         </div>
       </div>
       <video
+        onClick={togglePlay}
         autoPlay
         muted
         ref={videoRef}
