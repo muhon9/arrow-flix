@@ -12,6 +12,7 @@ import { Route, Routes } from 'react-router-dom';
 import MyList from 'pages/publicPages/MyList';
 import SearchPage from 'pages/publicPages/SearchPage';
 import PlayerPage from 'pages/publicPages/PlayerPage';
+import TestPlayer from 'pages/publicPages/TestPlayer';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="search" element={<SearchPage />} />
           </Route>
           <Route path="play" element={<PlayerPage />} />
+          {/* <Route path="play" element={<TestPlayer />} /> */}
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />

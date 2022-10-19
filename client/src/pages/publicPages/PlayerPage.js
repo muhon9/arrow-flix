@@ -7,7 +7,6 @@ import {
   BsVolumeDown,
   BsVolumeUp,
 } from 'react-icons/bs';
-import { MdForward10 } from 'react-icons/md';
 import { BiCaptions } from 'react-icons/bi';
 
 const PlayerPage = () => {
@@ -36,16 +35,23 @@ const PlayerPage = () => {
   const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
   const [caption, setCaption] = useState(true);
 
+  // modularize the player
+
   useEffect(() => {
     if (videoRef.current.paused) {
       videoRef.current.play();
       videoRef.current.muted = true;
+      if (videoRef.current.textTracks[0]) {
+        videoRef.current.textTracks[0].mode = 'showing';
+      }
+
       setIsPlaying(true);
     }
   }, []);
 
   useEffect(() => {
     if (videoRef.current) {
+      console.log('Captions', videoRef.current.textTracks[0]);
       videoRef.current.addEventListener('loadeddata', () => {
         setVideoDuration(videoRef.current.duration);
         videoRef.current.addEventListener('timeupdate', () => {
@@ -180,8 +186,20 @@ const PlayerPage = () => {
     setPlaybackSpeed(newPlaybackRate);
   }
 
+  // function toggleCaptions() {
+  //   const isHidden = captions.mode === "hidden"
+  //   captions.mode = isHidden ? "showing" : "hidden"
+  //   videoContainer.classList.toggle("captions", isHidden)
+  // }
+
   function toggleCaption() {
-    setCaption((prev) => !prev);
+    if (caption) {
+      setCaption(false);
+      videoRef.current.textTracks[0].mode = 'hidden';
+    } else {
+      setCaption(true);
+      videoRef.current.textTracks[0].mode = 'showing';
+    }
   }
 
   // this will let us update the timeline during scrubbing outsite the timeline mousemove
@@ -247,7 +265,7 @@ const PlayerPage = () => {
             {isPlaying ? <FaPause /> : <FaPlay />}
           </button>
 
-          <button onClick={() => skip(10)}>
+          <button onClick={() => skip(-10)}>
             <svg
               className="fill-gray-400 hover:fill-white"
               viewBox="0 0 24 24"
@@ -258,7 +276,7 @@ const PlayerPage = () => {
             </svg>
           </button>
 
-          <button onClick={() => skip(-10)}>
+          <button onClick={() => skip(10)}>
             <svg
               className="fill-gray-400 hover:fill-white"
               viewBox="0 0 24 24"
@@ -314,7 +332,7 @@ const PlayerPage = () => {
             <BiCaptions />
           </button>
           <button
-            className="text-lg min-w-[70px] hover:text-white"
+            className="text-lg min-w-[70px] hover:text-white select-none"
             onClick={handlePlaybackSpeed}
           >
             {playbackSpeed.toFixed(2)}x
@@ -332,9 +350,10 @@ const PlayerPage = () => {
         autoPlay
         muted
         ref={videoRef}
-        src="http://cdn.arrownetsylhet.com/Movies/English%20Movies%20All/2022/Bullet.Train.2022.1080p.WEBRip.mp4"
+        // src="http://cdn.arrownetsylhet.com/Movies/English%20Movies%20All/2022/Bullet.Train.2022.1080p.WEBRip.mp4"
+        src="videos/Video.mp4"
       >
-        <track kind="captions" src="assets/subtitles.vtt" />
+        <track kind="captions" srcLang="en" src="videos/subtitles.vtt" />
       </video>
     </div>
   );
