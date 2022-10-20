@@ -20,6 +20,7 @@ const PlayerPage = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
   const [showVolumeBar, setShowVolumeBar] = useState(false);
+  const [shwoControls, setShowControls] = useState(false);
 
   //state that will track the progress in timeline
   const [progress, setProgress] = useState(0);
@@ -28,7 +29,7 @@ const PlayerPage = () => {
   const [previewPosition, setPreviewPosition] = useState(null);
   const [isScrubbing, setIsScrubbing] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [prevVolume, setPrevVolume] = useState(0.5);
 
@@ -36,16 +37,21 @@ const PlayerPage = () => {
   const [caption, setCaption] = useState(true);
 
   // modularize the player
-
+  let interval;
   useEffect(() => {
     if (videoRef.current.paused) {
-      videoRef.current.play();
-      videoRef.current.muted = true;
+      videoRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(() => {
+          setIsPlaying(false);
+        });
+      videoRef.current.muted = false;
       if (videoRef.current.textTracks[0]) {
         videoRef.current.textTracks[0].mode = 'showing';
       }
-
-      setIsPlaying(true);
     }
   }, []);
 
@@ -117,6 +123,22 @@ const PlayerPage = () => {
     };
   }, [handleKeyboardShortcuts]);
 
+  function handleShowControls() {
+    setShowControls(true);
+    if (interval) clearTimeout(interval);
+    interval = setTimeout(() => {
+      setShowControls(false);
+    }, 5000);
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleShowControls);
+
+    return () => {
+      document.removeEventListener('mousemove', handleShowControls);
+    };
+  }, []);
+
   const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
     minimumIntegerDigits: 2,
   });
@@ -143,9 +165,11 @@ const PlayerPage = () => {
     if (videoRef.current.paused) {
       videoRef.current.play();
       setIsPlaying(true);
+      setShowControls(false);
     } else {
       videoRef.current.pause();
       setIsPlaying(false);
+      setShowControls(true);
     }
   }
 
@@ -256,12 +280,6 @@ const PlayerPage = () => {
     setPlaybackSpeed(newPlaybackRate);
   }
 
-  // function toggleCaptions() {
-  //   const isHidden = captions.mode === "hidden"
-  //   captions.mode = isHidden ? "showing" : "hidden"
-  //   videoContainer.classList.toggle("captions", isHidden)
-  // }
-
   function toggleCaption() {
     if (caption) {
       setCaption(false);
@@ -287,7 +305,11 @@ const PlayerPage = () => {
       {isScrubbing && (
         <div className="absolute bg-white opacity-50 top-0 bottom-0 left-0 right-0"></div>
       )}
-      <div className="absolute bottom-0 left-0 right-0 h-[10%] text-gray-400 z-[100] opacity-100 group-hover:opacity-100">
+      <div
+        className={`absolute  bottom-0 left-0 right-0 h-[10%] text-gray-400 z-[100] ${
+          shwoControls ? 'opacity-100' : 'opacity-0'
+        } `}
+      >
         <div className="mx-2 cursor-pointer flex items-center h-[20%]">
           <div
             ref={progressRef}
@@ -420,8 +442,8 @@ const PlayerPage = () => {
         autoPlay
         muted
         ref={videoRef}
-        // src="http://cdn.arrownetsylhet.com/Movies/English%20Movies%20All/2022/Bullet.Train.2022.1080p.WEBRip.mp4"
-        src="videos/Video.mp4"
+        src="http://cdn.arrownetsylhet.com/Movies/English%20Movies%20All/2022/Bullet.Train.2022.1080p.WEBRip.mp4"
+        // src="videos/Video.mp4"
       >
         <track kind="captions" srcLang="en" src="videos/subtitles.vtt" />
       </video>

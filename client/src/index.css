@@ -48,7 +48,5 @@ body {
 }
 
 video::cue {
-  color: #fff;
-  background: none;
-  background-color: rgba(0, 0, 0, 0);
+  font-size: 30px !important;
 }
