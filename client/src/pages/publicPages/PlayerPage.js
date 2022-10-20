@@ -7,6 +7,7 @@ import {
   BsVolumeDown,
   BsVolumeUp,
 } from 'react-icons/bs';
+import { AiOutlinePlayCircle } from 'react-icons/ai';
 import { BiCaptions } from 'react-icons/bi';
 
 const PlayerPage = () => {
@@ -36,8 +37,8 @@ const PlayerPage = () => {
   const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
   const [caption, setCaption] = useState(true);
 
-  // modularize the player
   let interval;
+
   useEffect(() => {
     if (videoRef.current.paused) {
       videoRef.current
@@ -297,7 +298,9 @@ const PlayerPage = () => {
 
   return (
     <div
-      className="group relative w-full h-[100vh] flex justify-center"
+      className={`group relative w-full h-[100vh] flex justify-center ${
+        shwoControls ? 'cursor-auto' : 'cursor-none'
+      }`}
       data-volume-level="high"
       ref={videoContainerRef}
       onMouseMove={handleScrubbingMove}
@@ -305,9 +308,14 @@ const PlayerPage = () => {
       {isScrubbing && (
         <div className="absolute bg-white opacity-50 top-0 bottom-0 left-0 right-0"></div>
       )}
+      {!isPlaying && (
+        <div className="absolute text-6xl lg:text-8xl text-red-600 font-bold top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+          <AiOutlinePlayCircle />
+        </div>
+      )}
       <div
-        className={`absolute  bottom-0 left-0 right-0 h-[10%] text-gray-400 z-[100] ${
-          shwoControls ? 'opacity-100' : 'opacity-0'
+        className={`absolute bottom-0 left-0 right-0 h-[10%] text-gray-400 z-[100] ${
+          shwoControls || !isPlaying ? 'opacity-100' : 'opacity-0'
         } `}
       >
         <div className="mx-2 cursor-pointer flex items-center h-[20%]">
@@ -442,8 +450,8 @@ const PlayerPage = () => {
         autoPlay
         muted
         ref={videoRef}
-        src="http://cdn.arrownetsylhet.com/Movies/English%20Movies%20All/2022/Bullet.Train.2022.1080p.WEBRip.mp4"
-        // src="videos/Video.mp4"
+        // src="http://cdn.arrownetsylhet.com/Movies/English%20Movies%20All/2022/Bullet.Train.2022.1080p.WEBRip.mp4"
+        src="videos/Video.mp4"
       >
         <track kind="captions" srcLang="en" src="videos/subtitles.vtt" />
       </video>
