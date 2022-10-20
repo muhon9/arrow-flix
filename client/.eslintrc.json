@@ -38,6 +38,7 @@
     "no-nested-ternary": "off",
     "spaced-comment": "off",
     "react/button-has-type": "off",
-    "camelcase": "off"
+    "camelcase": "off",
+    "no-use-before-define": "off"
   }
 }

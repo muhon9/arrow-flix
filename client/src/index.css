@@ -48,7 +48,7 @@ body {
 }
 
 video::cue {
-  opacity: 1;
-  background-color: transparent;
-  font-size: 20px !important;
+  color: #fff;
+  background: none;
+  background-color: rgba(0, 0, 0, 0);
 }

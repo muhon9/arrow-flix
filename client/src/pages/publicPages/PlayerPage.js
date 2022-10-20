@@ -51,7 +51,6 @@ const PlayerPage = () => {
 
   useEffect(() => {
     if (videoRef.current) {
-      console.log('Captions', videoRef.current.textTracks[0]);
       videoRef.current.addEventListener('loadeddata', () => {
         setVideoDuration(videoRef.current.duration);
         videoRef.current.addEventListener('timeupdate', () => {
@@ -73,6 +72,50 @@ const PlayerPage = () => {
       });
     };
   }, []);
+
+  function handleKeyboardShortcuts(e) {
+    switch (e.key.toLowerCase()) {
+      case ' ':
+        togglePlay();
+        break;
+      case 'k':
+        togglePlay();
+        break;
+      case 'f':
+        toggleFullScreen();
+        break;
+      case 'm':
+        toggleMute();
+        break;
+      case 'arrowup':
+        handleVolume(e);
+        break;
+      case 'arrowdown':
+        handleVolume(e);
+        break;
+      case 'arrowleft':
+      case 'j':
+        skip(-10);
+        break;
+      case 'arrowright':
+      case 'l':
+        skip(10);
+        break;
+      case 'c':
+        toggleCaption();
+        break;
+      default:
+        break;
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyboardShortcuts);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyboardShortcuts);
+    };
+  }, [handleKeyboardShortcuts]);
 
   const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
     minimumIntegerDigits: 2,
@@ -108,7 +151,7 @@ const PlayerPage = () => {
 
   // handle fullscrenn toggle
   function toggleFullScreen() {
-    if (!fullScreen) {
+    if (document.fullscreenElement == null) {
       setFullScreen(true);
       videoContainerRef.current.requestFullscreen();
     } else {
@@ -118,7 +161,7 @@ const PlayerPage = () => {
   }
 
   function toggleMute() {
-    if (isMuted) {
+    if (videoRef.current.muted) {
       videoRef.current.muted = false;
       videoRef.current.volume = prevVolume;
       setIsMuted(false);
@@ -138,6 +181,33 @@ const PlayerPage = () => {
 
   // will handle the volume increase & decrease
   function handleVolume(e) {
+    if (e.key === 'ArrowUp') {
+      videoRef.current.muted = false;
+      const newVolume = videoRef.current.volume + 0.1;
+      setIsMuted(false);
+      if (newVolume <= 1) {
+        videoRef.current.volume = newVolume;
+        setVolume(newVolume);
+      }
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      videoRef.current.muted = false;
+      const newVolume = (videoRef.current.volume - 0.1).toFixed(2);
+      setIsMuted(false);
+      if (newVolume < 0.1) {
+        videoRef.current.volume = 0;
+        setVolume(0);
+        videoRef.current.muted = true;
+        setIsMuted(true);
+      }
+      if (newVolume >= 0.1) {
+        videoRef.current.volume = newVolume;
+        setVolume(newVolume);
+      }
+      return;
+    }
+
     if (e.target.value === '0') {
       videoRef.current.muted = true;
       setIsMuted(true);
@@ -148,7 +218,7 @@ const PlayerPage = () => {
     videoRef.current.muted = false;
     setIsMuted(false);
     setVolume(e.target.value);
-    videoRef.current.volume = e.target.value;
+    videoRef.current.volume = e?.target?.value;
   }
 
   // this function will handle the timeline update when user hover over the timeline
