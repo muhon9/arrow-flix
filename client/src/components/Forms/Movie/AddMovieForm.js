@@ -8,7 +8,7 @@ import FormikTextinput from '../FormikTextInput';
 import GenreCheckboxSection from '../GenreCheckboxSection';
 
 const AddMovieForm = () => {
-  const { loading, error, data: tmdbData } = useSelector(selectTmdbData);
+  const { data: tmdbData } = useSelector(selectTmdbData);
 
   const [genreArray, setGenreArray] = useState([]);
 

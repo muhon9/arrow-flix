@@ -8,9 +8,9 @@ export default function HomePage() {
     <>
       <Banner />
       <FeaturedRow />
-      {homePageRowInfo.map((row, index) => (
+      {homePageRowInfo.map((row) => (
         <PosterRow
-          key={index}
+          key={row.id}
           title={row.row_title}
           sagaFunction={row.sagaFunction}
           selector={row.selector}

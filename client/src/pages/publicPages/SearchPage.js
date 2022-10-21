@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { selectSearchResult } from 'redux/search/searchSelector';
-import Poster from 'components/Posters/Poster';
 import { motion } from 'framer-motion';
+
+import { selectSearchResult } from 'redux/search/searchSelector';
+
+import Poster from 'components/Posters/Poster';
 import { staggerHalf } from 'utilities/motionUtils';
 
 const SearchPage = () => {

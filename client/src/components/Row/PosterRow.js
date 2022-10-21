@@ -1,16 +1,18 @@
-import SkeletonPosterRow from 'components/Skelitons/SkeletonPosterRow';
-import { useEffect, useRef } from 'react';
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useGetActionMoviesQuery } from 'redux/api/rootApi';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+
+// swiper
 import SwiperCore, { Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import useViewport from '../../hooks/useViewport';
-import Poster from '../Posters/Poster';
+
+import useViewport from 'hooks/useViewport';
+
+import SkeletonPosterRow from 'components/Skelitons/SkeletonPosterRow';
+import Poster from 'components/Posters/Poster';
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -24,9 +26,6 @@ const PosterRow = ({ title, apiHook, genre }) => {
   const navigationNextRef = useRef(null);
 
   const customSwiperParams = {
-    // autoplay: {
-    //   delay: 5000,
-    // },
     observer: true,
     observeParents: true,
     navigation: {
@@ -51,37 +50,6 @@ const PosterRow = ({ title, apiHook, genre }) => {
     preventClicks: true,
     slideToClickedSlide: false,
     allowTouchMove: true,
-  };
-
-  const rightMouseOver = (e) => {
-    if (e.currentTarget.classList.contains('right')) {
-      e.currentTarget.parentElement.classList.add('is-right');
-    } else if (e.currentTarget.classList.contains('left')) {
-      e.currentTarget.parentElement.classList.add('is-left');
-    }
-  };
-
-  const rightMouseOut = (e) => {
-    e.currentTarget.parentElement.classList.remove('is-right', 'is-left');
-  };
-
-  // eslint-disable-next-line consistent-return
-  const insertPositionClassName = (index) => {
-    const i = index + 1;
-
-    if (i === 1) return 'left';
-    else if (i === 20) return 'right';
-
-    if (width >= 1378) {
-      if ([7, 13, 19].includes(i)) return 'left';
-      else if ([6, 12, 18].includes(i)) return 'right';
-    } else if (width >= 998) {
-      if ([5, 9, 13, 17].includes(i)) return 'left';
-      else if ([4, 8, 12, 16].includes(i)) return 'right';
-    } else if (width >= 768) {
-      if ([4, 7, 10, 13, 16].includes(i)) return 'left';
-      else if ([3, 6, 9, 12, 15, 18].includes(i)) return 'right';
-    }
   };
 
   return (
@@ -127,13 +95,8 @@ const PosterRow = ({ title, apiHook, genre }) => {
               className="mt-4 px-[4%]"
             >
               {data?.results &&
-                data.results.map((movie, idx) => (
-                  <SwiperSlide
-                    key={movie._id}
-                    onMouseOver={rightMouseOver}
-                    onMouseOut={rightMouseOut}
-                    className=""
-                  >
+                data.results.map((movie) => (
+                  <SwiperSlide key={movie._id}>
                     <Poster result={movie} />
                   </SwiperSlide>
                 ))}

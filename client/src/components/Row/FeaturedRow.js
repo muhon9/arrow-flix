@@ -1,21 +1,24 @@
-import SkeletonPosterRow from 'components/Skelitons/SkeletonPosterRow';
 import { useRef } from 'react';
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { useGetFeaturedMoviesQuery } from 'redux/api/rootApi';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import useViewport from '../../hooks/useViewport';
-import FeaturedPoster from '../Posters/FeaturedPoster';
+
+import { useGetFeaturedMoviesQuery } from 'redux/api/rootApi';
+import useViewport from 'hooks/useViewport';
+
+import SkeletonPosterRow from 'components/Skelitons/SkeletonPosterRow';
+import FeaturedPoster from 'components/Posters/FeaturedPoster';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 const FeaturedRow = () => {
   const { width } = useViewport();
-  // const { loading, error, data: results } = useSelector(selectFeatured) || {};
+
   const {
     isError: error,
     isLoading: loading,
@@ -27,9 +30,6 @@ const FeaturedRow = () => {
   const navigationNextRef = useRef(null);
 
   const customSwiperParams = {
-    // autoplay: {
-    //   delay: 5000,
-    // },
     observer: true,
     observeParents: true,
     navigation: {
@@ -55,37 +55,6 @@ const FeaturedRow = () => {
     allowTouchMove: true,
   };
 
-  const rightMouseOver = (e) => {
-    if (e.currentTarget.classList.contains('right')) {
-      e.currentTarget.parentElement.classList.add('is-right');
-    } else if (e.currentTarget.classList.contains('left')) {
-      e.currentTarget.parentElement.classList.add('is-left');
-    }
-  };
-
-  const rightMouseOut = (e) => {
-    e.currentTarget.parentElement.classList.remove('is-right', 'is-left');
-  };
-
-  // eslint-disable-next-line consistent-return
-  const insertPositionClassName = (index) => {
-    const i = index + 1;
-
-    if (i === 1) return 'left';
-    else if (i === 20) return 'right';
-
-    if (width >= 1378) {
-      if ([7, 13, 19].includes(i)) return 'left';
-      else if ([6, 12, 18].includes(i)) return 'right';
-    } else if (width >= 998) {
-      if ([5, 9, 13, 17].includes(i)) return 'left';
-      else if ([4, 8, 12, 16].includes(i)) return 'right';
-    } else if (width >= 768) {
-      if ([4, 7, 10, 13, 16].includes(i)) return 'left';
-      else if ([3, 6, 9, 12, 15, 18].includes(i)) return 'right';
-    }
-  };
-
   return (
     <div className="block py-[1.5vh] lg:py-[1.5vh]">
       {error && <div>An Error Occured</div>}
@@ -103,23 +72,13 @@ const FeaturedRow = () => {
               className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] left-0 rounded-r-md"
               ref={navigationPrevRef}
             >
-              <MdChevronLeft
-                className="FeaturedRow
-            __slider--mask-icon left "
-                size="3em"
-                // style={{ color: "gray" }}
-              />
+              <MdChevronLeft size="3em" />
             </div>
             <div
               className="absolute top-0 flex items-center justify-center text-white w-[4%] h-full bg-gray-400/[0.1] z-[10] right-0"
               ref={navigationNextRef}
             >
-              <MdChevronRight
-                className="FeaturedRow
-            __slider--mask-icon right"
-                size="3em"
-                style={{ color: 'white' }}
-              />
+              <MdChevronRight size="3em" style={{ color: 'white' }} />
             </div>
             <Swiper
               {...customSwiperParams}
@@ -130,13 +89,8 @@ const FeaturedRow = () => {
               className="mt-4 px-[4%]"
             >
               {data?.results &&
-                data.results.map((movie, i) => (
-                  <SwiperSlide
-                    key={i}
-                    onMouseOver={rightMouseOver}
-                    onMouseOut={rightMouseOut}
-                    className=""
-                  >
+                data.results.map((movie) => (
+                  <SwiperSlide key={movie.id}>
                     <FeaturedPoster result={movie} />
                   </SwiperSlide>
                 ))}

@@ -1,10 +1,10 @@
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import movieApi from 'api/movieApi';
 
 import MovieListTable from 'components/Movies/MovieListTable';
-import Filter from 'components/ui/Filter';
 import Pagination from 'components/ui/Pagination';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 function ShowMoviesPage() {
   const [movies, setMovies] = useState([]);
@@ -23,7 +23,6 @@ function ShowMoviesPage() {
         ...filteroptions,
       });
       setMovies(response.data.results);
-      // setTotalPages(5);
       setTotalPages(response.data.totalPages);
       setTotalResults(response.data.totalResults);
     } catch (err) {
@@ -43,10 +42,6 @@ function ShowMoviesPage() {
       await movieApi.deleteMovie(id);
       getMovies();
     }
-  }
-
-  function handleFilter() {
-    getMovies();
   }
 
   function handlePageClick(event) {

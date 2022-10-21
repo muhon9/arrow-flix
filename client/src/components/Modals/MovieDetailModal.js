@@ -1,25 +1,22 @@
-import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AnimatePresence, motion } from 'framer-motion';
 import { FaDownload, FaPlay } from 'react-icons/fa';
 import { VscChromeClose } from 'react-icons/vsc';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { capitalizeEveryFirstLetter } from 'utilities/utils';
-import useIdtoGenre from '../../hooks/useIdtoGenre';
-import {
-  selectModalData,
-  selectModalStatus,
-} from '../../redux/modal/modalSelectors';
 
-import { hideModal } from '../../redux/modal/modalSlice';
-import { BASE_IMG_URL, FALLBACK_IMG_URL } from '../../requestUrls';
+import { capitalizeEveryFirstLetter } from 'utilities/utils';
+
+import { selectModalData, selectModalStatus } from 'redux/modal/modalSelectors';
+import { hideModal } from 'redux/modal/modalSlice';
 
 import {
   modalFadeInUpVariants,
   modalOverlayVariants,
   modalVariants,
   staggerOne,
-} from '../../utilities/motionUtils';
+} from 'utilities/motionUtils';
+import { BASE_IMG_URL, FALLBACK_IMG_URL } from '../../requestUrls';
 
 const MovieDetailModal = () => {
   const dispatch = useDispatch();
@@ -42,7 +39,7 @@ const MovieDetailModal = () => {
     }
   }, [modalStatus]);
 
-  const handleModalClose = (params) => {
+  const handleModalClose = () => {
     dispatch(hideModal());
   };
   const handlePlayAnimation = (event) => {

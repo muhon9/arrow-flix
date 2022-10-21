@@ -1,20 +1,14 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import useViewport from '../../hooks/useViewport';
-// import { LOGO_URL, MOBILE_LOGO_URL, PROFILE_PIC_URL } from "../../requestUrls";
-import MOBILE_LOGO_URL from '../../assets/images/Netflix-Mobile-Logo.png';
-import LOGO_URL from '../../assets/images/NetFlix.png';
-import { navbarFadeInVariants } from '../../utilities/motionUtils';
+import useViewport from 'hooks/useViewport';
+
+import MOBILE_LOGO_URL from 'assets/images/Netflix-Mobile-Logo.png';
+import LOGO_URL from 'assets/images/NetFlix.png';
+import { navbarFadeInVariants } from 'utilities/motionUtils';
 
 const AdminNavbar = () => {
   const { width } = useViewport();
-  const [genresNav, setGenresNav] = useState(false);
-
-  const handleClick = (e) => {
-    setGenresNav(!genresNav);
-  };
 
   return (
     <motion.nav

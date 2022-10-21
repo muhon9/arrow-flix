@@ -1,8 +1,7 @@
 import movieApi from 'api/movieApi';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectmovieData } from 'redux/tmdb/tmdbSelector';
+
 import { BASE_IMG_URL } from 'requestUrls';
 import FormikTextinput from '../FormikTextInput';
 import GenreCheckboxSection from '../GenreCheckboxSection';

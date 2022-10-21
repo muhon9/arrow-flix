@@ -3,7 +3,6 @@ export const sideBarData = [
     name: 'Dashboard',
     path: '/admin/dashboard',
   },
-
   {
     name: 'Movies',
     path: '/admin/',

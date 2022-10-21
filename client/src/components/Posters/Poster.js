@@ -2,9 +2,10 @@ import { motion } from 'framer-motion';
 import { FaChevronDown, FaMinus, FaPlay, FaPlus } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { capitalizeEveryFirstLetter } from 'utilities/utils';
-import useGenreConversion from '../../hooks/useIdtoGenre';
-import { showModal } from '../../redux/modal/modalSlice';
+import { showModal } from 'redux/modal/modalSlice';
+
 import { BASE_IMG_URL } from '../../requestUrls';
 import { posterFadeInVariants } from '../../utilities/motionUtils';
 
@@ -14,10 +15,6 @@ const Poster = ({ result }) => {
     original_name,
     original_title,
     name,
-    original_language,
-    media_type,
-    genre_ids,
-    backdrop_path,
     geners,
     poster_path,
     poster,

@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import useGenreConversion from 'hooks/useIdtoGenre';
 import { FaChevronDown, FaMinus, FaPlay, FaPlus } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { capitalizeEveryFirstLetter } from 'utilities/utils';
-import { showModal } from '../../redux/modal/modalSlice';
+import { posterFadeInVariants } from 'utilities/motionUtils';
+import { showModal } from 'redux/modal/modalSlice';
 import { BASE_IMG_URL } from '../../requestUrls';
-import { posterFadeInVariants } from '../../utilities/motionUtils';
 
 const FeaturedPoster = ({ result }) => {
   const {
@@ -16,7 +16,6 @@ const FeaturedPoster = ({ result }) => {
     name,
     media_type,
     backdrop_path,
-    original_language,
     geners,
   } = result;
 

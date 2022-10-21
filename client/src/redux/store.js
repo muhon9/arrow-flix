@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
+
 import { rootApi } from './api/rootApi';
 import modalReducer from './modal/modalSlice';
 import tmdbReducer from './tmdb/tmdbSlice';

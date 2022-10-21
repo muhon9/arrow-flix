@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
 import { RiCloseFill } from 'react-icons/ri';
+
 import { searchContent } from 'redux/search/searchSlice';
-import useOutsideClick from '../../hooks/useOutsideClick';
+import useOutsideClick from 'hooks/useOutsideClick';
 
 const Searchbar = () => {
   const dispatch = useDispatch();

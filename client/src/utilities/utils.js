@@ -1,11 +1,3 @@
-export const getOneMonthAgoReleaseDate = () => {
-  const date = new Date();
-  date.setMonth(date.getMonth() - 1);
-  const formattedDate = date.toJSON().slice(0, 10);
-
-  return formattedDate;
-};
-
 export const dateToYearOnly = (date) => date.slice(0, 4);
 
 export const capitalizeFirstLetter = (text) =>

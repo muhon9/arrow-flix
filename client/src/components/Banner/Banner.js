@@ -1,27 +1,29 @@
-import { motion } from 'framer-motion';
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { BiInfoCircle } from 'react-icons/bi';
 import { FaPlay } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+
 import SkeletonBanner from 'components/Skelitons/SkeletonBanner';
+
 import { useGetFeaturedMoviesQuery } from 'redux/api/rootApi';
 import {
   bannerFadeInLoadSectionVariants,
   bannerFadeInUpVariants,
   bannerFadeInVariants,
   staggerOne,
-} from '../../utilities/motionUtils';
-
-import { showModal } from '../../redux/modal/modalSlice';
-import { BASE_IMG_URL } from '../../requestUrls';
+} from 'utilities/motionUtils';
 import {
   capitalizeEveryFirstLetter,
   randomize,
   truncate,
-} from '../../utilities/utils';
+} from 'utilities/utils';
 
-const Banner = ({ type }) => {
+import { showModal } from 'redux/modal/modalSlice';
+import { BASE_IMG_URL } from '../../requestUrls';
+
+const Banner = () => {
   const dispatch = useDispatch();
   const { isLoading, isError, data = {} } = useGetFeaturedMoviesQuery();
   const { results = {} } = data;

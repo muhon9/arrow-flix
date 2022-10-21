@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { capitalizeFirstLetter } from 'utilities/utils';
+import ReactTooltip from 'react-tooltip';
+
 import { FaEdit } from 'react-icons/fa';
 import { FiDelete } from 'react-icons/fi';
 import { GiCancel } from 'react-icons/gi';
 import { AiFillCheckCircle } from 'react-icons/ai';
-import ReactTooltip from 'react-tooltip';
+
+import { capitalizeFirstLetter } from 'utilities/utils';
 
 export default function MovieListTable({ movies = [], deleteMovie }) {
   return (
