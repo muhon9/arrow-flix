@@ -1,13 +1,16 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import useViewport from 'hooks/useViewport';
 
 import MOBILE_LOGO_URL from 'assets/images/Netflix-Mobile-Logo.png';
 import LOGO_URL from 'assets/images/NetFlix.png';
 import { navbarFadeInVariants } from 'utilities/motionUtils';
+import { userLogedOut } from 'redux/auth/authSlice';
 
 const AdminNavbar = () => {
+  const dispatch = useDispatch();
   const { width } = useViewport();
 
   return (
@@ -35,8 +38,11 @@ const AdminNavbar = () => {
 
       <div className="flex items-center m-0 p-0 ml-auto">
         <div>
-          <button className="justify-center   bg-red-600 text-white ml-[10px] border-0 rounded-md text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-700">
-            Login
+          <button
+            onClick={() => dispatch(userLogedOut())}
+            className="justify-center   bg-red-600 text-white ml-[10px] border-0 rounded-md text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-700"
+          >
+            Logout
           </button>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { rootApi } from './api/rootApi';
 import modalReducer from './modal/modalSlice';
 import tmdbReducer from './tmdb/tmdbSlice';
 import searchReducer from './search/searchSlice';
+import authReducer from './auth/authSlice';
 
 const middlewares = [rootApi.middleware];
 
@@ -18,6 +19,7 @@ const store = configureStore({
     modal: modalReducer,
     tmdb: tmdbReducer,
     search: searchReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(middlewares),

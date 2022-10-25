@@ -1,20 +1,43 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
-import { FcGoogle } from 'react-icons/fc';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 import {
   authPageFadeInVariants,
   authFadeInUpVariants,
   staggerOne,
 } from 'utilities/motionUtils';
-import { AUTH_BACKGROUND } from 'requestUrls.js';
+
+import { AUTH_BACKGROUND, SERVER_ROOT } from 'requestUrls.js';
+
+import { userLogedIn } from 'redux/auth/authSlice';
+import Error from 'components/ui/Error';
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const isLoading = false;
+  const [error, setError] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
+    axios
+      .post(`${SERVER_ROOT}/auth/login`, { email, password })
+      .then((res) => {
+        setIsLoading(false);
+        setError('');
+        dispatch(userLogedIn(res.data));
+        navigate('/admin');
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError(err.response.data.message);
+      });
   }
 
   return (
@@ -60,6 +83,7 @@ const LoginPage = () => {
               type="text"
               value={email}
               placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </motion.div>
           <motion.div variants={authFadeInUpVariants} className="w-full">
@@ -67,16 +91,19 @@ const LoginPage = () => {
               className="w-full p-3 rounded-md bg-gray-600"
               type="password"
               name="password"
+              value={password}
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </motion.div>
+          {error && <Error className="mt-2" message={error} />}
           <motion.button
             type="submit"
             variants={authFadeInUpVariants}
-            className="w-full bg-red-700 rounded-md mt-12 p-3 items-center"
+            className="w-full bg-red-700 rounded-md mt-8 p-3 items-center"
             disabled={isLoading}
           >
-            Sing In
+            Sine In
           </motion.button>
           <motion.button
             type="button"
