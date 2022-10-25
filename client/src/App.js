@@ -13,6 +13,7 @@ import TVSeriesPage from 'pages/publicPages/TVSeriesPage';
 import MyList from 'pages/publicPages/MyList';
 import SearchPage from 'pages/publicPages/SearchPage';
 import PlayerPage from 'pages/publicPages/PlayerPage';
+import LoginPage from 'pages/authPages/LoginPage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="search" element={<SearchPage />} />
           </Route>
           <Route path="play" element={<PlayerPage />} />
+          <Route path="login" element={<LoginPage />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />

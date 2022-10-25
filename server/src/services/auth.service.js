@@ -20,7 +20,7 @@ const logout = async (refreshToken) => {
     blacklisted: false,
   });
   if (!refreshTokenDoc) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'There is no token');
   }
   await refreshTokenDoc.remove();
 };
