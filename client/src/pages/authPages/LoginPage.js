@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -14,14 +14,29 @@ import { AUTH_BACKGROUND, SERVER_ROOT } from 'requestUrls.js';
 
 import { userLogedIn } from 'redux/auth/authSlice';
 import Error from 'components/ui/Error';
+import useAuthCheck from 'hooks/useAuthCheck';
+import { selectAuth } from 'redux/auth/authSelector';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const authChecked = useAuthCheck();
+
+  const auth = useSelector(selectAuth);
+
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (auth?.user && auth?.tokens) {
+      navigate('/admin');
+    } else {
+      navigate('/login');
+    }
+  }, [auth]);
 
   function handleSubmit(e) {
     e.preventDefault();
