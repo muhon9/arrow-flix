@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import useAuthCheck from 'hooks/useAuthCheck';
@@ -24,7 +24,13 @@ export default function AdminLayout() {
   }, [auth]);
 
   return authChecked ? (
-    <div>
+    <div className="relative">
+      <div className="flex flex-col justify-center items-center sm:hidden h-screen w-screen text-white text-center">
+        Admin Pannel is not mobile friendly. Please browse from a desktop :(
+        <Link to="/" className="bg-red-700 p-2 mt-4">
+          Browse Regular Site
+        </Link>
+      </div>
       <AdminNavbar />
       <div className="flex text-white pt-[50px]">
         <SideBar />

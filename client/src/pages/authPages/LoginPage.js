@@ -55,6 +55,26 @@ const LoginPage = () => {
       });
   }
 
+  function handleAnonymousLogin(e) {
+    e.preventDefault();
+    setIsLoading(true);
+    axios
+      .post(`${SERVER_ROOT}/auth/login`, {
+        email: 'anonymus2@arrowflix.com',
+        password: 'anonymous2',
+      })
+      .then((res) => {
+        setIsLoading(false);
+        setError('');
+        dispatch(userLogedIn(res.data));
+        navigate('/admin');
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError(err.response.data.message);
+      });
+  }
+
   return (
     <motion.div
       variants={authPageFadeInVariants}
@@ -125,6 +145,7 @@ const LoginPage = () => {
             variants={authFadeInUpVariants}
             className="w-full bg-gray-700 rounded-md mt-4 p-3 items-center"
             disabled={isLoading}
+            onClick={handleAnonymousLogin}
           >
             Sign in anonymously
           </motion.button>

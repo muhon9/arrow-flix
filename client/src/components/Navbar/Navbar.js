@@ -31,7 +31,7 @@ const Navbar = () => {
       <Link to="/">
         <img
           className="w-full max-w-[40px] md:max-w-[130px]"
-          src={width >= 600 ? LOGO_URL : MOBILE_LOGO_URL}
+          src={width >= 768 ? LOGO_URL : MOBILE_LOGO_URL}
           alt=""
         />
       </Link>

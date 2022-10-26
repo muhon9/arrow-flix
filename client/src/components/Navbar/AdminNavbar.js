@@ -23,8 +23,8 @@ const AdminNavbar = () => {
     >
       <Link to="/admin">
         <img
-          className="md:w-48 items-center md:p-8"
-          src={width >= 600 ? LOGO_URL : MOBILE_LOGO_URL}
+          className="w-12 md:w-48 items-center md:p-8"
+          src={width >= 768 ? LOGO_URL : MOBILE_LOGO_URL}
           alt="Logo"
         />
       </Link>
