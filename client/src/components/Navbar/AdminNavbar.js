@@ -15,7 +15,7 @@ const AdminNavbar = () => {
 
   return (
     <motion.nav
-      className="fixed bg-gray-800 text-white z-50 w-full h-[50px] t-0 flex items-center justify-start py-2 "
+      className="fixed w-full h-[50px] t-0 flex items-center justify-start py-2 bg-gray-800 text-white z-50"
       variants={navbarFadeInVariants}
       initial="hidden"
       animate="visible"
@@ -23,24 +23,22 @@ const AdminNavbar = () => {
     >
       <Link to="/admin">
         <img
-          className="w-[45px] items-center md:p-8 md:w-[192px] "
+          className="md:w-48 items-center md:p-8"
           src={width >= 600 ? LOGO_URL : MOBILE_LOGO_URL}
           alt="Logo"
         />
       </Link>
-      <ul className=" md:flex items-center m-0 p-0 ml-8">
-        <li className="inline-block my-0 mx-3 text-sm sm:text-md md:text-lg">
+
+      <div className="w-full flex justify-between px-8">
+        <div>
           <a href="/" target="_blank">
             View Site
           </a>
-        </li>
-      </ul>
-
-      <div className="flex items-center m-0 p-0 ml-auto">
+        </div>
         <div>
           <button
             onClick={() => dispatch(userLogedOut())}
-            className="justify-center   bg-red-600 text-white ml-[10px] border-0 rounded-md text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-700"
+            className="px-2 py-1 justify-center bg-red-600 text-white rounded-md text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-700"
           >
             Logout
           </button>
