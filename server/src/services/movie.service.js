@@ -36,6 +36,9 @@ const getMovies = async (filter, options) => {
 const getMovie = async (movieId) => {
   // const movieTitle = movieName.toLowerCase();
   const movie = await Movie.findById(movieId);
+  if (!movie) {
+    console.log('movie');
+  }
   return movie;
 };
 
