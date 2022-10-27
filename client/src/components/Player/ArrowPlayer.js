@@ -9,8 +9,14 @@ import {
 } from 'react-icons/bs';
 import { AiOutlinePlayCircle } from 'react-icons/ai';
 import { BiCaptions } from 'react-icons/bi';
+import { capitalizeEveryFirstLetter } from 'utilities/utils';
 
-const ArrowPlayer = ({ src = 'Asd/aw', track, ...rest }) => {
+const ArrowPlayer = ({
+  src = 'Asd/aw',
+  track,
+  title = 'Not specified',
+  ...rest
+}) => {
   // refs
   const videoContainerRef = useRef(null);
   const videoRef = useRef(null);
@@ -63,7 +69,6 @@ const ArrowPlayer = ({ src = 'Asd/aw', track, ...rest }) => {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.onloadeddata = () => {
-        console.log('Data loaded');
         setVideoDuration(videoRef.current.duration);
         videoRef.current.ontimeupdate = () => {
           setCurrentTime(videoRef.current.currentTime);
@@ -78,12 +83,11 @@ const ArrowPlayer = ({ src = 'Asd/aw', track, ...rest }) => {
       };
 
       videoRef.current.onplaying = () => {
-        console.log('playing');
+        setIsPlaying(true);
         setLoading(false);
       };
 
       videoRef.current.onwaiting = () => {
-        console.log('Data is buffering');
         setLoading(true);
       };
     }
@@ -471,7 +475,7 @@ const ArrowPlayer = ({ src = 'Asd/aw', track, ...rest }) => {
             id="movie-title"
             className="hidden md:flex flex-grow justify-center text-xl "
           >
-            Bullet Train
+            {capitalizeEveryFirstLetter(title)}
           </div>
           {track && (
             <button

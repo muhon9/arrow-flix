@@ -90,7 +90,7 @@ const FeaturedRow = () => {
             >
               {data?.results &&
                 data.results.map((movie) => (
-                  <SwiperSlide key={movie.id}>
+                  <SwiperSlide key={movie._id}>
                     <FeaturedPoster result={movie} />
                   </SwiperSlide>
                 ))}

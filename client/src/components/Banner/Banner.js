@@ -29,6 +29,7 @@ const Banner = () => {
   const { results = {} } = data;
 
   const bannerMovie = results[randomize(results)];
+  // const { _id } = bannerMovie;
 
   const fallbackTitle =
     bannerMovie?.title || bannerMovie?.name || bannerMovie?.original_name;
@@ -88,7 +89,7 @@ const Banner = () => {
               <Link
                 className="inline-flex justify-center items-center min-w-[140px] bg-red-600 text-white py-[10px] px-[16px] border-0 rounded-md mt-[1em] text-base font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-800"
                 onClick={handlePlayAnimation}
-                to="/play"
+                to={`/play?id=${bannerMovie?._id}`}
               >
                 <FaPlay />
                 <span className="ml-2">Play</span>
