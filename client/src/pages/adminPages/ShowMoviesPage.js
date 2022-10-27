@@ -40,7 +40,11 @@ function ShowMoviesPage() {
   async function deleteMovie(id, movieName) {
     if (window.confirm(`Do you want to delete ${movieName}?`)) {
       await movieApi.deleteMovie(id);
-      getMovies();
+      getMovies({
+        ...filter,
+        page: currentPage,
+        limit: perPage,
+      });
     }
   }
 

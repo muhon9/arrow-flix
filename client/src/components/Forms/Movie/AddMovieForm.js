@@ -41,7 +41,9 @@ const AddMovieForm = () => {
     original_title: tmdbData.original_title || '',
     release_date: tmdbData.release_date || '',
     belongs_to_collection: tmdbData.belongs_to_collection?.id || '',
-    link: tmdbData?.link || '',
+    link:
+      tmdbData?.link ||
+      'https://cdn.arrownetsylhet.com/Movies/English%20Movies%20All/2022/Bullet.Train.2022.1080p.WEBRip.mp4',
   };
 
   // movie categories to render in catergory checkbox card
