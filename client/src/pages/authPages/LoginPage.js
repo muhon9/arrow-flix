@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import {
   authPageFadeInVariants,
@@ -20,6 +20,8 @@ import { selectAuth } from 'redux/auth/authSelector';
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get('from');
 
   const authChecked = useAuthCheck();
 
@@ -31,10 +33,8 @@ const LoginPage = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (auth?.user && auth?.tokens) {
-      navigate('/admin');
-    } else {
-      navigate('/login');
+    if (authChecked && auth?.tokens) {
+      navigate(`${from || '/admin'}`);
     }
   }, [auth]);
 

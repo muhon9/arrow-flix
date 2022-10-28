@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import useAuthCheck from 'hooks/useAuthCheck';
@@ -12,14 +12,14 @@ import SideBar from 'components/Navbar/SideBar';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const authChecked = useAuthCheck();
   const auth = useSelector(selectAuth);
 
   useEffect(() => {
-    if (auth?.user && auth?.tokens) {
-      navigate('/admin');
-    } else {
-      navigate('/login');
+    if (authChecked && !auth?.tokens) {
+      navigate(`/login?from=${location.pathname}`);
     }
   }, [auth]);
 
