@@ -26,7 +26,8 @@ function ShowMoviesPage() {
       setTotalPages(response.data.totalPages);
       setTotalResults(response.data.totalResults);
     } catch (err) {
-      setError(err.response.data.message);
+      setError(err?.response?.data.message);
+      console.log('hello', err);
     }
   }
   useEffect(() => {

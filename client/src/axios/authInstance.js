@@ -1,40 +1,44 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import moment from 'moment';
+import { userLogedIn } from 'redux/auth/authSlice';
 
-const baseURL = 'http://localhost:8000/';
-const authTokens = {
-  access: {
-    token:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzU3OTQ4MGFkMWM2ZjdkZGVmNDcwOTEiLCJpYXQiOjE2NjY2OTQ3NjgsImV4cCI6MTY2NjY5NDg4OCwidHlwZSI6ImFjY2VzcyJ9.AMpTPNm3L1lckCEDaoThCawUWsx0KcHipQ8xRfstCkY',
-  },
+let store;
+
+export const injectStore = (_store) => {
+  store = _store;
 };
+
+const baseURL = 'http://localhost:8000/api/';
 
 const axiosInstance = axios.create({
   baseURL,
-  headers: { Authorization: `Bearer ${authTokens?.access.token}` },
 });
 
 axiosInstance.interceptors.request.use(async (req) => {
-  console.log('Interceptor ran');
+  const localAuth = JSON.parse(localStorage.getItem('auth'));
+  const accessToken = store.getState().auth.tokens.access.token;
+  const refreshToken = store.getState().auth.tokens.refresh.token;
 
-  const user = jwtDecode(authTokens.access.token);
-  console.log(user);
+  req.headers.Authorization = `Bearer ${accessToken}`;
+
+  const user = jwtDecode(accessToken);
+
   const isExpired = user.exp - moment().unix() < 5;
-  console.log(isExpired);
 
   if (!isExpired) {
-    console.log('first');
     return req;
   }
 
-  const response = await axios.post(`${baseURL}/auth/refresh-tokens`, {
-    refreshToken: authTokens.refresh.token,
+  const response = await axios.post(`${baseURL}auth/refresh-tokens`, {
+    refreshToken,
   });
 
-  localStorage.setItem('authTokens', JSON.stringify(response.data));
+  const newAuth = { user: store.getState().auth.user, tokens: response.data };
 
-  // setUser(jwtDecode(response.data.access));
+  localStorage.setItem('auth', JSON.stringify(newAuth));
+
+  store.dispatch(userLogedIn(newAuth));
 
   req.headers.Authorization = `Bearer ${response.data.access.token}`;
   return req;
