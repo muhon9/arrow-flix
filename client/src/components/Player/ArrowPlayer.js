@@ -85,6 +85,7 @@ const ArrowPlayer = ({
       videoRef.current.onplaying = () => {
         setIsPlaying(true);
         setLoading(false);
+        setError(null);
       };
 
       videoRef.current.onwaiting = () => {

@@ -89,7 +89,7 @@ const MovieDetailModal = () => {
                 <Link
                   className="inline-flex justify-center items-center min-w-[120px] bg-red-700 text-white py-3 px-4 ml-0 rounded-md border-0 text-sm font-medium cursor-pointer no-underline transition-all duration-200 ease-out hover:bg-red-900"
                   onClick={handlePlayAnimation}
-                  to={'/play'}
+                  to={`/play?id=${modalData?._id}`}
                 >
                   <FaPlay />
                   <span className="ml-2">Play</span>
