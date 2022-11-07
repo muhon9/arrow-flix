@@ -9,7 +9,7 @@ router.get('/search', movieController.searchMovie);
 router
   .route('/:id')
   .get(movieController.getMovie)
-  .delete(auth(''), movieController.deleteMovie);
+  .delete(auth('admin'), movieController.deleteMovie);
 router.get('/', movieController.getMovies);
 router.put('/updatemovie/:id', auth(), movieController.updateMovie);
 
