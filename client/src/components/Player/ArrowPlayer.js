@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaPlay, FaPause } from 'react-icons/fa';
 import {
   BsFullscreen,
@@ -8,7 +9,7 @@ import {
   BsVolumeUp,
 } from 'react-icons/bs';
 import { AiOutlinePlayCircle } from 'react-icons/ai';
-import { BiCaptions } from 'react-icons/bi';
+import { BiCaptions, BiArrowBack } from 'react-icons/bi';
 import { capitalizeEveryFirstLetter } from 'utilities/utils';
 
 const ArrowPlayer = ({
@@ -17,6 +18,8 @@ const ArrowPlayer = ({
   title = 'Not specified',
   ...rest
 }) => {
+  const navigate = useNavigate();
+
   // refs
   const videoContainerRef = useRef(null);
   const videoRef = useRef(null);
@@ -368,6 +371,14 @@ const ArrowPlayer = ({
           <AiOutlinePlayCircle />
         </div>
       )}
+      <div
+        onClick={() => navigate(-1)}
+        className={`absolute left-6 top-6 text-white cursor-pointer select-auto z-[100] text-3xl ${
+          shwoControls || !isPlaying ? 'opacity-100' : 'opacity-0'
+        } `}
+      >
+        <BiArrowBack />
+      </div>
       <div
         className={`absolute bottom-0 left-0 right-0 h-[10%] text-gray-400 z-[100] ${
           shwoControls || !isPlaying ? 'opacity-100' : 'opacity-0'
