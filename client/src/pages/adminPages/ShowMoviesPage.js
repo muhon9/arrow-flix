@@ -40,12 +40,19 @@ function ShowMoviesPage() {
 
   async function deleteMovie(id, movieName) {
     if (window.confirm(`Do you want to delete ${movieName}?`)) {
-      await movieApi.deleteMovie(id);
-      getMovies({
-        ...filter,
-        page: currentPage,
-        limit: perPage,
-      });
+      movieApi
+        .deleteMovie(id)
+        .then(() => {
+          getMovies({
+            ...filter,
+            page: currentPage,
+            limit: perPage,
+          });
+          window.alert('Movie Deleted');
+        })
+        .catch((err) => {
+          window.alert(err?.response?.data?.message);
+        });
     }
   }
 
