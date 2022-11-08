@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -17,14 +17,22 @@ export default function AdminLayout() {
   const authChecked = useAuthCheck();
   const auth = useSelector(selectAuth);
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    if (authChecked && !auth?.tokens) {
-      navigate(`/login?from=${location.pathname}`);
+    if (!authChecked) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+      if (!auth?.tokens) {
+        navigate('/login');
+      }
     }
-  }, [auth]);
+  }, [authChecked, auth]);
 
   return authChecked ? (
     <div className="relative">
+      {loading && <LoadingSpinner />}
       <div className="flex flex-col justify-center items-center sm:hidden h-screen w-screen text-white text-center">
         Admin Pannel is not mobile friendly. Please browse from a desktop :(
         <Link to="/" className="bg-red-700 p-2 mt-4">
