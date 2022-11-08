@@ -90,10 +90,11 @@ const AddMovieForm = () => {
           movieApi
             .addMovies({ ...values, geners: genreArray })
             .then((res) => {
-              alert('Movie Saved Succesfully', res.data.title);
+              alert('Movie Saved Succesfully', res?.data?.title);
             })
             .catch((err) => {
-              alert(err.response.data.message);
+              alert(err?.response?.data?.message);
+              console.log(err);
             });
           setSubmitting(false);
         }}

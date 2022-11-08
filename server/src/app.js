@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
+const path = require('path');
 const compression = require('compression');
 const cors = require('cors');
 const httpStatus = require('http-status');
