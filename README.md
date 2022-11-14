@@ -49,23 +49,23 @@ Just sign in anonymously to see the panel
 
 ## 📸 Screenshots
 
-<h1 align="center">Home Page</h1>
+**Home Page**
 [![Home.png](https://i.postimg.cc/bNKnLtYy/Home.png)](https://postimg.cc/4mQnxnhq)
 <br/>
 
-<h1 align="center">Detailed Modal</h1>
+**Detailed Modal**
 [![Modal.png](https://i.postimg.cc/zBXH3w7j/Modal.png)](https://postimg.cc/DWHwMXtJ) 
 <br/>
 
-<h1 align="center">Custom Player</h1>
+**Custom Video Player**
 [![Player.png](https://i.postimg.cc/fLLkMzWq/Player.png)](https://postimg.cc/67kB0NvC)
 <br/>
 
-<h1 align="center">Auto Upload</h1>
+**Tmdb Auto Movie Info Generate**
 [![TMDbupload.png](https://i.postimg.cc/1zYVnnd1/TMDbupload.png)](https://postimg.cc/XZdYtJ3s) 
 <br/>
 
-<h1 align="center">Search Function</h1>
+**Search**
 [![Search.png](https://i.postimg.cc/Jzrsp5VW/Search.png)](https://postimg.cc/svLfXSgn)
 <br/>
 
