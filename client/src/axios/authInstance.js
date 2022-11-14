@@ -9,7 +9,7 @@ export const injectStore = (_store) => {
   store = _store;
 };
 
-const baseURL = 'http://localhost:8000/api/';
+const baseURL = process.env.React_APP_BACKEND_ROOT;
 
 const axiosInstance = axios.create({
   baseURL,
